@@ -1,0 +1,150 @@
+/* ------------ */
+/* Reset Styles */
+/* ------------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* -------------- */
+/* Main Variables */
+/* -------------- */
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --main-blue: #3B82F6;
+  --main-green: #35D298;
+  --bg-blue: #3c83f61a;
+  --bg-green: #36d3991a;
+  --paragraph-color: #5D5B5B;
+  --border-color: #DBD8D8;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+/* -------------- */
+/* Default Styles */
+/* -------------- */
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-montserrat);
+}
+
+p {
+  color: var(--paragraph-color);
+  font-family: var(--font-roboto);
+}
+
+a, button {
+  font-family: var(--font-montserrat);
+}
+
+/* ------------- */
+/* Header Styles */
+/* ------------- */
+
+.header {
+  padding: 35px;
+  display: grid;
+  place-items: center;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header__logo--text {
+  font-family: var(--font-montserrat);
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* ------------------- */
+/* Main Content Styles */
+/* ------------------- */
+
+.main__content {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.main__title {
+  font-size: clamp(2.3rem, 6vw, 3.1rem);
+  margin-bottom: 2.5rem;
+  font-weight: bolder;
+}
+
+.main__paragraph {
+  font-size: 20px;
+}
+
+.container__roles {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.box {
+  height: 280px;
+  padding: 20px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+  border-radius: .4rem;
+}
+
+.box__cta {
+  color: var(--white);
+  width: 100%;
+  padding-block: 10px;
+  display: inline-block;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.box__applicant--cta {
+  background-color: var(--main-blue);
+}
+
+.box__company--cta {
+  background-color: var(--main-green);
+}
+
+/* ----------------- */
+/* Responsive Design */
+/* ----------------- */
+
+@media (width < 678px) {
+  .container__roles {
+    flex-direction: column;
+  }
+
+  .box {
+    width: 100%;
+  }
+}
+
+@media (width < 380px) {
+  .box {
+    height: 300px;
+  }
+}
