@@ -44,3 +44,35 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 });
+
+// Logical Modal - Ofertas
+const btnOpenModal = document.getElementById("createNewOffer");
+const btnCloseModal = document.getElementById("closeNewOffer");
+const modalWindow = document.getElementById("modalNewOffer");
+
+btnOpenModal.addEventListener("click", (e) => {
+    modalWindow.classList.add("active");
+})
+
+btnCloseModal.addEventListener("click", (e) => {
+    e.preventDefault()
+    if (modalWindow.classList.contains("active")) {
+        modalWindow.classList.remove("active")
+    }
+});
+
+// Logica Modal - Editar Oferta
+const btnOpenModalEdit = document.getElementById("openEditOffer");
+const btnCloseModalEdit = document.getElementById("closeEditOffer");
+const modalWindowEdit = document.getElementById("modalEditOffer");
+
+btnOpenModalEdit.addEventListener("click", (e) => {
+    modalWindowEdit.classList.add("active");
+})
+
+btnCloseModalEdit.addEventListener("click", (e) => {
+    e.preventDefault()
+    if (modalWindowEdit.classList.contains("active")) {
+        modalWindowEdit.classList.remove("active")
+    }
+})
