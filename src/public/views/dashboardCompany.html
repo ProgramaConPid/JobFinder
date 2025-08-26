@@ -16,6 +16,7 @@
             </div>
             <div class="header-actions">
                 <span class="user-info">Hello, TechCorp</span>
+                <a class="btn-profile" href="./profileCompany.html">Profile</a>
                 <button class="btn-logout" onclick="logout()">Log Out</button>
             </div>
         </header>
@@ -47,7 +48,7 @@
                 <section class="active-offers-section">
                     <div class="section-header">
                         <h2>Active Offers</h2>
-                        <button class="btn-create-offer" onclick="createNewOffer()">+ Create New Offer</button>
+                        <button class="btn-create-offer" id="createNewOffer">+ Create New Offer</button>
                     </div>
                     
                     <div class="offer-cards">
@@ -66,19 +67,22 @@
                                 </div>
                                 <div class="offer-stats">
                                     <span class="stat-item">
-                                        <strong>12</strong> applicants
+                                        <strong>12</strong> Applicants
                                     </span>
                                     <span class="stat-item">
-                                        <strong>8</strong> under review
+                                        <strong>8</strong> Under review
                                     </span>
                                     <span class="stat-item">
-                                        <strong>4</strong> interviews
+                                        <strong>4</strong> Interviews
                                     </span>
                                 </div>
                             </div>
                             <div class="offer-actions">
                                 <button class="btn-view-applicants" onclick="viewApplicants(1)">View Applicants</button>
-                                <button class="btn-edit-offer" onclick="editOffer(1)">Edit</button>
+                                <button class="btn-edit-offer" id="openEditOffer" onclick="editOffer(1)">Edit</button>
+                                <button class="btn-delete-offer">
+                                    <img src="../assets/img/contenedores-de-basura.png" alt="">
+                                </button>
                             </div>
                         </div>
 
@@ -97,19 +101,22 @@
                                 </div>
                                 <div class="offer-stats">
                                     <span class="stat-item">
-                                        <strong>8</strong> applicants
+                                        <strong>8</strong> Applicants
                                     </span>
                                     <span class="stat-item">
-                                        <strong>5</strong> under review
+                                        <strong>5</strong> Under review
                                     </span>
                                     <span class="stat-item">
-                                        <strong>3</strong> interviews
+                                        <strong>3</strong> Interviews
                                     </span>
                                 </div>
                             </div>
                             <div class="offer-actions">
                                 <button class="btn-view-applicants" onclick="viewApplicants(2)">View Applicants</button>
-                                <button class="btn-edit-offer" onclick="editOffer(2)">Edit</button>
+                                <button class="btn-edit-offer" id="openEditOffer" onclick="editOffer(2)">Edit</button>
+                                <button class="btn-delete-offer">
+                                    <img src="../assets/img/contenedores-de-basura.png" alt="">
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -151,9 +158,113 @@
                 </aside>
             </div>
         </main>
+
+    </div>
+
+    <!-- Modal New Offer -->
+    <div class="modal__offer" id="modalNewOffer">
+        <div class="modal__offer--content">
+            <form action="" class="modal__offer--form stat-card">
+                <h2>Create your offer job</h2>
+                <div class="work__mode--group">
+                    <h2 class="work__mode--title">Select the employment modality.</h2>
+                    <div class="work__mode--content">
+                        <div class="checkbox__group checkbox__group--remote">
+                            <input type="checkbox" name="remote" id="remoteCheck">
+                            <label for="">Remote</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--onsite">
+                            <input type="checkbox" name="onSite" id="onSiteCheck">
+                            <label for="">On-site</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--hybrid">
+                            <input type="checkbox" name="hybrid" id="hybridCheck">
+                            <label for="">Hybrid</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="work__mode--group">
+                    <h2 class="work__mode--title">We are looking for.</h2>
+                    <div class="work__mode--content">
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="junior" id="remoteCheck">
+                            <label for="">Junior</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="midlevel" id="onSiteCheck">
+                            <label for="">Mid-level</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="senior" id="hybridCheck">
+                            <label for="">Senior</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" placeholder="Offer Name">
+                <input type="number" placeholder="Minimum Salary">
+                <input type="number" placeholder="Maximum Salary">
+                <textarea name="offer__description" id="" placeholder="Offer Description"></textarea>
+                <div class="form__group--buttons">
+                    <button id="closeNewOffer">Close</button>
+                    <button>Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Edit Offer -->
+    <div class="modal__offer" id="modalEditOffer">
+        <div class="modal__offer--content">
+            <form action="" class="modal__offer--form stat-card">
+                <h2>Create your offer job</h2>
+                <div class="work__mode--group">
+                    <h2 class="work__mode--title">Select the employment modality.</h2>
+                    <div class="work__mode--content">
+                        <div class="checkbox__group checkbox__group--remote">
+                            <input type="checkbox" name="remote" id="remoteCheck">
+                            <label for="">Remote</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--onsite">
+                            <input type="checkbox" name="onSite" id="onSiteCheck">
+                            <label for="">On-site</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--hybrid">
+                            <input type="checkbox" name="hybrid" id="hybridCheck">
+                            <label for="">Hybrid</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="work__mode--group">
+                    <h2 class="work__mode--title">We are looking for.</h2>
+                    <div class="work__mode--content">
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="junior" id="remoteCheck">
+                            <label for="">Junior</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="midlevel" id="onSiteCheck">
+                            <label for="">Mid-level</label>
+                        </div>
+                        <div class="checkbox__group checkbox__group--level">
+                            <input type="checkbox" name="senior" id="hybridCheck">
+                            <label for="">Senior</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" placeholder="Offer Name">
+                <input type="number" placeholder="Minimum Salary">
+                <input type="number" placeholder="Maximum Salary">
+                <textarea name="offer__description" id="" placeholder="Offer Description"></textarea>
+                <div class="form__group--buttons">
+                    <button id="closeEditOffer">Close</button>
+                    <button>Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- External JS -->
     <script src="../js/dashboardCompany.js"></script>
+    <script src="../app.js"></script>
 </body>
 </html>

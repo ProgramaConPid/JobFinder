@@ -44,10 +44,10 @@ CREATE TABLE JobOffers (
     salary_min DECIMAL(10,2),
     salary_max DECIMAL(10,2),
     work_mode ENUM('Remote', 'On-site', 'Hybrid'),
-    seniority ENUM('Junior', 'Middle', 'Senior'),
-    publish_date DATE DEFAULT CURRENT_DATE,
+    
     status ENUM('open', 'closed') DEFAULT 'open',
-    FOREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE CASCADE
+    Fseniority ENUM('Junior', 'Middle', 'Senior'),
+    publish_date DATE DEFAULT CURRENT_DATE,OREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE CASCADE
 );
 
 -- =========================
