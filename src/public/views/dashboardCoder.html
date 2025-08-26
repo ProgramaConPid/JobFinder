@@ -6,6 +6,8 @@
     <title>JobFinder - Applicant Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
+
 <body class="dashboard-page">
     <div class="dashboard-container">
         <!-- Header -->
@@ -14,9 +16,14 @@
                 <h1>Applicant Dashboard</h1>
                 <p>Explore job offers and manage your applications</p>
             </div>
+
             <div class="header-actions">
-                <span class="user-info">Hello, John Smith</span>
-                <button class="btn-logout" onclick="logout()">Log Out</button>
+                            <span class="user-info">Hello, John Smith</span>
+                            <!-- <button class="btn-logout"> -->
+                                <a href="../views/profileCoder.html" class=" btn-profile" id="profileLink"> My Profile </a>
+                            <!-- </button> -->
+                            <!-- Fin del nuevo elemento -->
+                            <button class="btn-logout" onclick="logout()">Log Out</button>
             </div>
         </header>
 
