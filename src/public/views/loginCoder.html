@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobFinder - Applicant Login</title>
     <link rel="stylesheet" href="../css/style.css">
+    <title>JobFinder - Applicant Login</title>
 </head>
 <body class="login-page">
     <div class="login-container">
         <!-- Page Header -->
         <header class="login-header">
-            <h1>Applicants</h1>
+            <figure class="login__icon--applicant login__icon--container">
+                <img
+                  class="login__icon"
+                  src="../assets/img/user.png"
+                  alt="Buildings Icon"
+                />
+              </figure>
+            <h2 class="login__title login__title--applicants">Applicants</h2>
             <p>Log in to access your account</p>
         </header>
         
@@ -24,7 +31,7 @@
                 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="……………" required>
+                    <input type="password" id="password" placeholder="••••••••••" required>
                 </div>
                 
                 <button type="submit" class="btn-login">Log In</button>
