@@ -10,12 +10,22 @@
   --black: #000;
   --primary-color: #8a2ce2;
   --secondary-color: #6a11cb;
-  --accent-color: #32cd32;
+  --accent-color: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
   --accent-color-opacity: #e0f7e9;
+  --green: #32cd32;
+  --green-dark: #228b22;
   --light-bg: #f8f5ff;
   --dark-bg: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
   --text-color: #333;
   --muted-text: #6b7280;
+  --remote-color: #155724;
+  --remote-color-bg: #d1f7c4;
+  --onsite-color: #E7180B;
+  --onsite-color-bg: #FFA2A2;
+  --hybrid-color: #856404;
+  --hybrid-color-bg: #ffeaa7;
+  --level-color: #004085;
+  --level-color-bg: #cce7ff;
   --font-montserrat: "Montserrat", sans-serif;
   --font-roboto: "Roboto", sans-serif;
 }
@@ -47,7 +57,8 @@ h3,
 h4,
 h5,
 h6,
-label {
+label,
+strong {
   font-family: var(--font-montserrat);
   font-weight: 700;
 }
@@ -67,6 +78,15 @@ h1 {
   color: var(--primary-color);
   margin-bottom: 15px;
   text-shadow: 0 2px 4px rgba(75, 0, 130, 0.1);
+}
+
+textarea {
+  resize: none;
+}
+
+::placeholder {
+  font-size: 14px;
+  font-family: var(--font-roboto);
 }
 
 .subtitle {
@@ -259,7 +279,7 @@ h1 {
 }
 
 .login__title--companies {
-  color: var(--accent-color);
+  color: var(--green);
 }
 
 .login__icon--container {
@@ -642,8 +662,12 @@ h1 {
   font-size: 1.1rem;
 }
 
+
 .btn-logout,
 .btn-profile{
+
+.btn-logout, .btn-profile {
+
   background: rgba(255, 255, 255, 0.2);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -653,6 +677,7 @@ h1 {
   font-weight: 600;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  text-decoration: none;
 }
 
 .btn-logout:hover, .btn-profile:hover {
@@ -988,6 +1013,128 @@ h1 {
   color: white;
 }
 
+.btn-delete-offer {
+  padding: 7px;
+  background: white;
+  border-radius: .4rem;
+  position: absolute;
+  right: 0;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.btn-delete-offer img {
+  width: 35px;
+  height: 35px;
+}
+
+.modal__offer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.762);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+  transition: 400ms ease;
+}
+
+.modal__offer--content {
+  width: 600px;
+}
+
+.modal__offer--form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem ;
+}
+
+.modal__offer--form input,
+.modal__offer--form textarea {
+  padding: 10px;
+  border-radius: .3rem;
+  border: 1px solid var(--muted-text);
+}
+
+.modal__offer--form textarea {
+  height: 180px;
+}
+
+input[type="checkbox"] {
+  accent-color: green;
+}
+
+.work__mode--title {
+  color: var(--muted-text);
+  margin-bottom: 1rem;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+.work__mode--content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.checkbox__group {
+  display: flex;
+  flex: 1;
+  gap: .7rem;
+  padding: 10px;
+  border-radius: .5rem;
+}
+
+.checkbox__group--remote {
+  color: var(--remote-color);
+  background-color: var(--remote-color-bg);
+  border: 1px solid var(--remote-color);
+}
+
+.checkbox__group--onsite {
+  color: var(--onsite-color);
+  background-color: var(--onsite-color-bg);
+  border: 1px solid var(--onsite-color);
+}
+
+.checkbox__group--hybrid {
+  color: var(--hybrid-color);
+  background-color: var(--hybrid-color-bg);
+  border: 1px solid var(--hybrid-color);
+}
+
+.checkbox__group--level {
+  color: var(--level-color);
+  background-color: var(--level-color-bg);
+  border:1px solid var(--level-color);
+}
+
+.form__group--buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.form__group--buttons button {
+  color: var(--light-bg);
+  display: inline-block;
+  padding: 10px;
+  cursor: crosshair;
+  width: 100%;
+  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: .4rem;
+}
+
+.modal__offer.active {
+  transform: translateY(0);
+}
+
 /* Sección de ofertas activas */
 .section-header {
   display: flex;
@@ -1125,6 +1272,7 @@ h1 {
 .offer-actions {
   display: flex;
   gap: 15px;
+  position: relative;
 }
 
 .btn-view-applicants,
