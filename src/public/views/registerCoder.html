@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Applicant Registration</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="register-page">
+    <div class="register-container">
+        <!-- Page Header -->
+        <header class="register-header">
+            <h1>Applicant Registration</h1>
+            <p>Create your account to get started</p>
+        </header>
+        
+        <!-- Registration Form -->
+        <main class="register-form">
+            <form id="coderRegisterForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Smith" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="……………" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="……………" required>
+                </div>
+                
+                <button type="submit" class="btn-register">Create Account</button>
+            </form>
+            
+            <!-- Footer with login redirect -->
+            <div class="register-footer">
+                <p>Already have an account? <a href="loginCoder.html">Log in</a></p>
+            </div>
+        </main>
+        
+        <!-- Back button -->
+        <div class="back-button">
+            <a href="../index.html">&larr; Back to Home</a>
+        </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="../js/registerCoder.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Company Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="dashboard-company-page">
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Company Dashboard</h1>
+                <p>Manage your job offers and review applicants</p>
+            </div>
+            <div class="header-actions">
+                <span class="user-info">Hello, TechCorp</span>
+                <button class="btn-logout" onclick="logout()">Log Out</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Stats Cards -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h3>Active Offers</h3>
+                    <span class="stat-number">2</span>
+                    <p class="stat-label">My Offers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>New Applications</h3>
+                    <span class="stat-number">20</span>
+                    <p class="stat-label">Applicants</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Company Profile</h3>
+                    <span class="stat-number">90%</span>
+                    <p class="stat-label">Completed</p>
+                </div>
+            </div>
+
+            <!-- Sections -->
+            <div class="dashboard-sections">
+                <!-- Active Offers -->
+                <section class="active-offers-section">
+                    <div class="section-header">
+                        <h2>Active Offers</h2>
+                        <button class="btn-create-offer" onclick="createNewOffer()">+ Create New Offer</button>
+                    </div>
+                    
+                    <div class="offer-cards">
+                        <!-- Offer 1 -->
+                        <div class="offer-card">
+                            <div class="offer-header">
+                                <h3>Backend Developer Node.js</h3>
+                                <div class="offer-tags">
+                                    <span class="offer-tag remote">Remote</span>
+                                    <span class="offer-tag level">Mid-level</span>
+                                </div>
+                            </div>
+                            <div class="offer-details">
+                                <div class="offer-salary">
+                                    <strong>Salary:</strong> $50,000 - $70,000
+                                </div>
+                                <div class="offer-stats">
+                                    <span class="stat-item">
+                                        <strong>12</strong> applicants
+                                    </span>
+                                    <span class="stat-item">
+                                        <strong>8</strong> under review
+                                    </span>
+                                    <span class="stat-item">
+                                        <strong>4</strong> interviews
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="offer-actions">
+                                <button class="btn-view-applicants" onclick="viewApplicants(1)">View Applicants</button>
+                                <button class="btn-edit-offer" onclick="editOffer(1)">Edit</button>
+                            </div>
+                        </div>
+
+                        <!-- Offer 2 -->
+                        <div class="offer-card">
+                            <div class="offer-header">
+                                <h3>Product Manager</h3>
+                                <div class="offer-tags">
+                                    <span class="offer-tag hybrid">Hybrid</span>
+                                    <span class="offer-tag level">Senior</span>
+                                </div>
+                            </div>
+                            <div class="offer-details">
+                                <div class="offer-salary">
+                                    <strong>Salary:</strong> $60,000 - $80,000
+                                </div>
+                                <div class="offer-stats">
+                                    <span class="stat-item">
+                                        <strong>8</strong> applicants
+                                    </span>
+                                    <span class="stat-item">
+                                        <strong>5</strong> under review
+                                    </span>
+                                    <span class="stat-item">
+                                        <strong>3</strong> interviews
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="offer-actions">
+                                <button class="btn-view-applicants" onclick="viewApplicants(2)">View Applicants</button>
+                                <button class="btn-edit-offer" onclick="editOffer(2)">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Recommendations -->
+                    <div class="sidebar-section">
+                        <h3>Recommendations</h3>
+                        <div class="recommendation-card">
+                            <p>Complete your company profile to increase visibility</p>
+                            <button class="btn-small" onclick="completeProfile()">Complete</button>
+                        </div>
+                        <div class="recommendation-card">
+                            <p>Review the 5 new pending applications</p>
+                            <button class="btn-small" onclick="viewPendingApplications()">Review</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="sidebar-section">
+                        <h3>Quick Stats</h3>
+                        <div class="quick-stats">
+                            <div class="quick-stat">
+                                <span class="stat-label">Total Applicants</span>
+                                <span class="stat-value">20</span>
+                            </div>
+                            <div class="quick-stat">
+                                <span class="stat-label">Under Review</span>
+                                <span class="stat-value">8</span>
+                            </div>
+                            <div class="quick-stat">
+                                <span class="stat-label">Active</span>
+                                <span class="stat-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- External JS -->
+    <script src="../js/dashboardCompany.js"></script>
+</body>
+</html>

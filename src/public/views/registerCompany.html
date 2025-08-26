@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Company Registration</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="register-company-page">
+    <div class="register-container">
+        <!-- Page Header -->
+        <header class="register-header">
+            <h1>Company Registration</h1>
+            <p>Create your account to get started</p>
+        </header>
+        
+        <!-- Registration Form -->
+        <main class="register-form">
+            <form id="companyRegisterForm">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" placeholder="My Company Inc." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyEmail">Email Address</label>
+                    <input type="email" id="companyEmail" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyPassword">Password</label>
+                    <input type="password" id="companyPassword" placeholder="……………" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyConfirmPassword">Confirm Password</label>
+                    <input type="password" id="companyConfirmPassword" placeholder="……………" required>
+                </div>
+                
+                <button type="submit" class="btn-register company-btn">Create Account</button>
+            </form>
+            
+            <!-- Footer with login redirect -->
+            <div class="register-footer">
+                <p>Already have an account? <a href="loginCompany.html">Log in</a></p>
+            </div>
+        </main>
+        
+        <!-- Back button -->
+        <div class="back-button">
+            <a href="../index.html">&larr; Back to Home</a>
+        </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="../assets/js/registerCompany.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Applicant Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <!-- Page Header -->
+        <header class="login-header">
+            <h1>Applicants</h1>
+            <p>Log in to access your account</p>
+        </header>
+        
+        <!-- Login Form -->
+        <main class="login-form">
+            <form id="coderLoginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="……………" required>
+                </div>
+                
+                <button type="submit" class="btn-login">Log In</button>
+            </form>
+            
+            <!-- Footer with register redirect -->
+            <div class="login-footer">
+                <p>Don't have an account? <a href="./registerCoder.html">Sign Up</a></p>
+            </div>
+        </main>
+        
+        <!-- Back button -->
+        <div class="back-button">
+            <a href="../index.html">&larr; Back to Home</a>
+        </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="../js/loginCoder.js"></script>
+</body>
+</html>

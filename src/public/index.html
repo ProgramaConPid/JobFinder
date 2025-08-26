@@ -1,84 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Montserrat Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Robot Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- CSS Styles -->
-    <link rel="stylesheet" href="./css/style.css" />
-    <!-- Website Icon -->
-     <link rel="shortcut icon" href="./assets/img/jobfinder_logo.png" type="image/x-icon">
-    <title>Welcome Page</title>
-  </head>
-  <body>
-    <!-- Header Section -->
-    <header class="header container">
-      <div class="header__logo">
-        <img
-          class="header__logo--img"
-          src="./assets/img/jobfinder_logo.png"
-          alt="JobFinder Logo"
-        />
-        <span class="header__logo--text">JobFinder</span>
-      </div>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Connecting Talent with Opportunities</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to JobFinder</h1>
+            <p class="subtitle">We connect talent with opportunities. Choose your profile to get started.</p>
+        </header>
+        
+        <main class="options-container">
+            <div class="option-card" id="applicant-card">
+                <div class="card-content">
+                    <h2>I am an Applicant</h2>
+                    <p>I’m looking for job opportunities and want to connect with companies</p>
+                    <button class="btn-primary" onclick="selectRole('applicant')">Continue as Applicant</button>
+                </div>
+            </div>
+            
+            <div class="option-card" id="company-card">
+                <div class="card-content">
+                    <h2>I am a Company</h2>
+                    <p>I post job offers and look for the best talent</p>
+                    <button class="btn-primary" onclick="selectRole('company')">Continue as Company</button>
+                </div>
+            </div>
+        </main>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main__content container">
-      <h1 class="main__title">Welcome to JobFinder</h1>
-      <p class="main__paragraph">
-        We connect talent with opportunities. Choose your profile to get started
-      </p>
-
-      <!-- Container Boxes -->
-      <div class="container__roles">
-
-        <!-- Applicant Box -->
-        <div class="box box__applicant">
-          <img
-            class="box__applicant--img"
-            src="./assets/img/coder_icon.png"
-            alt="Applicant Icon"
-          />
-          <h3 class="box__title box__applicant--title">I am an Applicant</h3>
-          <p class="box__paragraph box__applicant--paragraph">
-            I am looking for job opportunities and I want to connect with
-            companies.
-          </p>
-          <a class="box__cta box__applicant--cta" href="./views/loginCoder.html"
-            >continue as a applicant</a
-          >
-        </div>
-
-        <!-- Company Box -->
-        <div class="box box__company">
-          <img
-            class="box__img box__company--img"
-            src="./assets/img/company_icon.png"
-            alt="company Icon"
-          />
-          <h3 class="box__title box__company--title">I am a Company</h3>
-          <p class="box__paragraph box__company--paragraph">
-            I post job offers and look for the best talent.
-          </p>
-          <a class="box__cta box__company--cta" href="./views/loginCompany.html"
-            >continue as a company</a
-          >
-        </div>
-      </div>
-    </main>
-  </body>
+    <script src="./app.js"></script>
+</body>
 </html>
