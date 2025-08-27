@@ -1,152 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Company Profile - JobFinder</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
+  </head>
+  <body class="dashboard-company-page">
     <div class="profile-container">
-        <header class="profile-header-company">
-            <h1>Company Profile</h1>
-            <p>Manage your company information and job postings</p>
-        </header>
+      <header class="profile-header-company">
+        <h1>Company Profile</h1>
+        <p>Manage your company information and job postings</p>
+      </header>
 
-        <div class="profile-content">
-            <div class="profile-sidebar">
-                <div class="profile-avatar">
-                    <img src="../img/company-placeholder.png" alt="Company Logo" id="companyLogo" class="company-logo">
-                    <button id="changeLogoBtn" class="btn-secondary-company">Change logo</button>
-                    <input type="file" id="logoUpload" accept="image/*" style="display: none;">
-                </div>
-                
-                <div class="company-stats">
-                    <div class="stat-card-company">
-                        <span class="stat-number-company">8</span>
-                        <span class="stat-label">Active Jobs</span>
-                    </div>
-                    <div class="stat-card-company">
-                        <span class="stat-number-company">142</span>
-                        <span class="stat-label">Applications</span>
-                    </div>
-                    <div class="stat-card-company">
-                        <span class="stat-number-company">24</span>
-                        <span class="stat-label">Interviews</span>
-                    </div>
-                </div>
+      <div class="profile-content">
+        <div class="profile-sidebar">
+          <div class="profile-avatar">
+            <img
+              src="../img/company-placeholder.png"
+              alt="Company Logo"
+              id="companyLogo"
+              class="company-logo"
+            />
+            <button id="changeLogoBtn" class="btn-secondary-company">
+              Change logo
+            </button>
+            <input
+              type="file"
+              id="logoUpload"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+
+          <div class="company-stats">
+            <div class="stat-card-company">
+              <span class="stat-number-company">8</span>
+              <span class="stat-label">Active Jobs</span>
             </div>
-
-            <div class="profile-main">
-                <form id="companyForm" class="profile-form">
-                    <div class="form-section-company">
-                        <h3>Company Information</h3>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="companyName">Company Name *</label>
-                                <input type="text" id="companyName" name="companyName" required>
-                            </div>
-                            <div class="form-group-company">
-                                <label for="industry">Industry *</label>
-                                <select id="industry" name="industry" required>
-                                    <option value="">Select Industry</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="healthcare">Healthcare</option>
-                                    <option value="education">Education</option>
-                                    <option value="manufacturing">Manufacturing</option>
-                                    <option value="retail">Retail</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="website">Website</label>
-                                <input type="url" id="website" name="website" placeholder="https://">
-                            </div>
-                            <div class="form-group-company">
-                                <label for="employees">Company Size</label>
-                                <select id="employees" name="employees">
-                                    <option value="">Select Size</option>
-                                    <option value="1-10">1-10 employees</option>
-                                    <option value="11-50">11-50 employees</option>
-                                    <option value="51-200">51-200 employees</option>
-                                    <option value="201-500">201-500 employees</option>
-                                    <option value="501-1000">501-1000 employees</option>
-                                    <option value="1000+">1000+ employees</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group-company">
-                            <label for="companyDescription">Company Description *</label>
-                            <textarea id="companyDescription" name="companyDescription" rows="4" required placeholder="Describe your company culture, mission, and values..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-section-company">
-                        <h3>Contact Information</h3>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="contactName">Contact Person *</label>
-                                <input type="text" id="contactName" name="contactName" required>
-                            </div>
-                            <div class="form-group-company">
-                                <label for="contactPosition">Position *</label>
-                                <input type="text" id="contactPosition" name="contactPosition" required>
-                            </div>
-                        </div>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="contactEmail">Email *</label>
-                                <input type="email" id="contactEmail" name="contactEmail" required>
-                            </div>
-                            <div class="form-group-company">
-                                <label for="contactPhone">Phone</label>
-                                <input type="tel" id="contactPhone" name="contactPhone">
-                            </div>
-                        </div>
-                        <div class="form-group-company">
-                            <label for="address">Company Address</label>
-                            <input type="text" id="address" name="address">
-                        </div>
-                    </div>
-
-                    <div class="form-section-company">
-                        <h3>Social Media</h3>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="linkedin">LinkedIn</label>
-                                <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/company/">
-                            </div>
-                            <div class="form-group-company">
-                                <label for="twitter">Twitter</label>
-                                <input type="url" id="twitter" name="twitter" placeholder="https://twitter.com/">
-                            </div>
-                        </div>
-                        <div class="form-row-company">
-                            <div class="form-group-company">
-                                <label for="facebook">Facebook</label>
-                                <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/">
-                            </div>
-                            <div class="form-group-company">
-                                <label for="instagram">Instagram</label>
-                                <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" id="cancelBtn" class="btn-secondary-company">Cancel</button>
-                        <button type="submit" id="saveBtn" class="btn-primary-company">Save Changes</button>
-                    </div>
-                </form>
+            <div class="stat-card-company">
+              <span class="stat-number-company">142</span>
+              <span class="stat-label">Applications</span>
             </div>
+            <div class="stat-card-company">
+              <span class="stat-number-company">24</span>
+              <span class="stat-label">Interviews</span>
+            </div>
+          </div>
         </div>
+
+        <div class="profile-main">
+          <form id="companyForm" class="profile-form">
+            <div class="form-section-company">
+              <h3>Company Information</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="companyName">Company Name *</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="industry">Industry *</label>
+                  <select id="industry" name="industry" required>
+                    <option value="">Select Industry</option>
+                    <option value="technology">Technology</option>
+                    <option value="finance">Finance</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="education">Education</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="retail">Retail</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="website">Website</label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    placeholder="https://"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="employees">Company Size</label>
+                  <select id="employees" name="employees">
+                    <option value="">Select Size</option>
+                    <option value="1-10">1-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="51-200">51-200 employees</option>
+                    <option value="201-500">201-500 employees</option>
+                    <option value="501-1000">501-1000 employees</option>
+                    <option value="1000+">1000+ employees</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group-company">
+                <label for="companyDescription">Company Description *</label>
+                <textarea
+                  id="companyDescription"
+                  name="companyDescription"
+                  rows="4"
+                  required
+                  placeholder="Describe your company culture, mission, and values..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-section-company">
+              <h3>Contact Information</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="contactName">Contact Person *</label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="contactPosition">Position *</label>
+                  <input
+                    type="text"
+                    id="contactPosition"
+                    name="contactPosition"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="contactEmail">Email *</label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="contactPhone">Phone</label>
+                  <input type="tel" id="contactPhone" name="contactPhone" />
+                </div>
+              </div>
+              <div class="form-group-company">
+                <label for="address">Company Address</label>
+                <input type="text" id="address" name="address" />
+              </div>
+            </div>
+
+            <div class="form-section-company">
+              <h3>Social Media</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="linkedin">LinkedIn</label>
+                  <input
+                    type="url"
+                    id="linkedin"
+                    name="linkedin"
+                    placeholder="https://linkedin.com/company/"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="twitter">Twitter</label>
+                  <input
+                    type="url"
+                    id="twitter"
+                    name="twitter"
+                    placeholder="https://twitter.com/"
+                  />
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="facebook">Facebook</label>
+                  <input
+                    type="url"
+                    id="facebook"
+                    name="facebook"
+                    placeholder="https://facebook.com/"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="instagram">Instagram</label>
+                  <input
+                    type="url"
+                    id="instagram"
+                    name="instagram"
+                    placeholder="https://instagram.com/"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                id="cancelBtn"
+                class="btn-secondary-company"
+              >
+                Cancel
+              </button>
+              <button type="submit" id="saveBtn" class="btn-primary-company">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script src="../js/profileCompany.js"></script>
-    
-</body>
+  </body>
 </html>
