@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobFinder - Applicant Registration</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="register-page">
     <div class="register-container">
@@ -19,22 +20,34 @@
             <form id="coderRegisterForm">
                 <div class="form-group-register">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" placeholder="John Smith" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/user.png" alt="user" class="input-icon-left">
+                        <input type="text" id="fullName" placeholder="John Smith" required>
+                    </div>
                 </div>
                 
                 <div class="form-group-register">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/email_violet.png" alt="email" class="input-icon-left">
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
                 </div>
                 
                 <div class="form-group-register">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="•••••••••" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_violet.png" alt="password" class="input-icon-left">
+                        <input type="password" id="password" placeholder="•••••••••" required>
+                    </div>
                 </div>
                 
                 <div class="form-group-register">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="••••••••••" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_violet.png" alt="password" class="input-icon-left">
+                        <input type="password" id="confirmPassword" placeholder="••••••••••" required>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn-register">Create Account</button>
@@ -48,7 +61,7 @@
         
         <!-- Back button -->
         <div class="back-button">
-            <a href="../index.html">&larr; Back to Home</a>
+            <a href="../index.html"><i class='bxr  bx-arrow-left-stroke-square'  ></i> Back to Home</a>
         </div>
     </div>
 
