@@ -1,4 +1,3 @@
-// Función para manejar el login de aplicantes
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('coderLoginForm');
     
@@ -9,48 +8,64 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Validación básica
+            // Basic validation
             if (!email || !password) {
-                alert('Por favor, completa todos los campos');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all fields',
+                });
                 return;
             }
             
-            // Validación de formato de email
+            // Email format validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert('Por favor, ingresa un email válido');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email',
+                });
                 return;
             }
             
-            // Simulación de inicio de sesión
+            // Simulate login process
             loginUser(email, password);
         });
     }
     
-    // Función para simular el proceso de login
+    // Function to simulate the login process
     function loginUser(email, password) {
-        // Mostrar estado de carga
+        // Show loading state
         const loginButton = document.querySelector('.btn-login');
         const originalText = loginButton.textContent;
-        loginButton.textContent = 'Iniciando sesión...';
+        loginButton.textContent = 'Logging in...';
         loginButton.disabled = true;
         
-        // Simular petición al servidor
+        // Simulate server request
         setTimeout(() => {
-            // Aquí normalmente se haría una petición a tu backend
-            console.log('Intentando login con:', { email, password });
+            // Normally a request to your backend would happen here
+            console.log('Attempting login with:', { email, password });
             
-            // Redirigir al dashboard (simulado)
-            alert('¡Inicio de sesión exitoso! Redirigiendo...');
-            window.location.href = 'dashboardCoder.html';
+            // Simulate successful login
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'Redirecting to your dashboard...',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // Redirect to dashboard (simulated)
+                window.location.href = 'dashboardCoder.html';
+            });
             
-            // Restaurar botón (en caso de error)
+            // Restore button (in case of error)
             loginButton.textContent = originalText;
             loginButton.disabled = false;
         }, 1500);
     }
     
-    // Mejora de accesibilidad: permitir enviar formulario con Enter
+    // Accessibility improvement: allow form submission with Enter
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA') {
             const loginForm = document.getElementById('coderLoginForm');

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos del DOM
+    // DOM Elements
     const profileForm = document.getElementById('profileForm');
     const cancelBtn = document.getElementById('cancelBtn');
     const changeAvatarBtn = document.getElementById('changeAvatarBtn');
@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const resumeInput = document.getElementById('resume');
     const resumeStatus = document.getElementById('resumeStatus');
     
-    // Cargar datos del perfil si existen
+    // Load profile data if available
     loadProfileData();
     
-    // Evento para cambiar avatar
+    // Event to change avatar
     changeAvatarBtn.addEventListener('click', function() {
         avatarUpload.click();
     });
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             reader.onload = function(e) {
                 profileAvatar.src = e.target.result;
-                // Guardar en localStorage (en una app real se enviaría al servidor)
+                // Save to localStorage (in a real app, it would be sent to the server)
                 localStorage.setItem('profileAvatar', e.target.result);
             }
             
@@ -30,82 +30,116 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Evento para subir currículum
+    // Event to upload resume
     resumeInput.addEventListener('change', function(e) {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             if (file.type === 'application/pdf') {
-                resumeStatus.innerHTML = `<span>Archivo seleccionado: ${file.name}</span>`;
-                // Guardar en localStorage (en una app real se enviaría al servidor)
+                resumeStatus.innerHTML = `<span>Selected file: ${file.name}</span>`;
+                // Save to localStorage (in a real app, it would be sent to the server)
                 localStorage.setItem('resumeFile', file.name);
             } else {
-                alert('Por favor, sube un archivo PDF');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload a PDF file!',
+                });
                 resumeInput.value = '';
             }
         }
     });
     
-    // Evento para enviar el formulario
+    // Event to submit the form
     profileForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Validar formulario
+        // Validate form
         if (validateForm()) {
-            // Obtener datos del formulario
+            // Get form data
             const formData = getFormData();
             
-            // Guardar datos (en una app real se enviarían al servidor)
+            // Save data (in a real app, it would be sent to the server)
             saveProfileData(formData);
             
-            // Mostrar mensaje de éxito
-            alert('Perfil actualizado correctamente');
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Profile updated successfully!',
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     });
     
-    // Evento para cancelar
+    // Event to cancel
     cancelBtn.addEventListener('click', function() {
-        if (confirm('¿Estás seguro de que deseas cancelar? Los cambios no guardados se perderán.')) {
-            // Volver a la página anterior
-            window.history.back();
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Unsaved changes will be lost.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel',
+            cancelButtonText: 'No, keep editing'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Go back to the previous page
+                window.history.back();
+            }
+        });
     });
     
-    // Función para validar el formulario
+    // Function to validate the form
     function validateForm() {
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
         const email = document.getElementById('email').value.trim();
         
         if (!firstName) {
-            alert('Por favor, ingresa tu nombre');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter your first name',
+            });
             return false;
         }
         
         if (!lastName) {
-            alert('Por favor, ingresa tu apellido');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter your last name',
+            });
             return false;
         }
         
         if (!email) {
-            alert('Por favor, ingresa tu correo electrónico');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter your email',
+            });
             return false;
         }
         
         if (!isValidEmail(email)) {
-            alert('Por favor, ingresa un correo electrónico válido');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter a valid email',
+            });
             return false;
         }
         
         return true;
     }
     
-    // Función para validar email
+    // Function to validate email
     function isValidEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
     
-    // Función para obtener datos del formulario
+    // Function to get form data
     function getFormData() {
         return {
             firstName: document.getElementById('firstName').value.trim(),
@@ -120,13 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Función para guardar datos del perfil
+    // Function to save profile data
     function saveProfileData(data) {
-        // Guardar en localStorage (en una app real se enviarían al servidor)
+        // Save to localStorage (in a real app, it would be sent to the server)
         localStorage.setItem('profileData', JSON.stringify(data));
     }
     
-    // Función para cargar datos del perfil
+    // Function to load profile data
     function loadProfileData() {
         const savedData = localStorage.getItem('profileData');
         const savedAvatar = localStorage.getItem('profileAvatar');
@@ -135,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (savedData) {
             const data = JSON.parse(savedData);
             
-            // Llenar formulario con datos guardados
+            // Fill form with saved data
             document.getElementById('firstName').value = data.firstName || '';
             document.getElementById('lastName').value = data.lastName || '';
             document.getElementById('email').value = data.email || '';
@@ -152,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (savedResume) {
-            resumeStatus.innerHTML = `<span>Archivo subido: ${savedResume}</span>`;
+            resumeStatus.innerHTML = `<span>Uploaded file: ${savedResume}</span>`;
         }
     }
 });
