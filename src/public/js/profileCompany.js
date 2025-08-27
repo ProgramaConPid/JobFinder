@@ -40,17 +40,31 @@ document.addEventListener('DOMContentLoaded', function() {
             // Guardar datos (en una app real se enviarían al servidor)
             saveCompanyData(formData);
             
-            // Mostrar mensaje de éxito
-            alert('Company profile updated successfully');
+            // Mostrar mensaje de éxito con SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Company profile updated successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     });
     
     // Evento para cancelar
     cancelBtn.addEventListener('click', function() {
-        if (confirm('Are you sure you want to cancel? Unsaved changes will be lost.')) {
-            // Volver a la página anterior
-            window.history.back();
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Unsaved changes will be lost.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel',
+            cancelButtonText: 'No, keep editing'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Volver a la página anterior
+                window.history.back();
+            }
+        });
     });
     
     // Función para validar el formulario
@@ -63,37 +77,65 @@ document.addEventListener('DOMContentLoaded', function() {
         const contactEmail = document.getElementById('contactEmail').value.trim();
         
         if (!companyName) {
-            alert('Please enter your company name');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter your company name',
+            });
             return false;
         }
         
         if (!industry) {
-            alert('Please select your industry');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please select your industry',
+            });
             return false;
         }
         
         if (!companyDescription) {
-            alert('Please enter a company description');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter a company description',
+            });
             return false;
         }
         
         if (!contactName) {
-            alert('Please enter a contact person name');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter a contact person name',
+            });
             return false;
         }
         
         if (!contactPosition) {
-            alert('Please enter the contact person position');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter the contact person position',
+            });
             return false;
         }
         
         if (!contactEmail) {
-            alert('Please enter a contact email');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter a contact email',
+            });
             return false;
         }
         
         if (!isValidEmail(contactEmail)) {
-            alert('Please enter a valid email address');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Please enter a valid email address',
+            });
             return false;
         }
         
@@ -128,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para guardar datos de la empresa
     function saveCompanyData(data) {
-        // Guardar en localStorage (en una app real se enviarían al servidor)
+        // Guardar en localStorage (en una app real se enviaría al servidor)
         localStorage.setItem('companyData', JSON.stringify(data));
     }
     

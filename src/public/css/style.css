@@ -760,8 +760,26 @@ textarea {
   text-decoration: none;
 }
 
+.btn-profile-company {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+}
+
 .btn-logout:hover,
 .btn-profile:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-profile-company:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
@@ -1149,7 +1167,7 @@ textarea {
   border-color: var(--green-dark);
   box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
   outline: none;
-} 
+}
 
 .modal__offer--form textarea {
   height: 180px;
@@ -1808,6 +1826,7 @@ body {
   color: #555;
 } */
 
+
 /* Responsive */
 @media (max-width: 768px) {
   .profile-content {
@@ -1866,11 +1885,11 @@ body {
   background: #32cd32;
   padding: 20px;
   text-align: center;
-  color: black;
+  color: white;
 }
 
 .profile-header-company h1 {
-  color: black;
+  color: white;
 }
 
 .company-header {
@@ -2012,3 +2031,121 @@ body {
   user-select: none;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
+
+/* Nuevos */
+
+.profile-content {
+display: flex;
+flex-wrap: wrap;
+padding: 20px;
+}
+
+.form-row-company {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+margin-bottom: 20px;
+}
+
+
+.form-group-company  {
+flex: 1;
+min-width: 250px;
+margin: 0 10px 15px;
+}
+
+.form-group-company  label {
+display: block;
+margin-bottom: 8px;
+font-weight: 600;
+font-size: 0.95rem;
+color: #2c3e50;
+}
+
+.form-group-company  input,
+.form-group-company  select,
+.form-group-company  textarea {
+width: 100%;
+padding: 12px 15px;
+border: 2px solid #e2e8f0;
+border-radius: 8px;
+font-size: 1rem;
+font-family: inherit;
+transition: border-color 0.3s, box-shadow 0.3s;
+background-color: #fff;
+color: #2c3e50;
+}
+
+.form-group-company  input:focus,
+.form-group-company select:focus,
+.form-group-company textarea:focus {
+border-color: #32cd32;
+box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+outline: none;
+}
+
+.form-group-company input:focus,
+.form-group-company select:focus,
+.form-group-company  textarea:focus {
+border-color: #32cd32;
+outline: none;
+box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.15);
+}
+
+form-section-company {
+  margin-bottom: 40px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.form-section-company h3 {
+  margin-bottom: 20px;
+  padding-left: 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  border-left: 4px solid #32cd32;
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+
+.form-row-company {
+flex-direction: column;
+}
+
+.form-group-company {
+min-width: 100%;
+}
+}
+
+
+.stat-card-company {
+background: white;
+padding: 30px;
+border-radius: 16px;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+text-align: center;
+border-left: 5px solid #32cd32;
+transition: transform 0.3s ease;
+}
+
+.stat-card-company:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card-company h3 {
+  color: #718096;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.stat-number-company {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #32cd32;
+  margin-bottom: 10px;
+}
+

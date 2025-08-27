@@ -1,5 +1,4 @@
-// Function to handle company login
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('companyLoginForm');
     
     if (loginForm) {
@@ -11,14 +10,22 @@
             
             // Basic validation
             if (!email || !password) {
-                alert('Please fill in all fields');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all fields',
+                });
                 return;
             }
             
             // Email format validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email address',
+                });
                 return;
             }
             
@@ -40,9 +47,17 @@
             // Normally you would send a request to your backend here
             console.log('Attempting company login with:', { email, password });
             
-            // Redirect to company dashboard (simulated)
-            alert('Login successful! Redirecting to your dashboard...');
-            window.location.href = 'dashboardCompany.html';
+            // Simulate successful login
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'Redirecting to your dashboard...',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // Redirect to company dashboard (simulated)
+                window.location.href = 'dashboardCompany.html';
+            });
             
             // Restore button (in case of error)
             loginButton.textContent = originalText;
@@ -50,7 +65,7 @@
         }, 1500);
     }
     
-    // Accessibility improvement: allow submitting form with Enter key
+    // Accessibility improvement: allow form submission with Enter key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA') {
             const loginForm = document.getElementById('companyLoginForm');
