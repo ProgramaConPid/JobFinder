@@ -103,7 +103,7 @@ btnCloseModal.addEventListener("click", (e) => {
   }
 });
 
-// Logica Modal - Editar
+// Logica Modal - Editar 
 const modalEditOffer = document.getElementById("modalEditOffer");
 const btnsEdit = document.querySelectorAll(".btn-edit-offer");
 const btnCloseEdit = document.getElementById("closeEditOffer");

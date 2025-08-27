@@ -321,7 +321,12 @@ textarea {
   margin-bottom: 28px;
 }
 
-.form-group-login label {
+.form-group-register {
+  margin-bottom: 16px;
+}
+
+.form-group-login label,
+.form-group-register label {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
@@ -330,7 +335,16 @@ textarea {
   text-align: left;
 }
 
-.form-group-login input {
+#companyRegisterForm .form-group-register label {
+  color: var(--green-dark);
+}
+
+#companyLoginForm .form-group-login label {
+  color: var(--green-dark);
+}
+
+.form-group-login input,
+.form-group-register input {
   width: 100%;
   padding: 16px;
   border: 2px solid var(--border-input-color);
