@@ -48,6 +48,19 @@ body {
   text-align: center;
 }
 
+.container__home {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+.home__icon {
+  width: 100%;
+  max-width: 150px;
+  text-align: center;
+}
+
+
 header {
   margin-bottom: 50px;
 }
@@ -76,10 +89,15 @@ input {
 
 h1 {
   font-size: 2.5rem;
-  color: var(--primary-color);
   margin-bottom: 15px;
-  text-shadow: 0 2px 4px rgba(75, 0, 130, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; 
+  color: transparent;    
 }
+
 
 textarea {
   resize: none;
@@ -299,6 +317,31 @@ textarea {
   object-fit: cover;
 }
 
+
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.form-group-login .input-with-icon input,
+.form-group-login-company .input-with-icon input,
+.form-group-register .input-with-icon input,
+.form-group-register-company .input-with-icon input {
+  padding-left: 48px; 
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;   
+  pointer-events: none; 
+ 
+}
+
+
+
 .login__icon--company {
   background-color: var(--accent-color-opacity);
 }
@@ -317,7 +360,9 @@ textarea {
   margin-bottom: 35px;
 }
 
-.form-group-login {
+.form-group-login,
+.form-group-login-company,
+.form-group-register-company {
   margin-bottom: 28px;
 }
 
@@ -326,7 +371,7 @@ textarea {
 }
 
 .form-group-login label,
-.form-group-register label {
+.form-group-register label{
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
@@ -334,6 +379,16 @@ textarea {
   font-size: 1.15rem;
   text-align: left;
 }
+.form-group-login-company label,
+.form-group-register-company label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #228b22;
+  font-size: 1.15rem;
+  text-align: left;
+}
+
 
 #companyRegisterForm .form-group-register label {
   color: var(--green-dark);
@@ -344,7 +399,9 @@ textarea {
 }
 
 .form-group-login input,
-.form-group-register input {
+.form-group-register input,
+.form-group-login-company input,
+.form-group-register-company input {
   width: 100%;
   padding: 16px;
   border: 2px solid var(--border-input-color);
@@ -354,12 +411,24 @@ textarea {
   background: #f8fafc;
 }
 
-.form-group-login input:focus {
+
+
+.form-group-login input:focus,
+.form-group-register input:focus {
   border-color: #4b0082;
   outline: none;
   box-shadow: 0 0 0 4px rgba(75, 0, 130, 0.15);
   background: white;
 }
+
+.form-group-login-company input:focus,
+.form-group-register-company input:focus {
+  border-color: #32cd32;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(75, 0, 130, 0.15);
+  background: white;
+}
+
 
 .btn-login {
   width: 100%;
@@ -1231,6 +1300,14 @@ input[type="checkbox"] {
 .offer-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.description-offer {
+
+  padding-block: 10px;
+  margin-bottom: 10px;
+  
+
 }
 
 .offer-header {

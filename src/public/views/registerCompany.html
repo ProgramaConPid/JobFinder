@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobFinder - Company Registration</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="register-company-page">
     <div class="register-container">
@@ -17,24 +18,36 @@
         <!-- Registration Form -->
         <main class="register-form">
             <form id="companyRegisterForm">
-                <div class="form-group-register">
+                <div class="form-group-register-company">
                     <label for="companyName">Company Name</label>
-                    <input type="text" id="companyName" placeholder="My Company Inc." required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/builds.png" alt="company" class="input-icon-left">
+                        <input type="text" id="companyName" placeholder="My Company Inc." required>
+                    </div>
                 </div>
                 
-                <div class="form-group-register">
+                <div class="form-group-register-company">
                     <label for="companyEmail">Email Address</label>
-                    <input type="email" id="companyEmail" placeholder="your@email.com" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/email_green.png" alt="email" class="input-icon-left">
+                        <input type="email" id="companyEmail" placeholder="your@email.com" required>
+                    </div>
                 </div>
                 
-                <div class="form-group-register">
+                <div class="form-group-register-company">
                     <label for="companyPassword">Password</label>
-                    <input type="password" id="companyPassword" placeholder="••••••••••" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_green.png" alt="password" class="input-icon-left">
+                        <input type="password" id="companyPassword" placeholder="••••••••••" required>
+                    </div>
                 </div>
                 
-                <div class="form-group-register">
+                <div class="form-group-register-company">
                     <label for="companyConfirmPassword">Confirm Password</label>
-                    <input type="password" id="companyConfirmPassword" placeholder="••••••••••" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_green.png" alt="password" class="input-icon-left">
+                        <input type="password" id="companyConfirmPassword" placeholder="••••••••••" required>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn-register company-btn">Create Account</button>
@@ -48,7 +61,7 @@
         
         <!-- Back button -->
         <div class="back-button">
-            <a href="../index.html">&larr; Back to Home</a>
+            <a href="../index.html"><i class='bxr  bx-arrow-left-stroke-square'  ></i> Back to Home</a>
         </div>
     </div>
 

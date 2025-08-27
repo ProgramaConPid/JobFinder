@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+
     <title>JobFinder - Applicant Login</title>
 </head>
 <body class="login-page">
@@ -27,12 +31,18 @@
             <form id="coderLoginForm">
                 <div class="form-group-login">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/email_violet.png" alt="email icon" class="input-icon-left">
+                        <input type="email" id="email"  placeholder="your@email.com" required>
+                    </div>
                 </div>
                 
                 <div class="form-group-login">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••••" required>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_violet.png" alt="lock icon" class="input-icon-left">
+                        <input type="password" id="password" placeholder="••••••••••" required>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn-login">Log In</button>
@@ -46,7 +56,7 @@
         
         <!-- Back button -->
         <div class="back-button">
-            <a href="../index.html">&larr; Back to Home</a>
+            <a href="../index.html"> <i class='bxr  bx-arrow-left-stroke-square'  ></i>  Back to Home</a>
         </div>
     </div>
 
