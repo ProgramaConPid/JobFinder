@@ -88,16 +88,21 @@ input {
 }
 
 h1 {
+  color: var(--primary-color);
   font-size: 2.5rem;
   margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  
+}
+
+.header__title {
+  color: transparent;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; 
-  color: transparent;    
+  color: transparent; 
 }
-
 
 textarea {
   resize: none;
