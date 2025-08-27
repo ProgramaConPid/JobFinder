@@ -1,6 +1,11 @@
 -- =========================
 -- USERS
 -- =========================
+CREATE DATABASE IF NOT EXISTS JobPortal;
+USE JobPortal;
+-- =========================
+-- USERS
+-- =========================
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
