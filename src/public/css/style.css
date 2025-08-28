@@ -1737,6 +1737,10 @@ textarea {
 }
 
 @media (max-width: 600px) {
+  .btn-delete-offer {
+    position: relative;
+  }
+
   .offer-actions {
     flex-direction: column;
   }
