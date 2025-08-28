@@ -2281,3 +2281,254 @@ form-section-company {
   font-size: 0.95rem;
   color: #2d3748;
 }
+
+
+/* side navigation bar*/
+
+.profile-selection {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+}
+
+.profile-card h2 {
+  color: #2d5b88;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.profile-card p {
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* .contact-floating-btn{
+  background-color: var(--dark-bg);
+  color: #228b22;
+} */
+
+/* .span-contact img{
+  width: 25px;
+  background-color: ;
+} */
+
+button {
+  background: #2d5b88;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+
+
+/* Estilos para el botón flotante de contacto */
+.contact-floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #e8e2ff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.contact-floating-btn:hover {
+  background:var(--dark-bg);
+  transform: translateY(-10px);
+}
+
+.contact-floating-btn {
+  width: 100px;     /* o el tamaño que desees */
+  height: 100px;
+  overflow: hidden;
+}
+
+.contact-floating-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+
+.contact-icon {
+  font-size: 1.5rem;
+}
+
+/* Estilos para el menú de contacto */
+.contact-menu {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  width: 350px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.contact-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.contact-header {
+  background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.contact-content {
+  padding: 15px 0;
+}
+
+.contact-option {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.contact-option:hover {
+  background: #f8f9fa;
+}
+
+.option-icon {
+  margin-right: 15px;
+  font-size: 1.5rem;
+  width: 30px;
+  text-align: center;
+}
+
+.option-text h4 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.option-text p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+footer {
+  height: 80px;
+  background: white;
+  position: relative;
+  align-items: center;
+  /* width: 60px; */
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2.8px;
+  width: 100%;
+  background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-selection {
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .contact-menu {
+      width: 300px;
+      right: 15px;
+  }
+  
+  .contact-floating-btn {
+      right: 15px;
+      bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+      font-size: 2rem;
+  }
+  
+  .contact-menu {
+      width: calc(100% - 30px);
+  }
+  
+  .contact-floating-btn span {
+      display: none;
+  }
+  
+  .contact-floating-btn {
+      padding: 15px;
+  }
+}
