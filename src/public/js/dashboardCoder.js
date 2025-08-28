@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Asignamos evento a todos los botones "View Details"
   document.querySelectorAll(".btn-view").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      const card = e.target.closest(".job-card"); // el card de ese botón
+      const card = e.target.closest(".job-card");
 
       // Sacamos info desde el card
       const title = card.querySelector(".job-title").innerText;
@@ -71,8 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadUserData() {
-  // Simulate loading user data
-  // In a real app, this would come from your API
   const userData = {
     name: "John Smith",
     email: "john@email.com",
@@ -83,48 +81,62 @@ function loadUserData() {
 }
 
 function loadJobOffers() {
-  // Simulate loading job offers
-  // In a real app, this would come from your API
   console.log("Loading job offers...");
 }
 
 function loadUserApplications() {
-  // Simulate loading user applications
-  // In a real app, this would come from your API
   console.log("Loading user applications...");
 }
 
 function applyJob(jobId) {
-  // Simulate job application
   const applyButton = event.target;
   applyButton.textContent = "Applying...";
   applyButton.disabled = true;
 
   setTimeout(() => {
-    alert(`You have successfully applied for job #${jobId}!`);
+    Swal.fire({
+      icon: "success",
+      title: "Application Sent!",
+      text: `You have successfully applied for job #${jobId}.`,
+      confirmButtonColor: "#6A0DAD", // morado principal
+      background: "#f5f0fa",         // fondo lila claro
+      color: "#2c2c2c",              // texto oscuro
+    });
     applyButton.textContent = "Already applied";
     applyButton.disabled = true;
-    applyButton.style.background = "#27ae60";
+    applyButton.style.background = "#27ae60"; // verde éxito
   }, 1500);
 }
 
-// function viewJob(jobId) {
-//   // Simulate viewing job details
-//   alert(`Viewing details for job #${jobId}`);
-//   // In a real app, this would redirect to a job details page
-// }
-
 function logout() {
-  // Simulate logging out
-  if (confirm("Are you sure you want to log out?")) {
-    alert("Logged out successfully");
-    window.location.href = "../index.html";
-  }
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be logged out from your session.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",      // rojo acción peligrosa
+    cancelButtonColor: "#6A0DAD",    // morado botón cancelar
+    confirmButtonText: "Yes, log out",
+    background: "#f5f0fa",
+    color: "#2c2c2c",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        icon: "success",
+        title: "Logged out",
+        text: "You have been logged out successfully.",
+        confirmButtonColor: "#6A0DAD",
+        background: "#f5f0fa",
+        color: "#2c2c2c",
+      }).then(() => {
+        window.location.href = "../index.html";
+      });
+    }
+  });
 }
 
 // Keyboard navigation
 document.addEventListener("keydown", function (e) {
-  // Keyboard shortcuts for applicant dashboard
   if (e.ctrlKey) {
     switch (e.key) {
       case "1":
@@ -139,3 +151,4 @@ document.addEventListener("keydown", function (e) {
     }
   }
 });
+

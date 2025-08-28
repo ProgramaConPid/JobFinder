@@ -63,6 +63,16 @@ document.addEventListener("DOMContentLoaded", function () {
       level: createForm.newJobLevel.value,
       description: createForm.newJobDescription.value,
     });
+
+    Swal.fire({
+      icon: "success",
+      title: "Offer Created",
+      text: "Your new job offer has been created successfully.",
+      confirmButtonColor: "#27ae60", // verde principal
+      background: "#f0fff4",         // fondo claro
+      color: "#2c2c2c",
+    });
+
     closeModal(createModal);
     createForm.reset();
   });
@@ -75,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelEditBtn = document.getElementById("cancelEditOffer");
   const editForm = document.getElementById("editOfferForm");
 
-  // Buttons Edit
   const editButtons = document.querySelectorAll(".btn-edit-offer");
 
   editButtons.forEach((button) => {
@@ -83,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const offerId = button.dataset.id;
       const card = document.querySelector(`.offer-card[data-id="${offerId}"]`);
 
-      // Extraer datos
       const title = card.querySelector(".offer-title").innerText;
       const salary = card.querySelector(".offer-salary-value").innerText;
       const description = card.querySelector(".offer-description").innerText;
@@ -96,19 +104,16 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector(".offer-tag.level")
         .innerText.toLowerCase();
 
-      // Pasar al formulario
       document.getElementById("jobTitle").value = title;
       document.getElementById("jobSalary").value = salary;
       document.getElementById("jobDescription").value = description;
       document.getElementById("jobMode").value = mode;
       document.getElementById("jobLevel").value = level;
 
-      // Mostrar modal
       openModal(editModal);
     });
   });
 
-  // Cerrar modal
   closeEditBtn.addEventListener("click", () => closeModal(editModal));
   cancelEditBtn.addEventListener("click", () => closeModal(editModal));
 
@@ -116,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target === editModal) closeModal(editModal);
   });
 
-  // Guardar cambios
   editForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -126,6 +130,15 @@ document.addEventListener("DOMContentLoaded", function () {
       level: editForm.jobLevel.value,
       salary: editForm.jobSalary.value,
       description: editForm.jobDescription.value,
+    });
+
+    Swal.fire({
+      icon: "success",
+      title: "Offer Updated",
+      text: "The job offer has been updated successfully.",
+      confirmButtonColor: "#27ae60",
+      background: "#f0fff4",
+      color: "#2c2c2c",
     });
 
     closeModal(editModal);
@@ -141,9 +154,7 @@ function loadCompanyData() {
     email: "contact@techcorp.com",
     profileCompletion: 90,
   };
-  document.querySelector(
-    ".user-info"
-  ).textContent = `Hello, ${companyData.name}`;
+  document.querySelector(".user-info").textContent = `Hello, ${companyData.name}`;
 }
 
 function loadActiveOffers() {
@@ -155,26 +166,74 @@ function loadCompanyStats() {
 }
 
 function createNewOffer() {
-  alert("Redirecting to create a new job offer");
+  Swal.fire({
+    icon: "info",
+    title: "Create Offer",
+    text: "Redirecting to create a new job offer.",
+    confirmButtonColor: "#27ae60",
+    background: "#f0fff4",
+    color: "#2c2c2c",
+  });
 }
 
 function viewApplicants(offerId) {
-  alert(`Viewing applicants for job offer #${offerId}`);
+  Swal.fire({
+    icon: "info",
+    title: "Applicants",
+    text: `Viewing applicants for job offer #${offerId}.`,
+    confirmButtonColor: "#27ae60",
+    background: "#f0fff4",
+    color: "#2c2c2c",
+  });
 }
 
 function completeProfile() {
-  alert("Redirecting to complete company profile");
+  Swal.fire({
+    icon: "info",
+    title: "Profile",
+    text: "Redirecting to complete company profile.",
+    confirmButtonColor: "#27ae60",
+    background: "#f0fff4",
+    color: "#2c2c2c",
+  });
 }
 
 function viewPendingApplications() {
-  alert("Viewing pending applications for review");
+  Swal.fire({
+    icon: "info",
+    title: "Pending Applications",
+    text: "Viewing pending applications for review.",
+    confirmButtonColor: "#27ae60",
+    background: "#f0fff4",
+    color: "#2c2c2c",
+  });
 }
 
 function logout() {
-  if (confirm("Are you sure you want to log out?")) {
-    alert("Logged out successfully");
-    window.location.href = "../index.html";
-  }
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be logged out from your session.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",      // rojo peligro
+    cancelButtonColor: "#27ae60",    // verde coherente
+    confirmButtonText: "Yes, log out",
+    background: "#f0fff4",
+    color: "#2c2c2c",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        icon: "success",
+        title: "Logged out",
+        text: "You have been logged out successfully.",
+        confirmButtonColor: "#27ae60",
+        background: "#f0fff4",
+        color: "#2c2c2c",
+      }).then(() => {
+        window.location.href = "../index.html";
+      });
+    }
+  });
 }
 
 /* -------------------------
