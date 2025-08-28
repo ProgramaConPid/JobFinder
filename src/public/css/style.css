@@ -1,11 +1,15 @@
+/* ------------ */
 /* Reset Styles */
+/* ------------ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* -------------- */
 /* Main Variables */
+/* -------------- */
 :root {
   --white: #fff;
   --black: #000;
@@ -91,7 +95,9 @@ input {
   font-size: 16px;
 }
 
+/* ------------------- */
 /* Welcome page styles */
+/* ------------------- */
 h1 {
   color: var(--primary-color);
   font-size: 2.5rem;
@@ -119,7 +125,9 @@ textarea {
   font-weight: 400;
 }
 
+/* ------------------------------- */
 /* Main View Styles (Welcome Page) */
+/* ------------------------------- */
 .header__subtitle {
   font-size: 1.2rem;
   color: #6b7280;
@@ -1937,7 +1945,9 @@ textarea {
   box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.15);
 }
 
-/* Estado del currículum */
+/* ------------------------------- */
+/* Curriculum state section styles */
+/* ------------------------------- */
 .resume-status {
   padding: 10px;
   background: #f8f9fa;
@@ -1947,7 +1957,6 @@ textarea {
   color: #6c757d;
 }
 
-/* Botones */
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -2011,7 +2020,9 @@ textarea {
   color: #555;
 } */
 
-/* Responsive */
+/* ------------------------------ */
+/* Profile page responsive design */
+/* ------------------------------ */
 @media (max-width: 768px) {
   .profile-content {
     flex-direction: column;
@@ -2042,7 +2053,9 @@ textarea {
   gap: 5px;
 }
 
-/* Para la versión móvil */
+/* ------------------------------- */
+/* Mobile device responsive design */
+/* ------------------------------- */
 @media screen and (max-width: 768px) {
   .btn-profile {
     padding: 10px;
@@ -2055,11 +2068,9 @@ textarea {
   }
 }
 
-/*----------------------------------------------------------------------*/
-/* Estilos para la página de perfil de empresa */
-/* Estilos generales */
-
-/* Estilos específicos para perfil de empresa */
+/*-----------------------------*/
+/* Profile company page styles */
+/*-----------------------------*/
 .profile-header-company {
   background: #32cd32;
   padding: 20px;
@@ -2159,7 +2170,7 @@ textarea {
 }
 
 .btn-secondary-company {
-  background: #32cd32;
+  background: var(--green);
   color: white;
 }
 
@@ -2169,8 +2180,6 @@ textarea {
   user-select: none;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
-/* Nuevos */
 
 .profile-content {
   display: flex;
@@ -2216,7 +2225,7 @@ textarea {
 .form-group-company input:focus,
 .form-group-company select:focus,
 .form-group-company textarea:focus {
-  border-color: #32cd32;
+  border-color: var(--green);
   box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
   outline: none;
 }
@@ -2233,10 +2242,13 @@ form-section-company {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2c3e50;
-  border-left: 4px solid #32cd32;
+  border-left: 4px solid var(--green);
   background-color: transparent;
 }
 
+/* ------------------------------- */
+/* Mobile device responsive design */
+/* ------------------------------- */
 @media (max-width: 768px) {
   .form-row-company {
     flex-direction: column;
@@ -2275,7 +2287,9 @@ form-section-company {
   margin-bottom: 10px;
 }
 
+/* ------------------------------- */
 /* Style for the alert description */
+/* ------------------------------- */
 .swal2-html-container {
   font-family: var(--font-montserrat);
   font-size: 0.95rem;
