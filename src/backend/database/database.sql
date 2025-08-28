@@ -1,101 +1,106 @@
--- =========================
--- USERS
--- =========================
-CREATE DATABASE IF NOT EXISTS JobPortal;
-USE JobPortal;
--- =========================
--- USERS
--- =========================
-CREATE TABLE Users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
+-- ==========================================
+-- Crear base de datos
+-- ==========================================
+CREATE DATABASE IF NOT EXISTS Db_JobFinder;
+USE Db_JobFinder;
+
+-- ==========================================
+-- Tabla Applicants
+-- ==========================================
+CREATE TABLE Applicants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    user_type ENUM('coder', 'company') NOT NULL
+    profession VARCHAR(100) NOT NULL,
+    years_experience INT DEFAULT 0,
+    education_level VARCHAR(100) NULL,
+    skills TEXT NULL,
+    resume_url VARCHAR(255) NULL,
+
+    -- Redes sociales (opcionales)
+    linkedin VARCHAR(255) NULL,
+    twitter VARCHAR(255) NULL,
+    facebook VARCHAR(255) NULL,
+    instagram VARCHAR(255) NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- =========================
--- CODERS
--- =========================
-CREATE TABLE Coders (
-    coder_id INT PRIMARY KEY,
-    resume TEXT,
-    portfolio TEXT,
-    profile_completion INT DEFAULT 0,
-    FOREIGN KEY (coder_id) REFERENCES Users(user_id) ON DELETE CASCADE
-);
-
--- =========================
--- COMPANIES
--- =========================
+-- ==========================================
+-- Tabla Companies
+-- ==========================================
 CREATE TABLE Companies (
-    company_id INT PRIMARY KEY,
-    company_name VARCHAR(200) NOT NULL,
-    industry VARCHAR(150),
-    description TEXT,
-    profile_completion INT DEFAULT 0,
-    FOREIGN KEY (company_id) REFERENCES Users(user_id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    industry VARCHAR(100) NOT NULL,
+    website VARCHAR(255) UNIQUE,
+    company_size VARCHAR(50) NULL,
+    description TEXT NULL,
+    contact_person VARCHAR(100) NOT NULL,
+    contact_position VARCHAR(100) NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+
+    -- Redes sociales (opcionales)
+    linkedin VARCHAR(255) NULL,
+    twitter VARCHAR(255) NULL,
+    facebook VARCHAR(255) NULL,
+    instagram VARCHAR(255) NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- =========================
--- JOB OFFERS
--- =========================
+-- ==========================================
+-- Tabla JobOffers
+-- ==========================================
 CREATE TABLE JobOffers (
-    offer_id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     company_id INT NOT NULL,
-    title VARCHAR(200) NOT NULL,
-    description TEXT,
-    location VARCHAR(150),
-    salary_min DECIMAL(10,2),
-    salary_max DECIMAL(10,2),
-    work_mode ENUM('Remote', 'On-site', 'Hybrid'),
-    
-    status ENUM('open', 'closed') DEFAULT 'open',
-    Fseniority ENUM('Junior', 'Middle', 'Senior'),
-    publish_date DATE DEFAULT CURRENT_DATE,OREIGN KEY (company_id) REFERENCES Companies(company_id) ON DELETE CASCADE
+    title VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    salary_min DECIMAL(10,2) NULL,
+    salary_max DECIMAL(10,2) NULL,
+    modality ENUM('Remote','Hybrid','On-site') NOT NULL,
+    level ENUM('Junior','Mid-level','Senior') NOT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_joboffers_company FOREIGN KEY (company_id) REFERENCES Companies(id) ON DELETE CASCADE
 );
 
--- =========================
--- APPLICATIONS
--- =========================
+-- ==========================================
+-- Tabla Applications
+-- ==========================================
 CREATE TABLE Applications (
-    application_id INT PRIMARY KEY AUTO_INCREMENT,
-    offer_id INT NOT NULL,
-    coder_id INT NOT NULL,
-    application_date DATE DEFAULT CURRENT_DATE,
-    status ENUM('pending', 'in progress', 'accepted', 'rejected') DEFAULT 'pending',
-    FOREIGN KEY (offer_id) REFERENCES JobOffers(offer_id) ON DELETE CASCADE,
-    FOREIGN KEY (coder_id) REFERENCES Coders(coder_id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    applicant_id INT NOT NULL,
+    job_id INT NOT NULL,
+    status ENUM('Under Review','Interview Scheduled','Rejected','Accepted') DEFAULT 'Under Review',
+    applied_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_applications_applicant FOREIGN KEY (applicant_id) REFERENCES Applicants(id) ON DELETE CASCADE,
+    CONSTRAINT fk_applications_job FOREIGN KEY (job_id) REFERENCES JobOffers(id) ON DELETE CASCADE
 );
 
--- =========================
--- SKILLS
--- =========================
-CREATE TABLE Skills (
-    skill_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) UNIQUE NOT NULL
-);
+-- =========================================
+-- Tabla Interviews
+-- =========================================
+CREATE TABLE Interviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    application_id INT NOT NULL,
+    interview_date DATETIME NOT NULL,
+    status ENUM('Scheduled','Completed','Cancelled') DEFAULT 'Scheduled',
+    notes TEXT NULL,
 
--- =========================
--- CODERS_SKILLS (M:N)
--- =========================
-CREATE TABLE Coders_Skills (
-    coder_id INT NOT NULL,
-    skill_id INT NOT NULL,
-    level ENUM('Beginner', 'Intermediate', 'Advanced'),
-    PRIMARY KEY (coder_id, skill_id),
-    FOREIGN KEY (coder_id) REFERENCES Coders(coder_id) ON DELETE CASCADE,
-    FOREIGN KEY (skill_id) REFERENCES Skills(skill_id) ON DELETE CASCADE
-);
-
--- =========================
--- OFFERS_SKILLS (M:N)
--- =========================
-CREATE TABLE Offers_Skills (
-    offer_id INT NOT NULL,
-    skill_id INT NOT NULL,
-    required BOOLEAN DEFAULT TRUE,
-    PRIMARY KEY (offer_id, skill_id),
-    FOREIGN KEY (offer_id) REFERENCES JobOffers(offer_id) ON DELETE CASCADE,
-    FOREIGN KEY (skill_id) REFERENCES Skills(skill_id) ON DELETE CASCADE
+    CONSTRAINT fk_interviews_application FOREIGN KEY (application_id) REFERENCES Applications(id) ON DELETE CASCADE
 );
