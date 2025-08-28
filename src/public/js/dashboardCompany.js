@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadCompanyStats();
 
   /* -------------------------
-     Funciones generales modales
+     General modal functions
   ---------------------------- */
   function openModal(modal) {
     modal.style.display = "block";
@@ -41,14 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelCreateBtn = document.getElementById("cancelCreateOffer");
   const createForm = document.getElementById("createOfferForm");
 
-  // Abrir modal
+  // Open modal
   openCreateBtn.addEventListener("click", () => openModal(createModal));
 
-  // Cerrar modal (X y Cancel)
+  // Close modal (X and Cancel)
   closeCreateBtn.addEventListener("click", () => closeModal(createModal));
   cancelCreateBtn.addEventListener("click", () => closeModal(createModal));
 
-  // Cerrar clic fuera
+  // Close click outside
   window.addEventListener("click", (e) => {
     if (e.target === createModal) closeModal(createModal);
   });
@@ -68,8 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "success",
       title: "Offer Created",
       text: "Your new job offer has been created successfully.",
-      confirmButtonColor: "#27ae60", // verde principal
-      background: "#f0fff4",         // fondo claro
+      confirmButtonColor: "#27ae60", 
+      background: "#f0fff4",         
       color: "#2c2c2c",
     });
 
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* -------------------------
-   Funciones auxiliares
+   Auxiliary Functions
 ---------------------------- */
 function loadCompanyData() {
   const companyData = {
@@ -209,14 +209,15 @@ function viewPendingApplications() {
   });
 }
 
+// Logout alert
 function logout() {
   Swal.fire({
     title: "Are you sure?",
     text: "You will be logged out from your session.",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#d33",      // rojo peligro
-    cancelButtonColor: "#27ae60",    // verde coherente
+    confirmButtonColor: "#d33",      
+    cancelButtonColor: "#27ae60",   
     confirmButtonText: "Yes, log out",
     background: "#f0fff4",
     color: "#2c2c2c",

@@ -7,6 +7,7 @@
 
 /* Main Variables */
 :root {
+  --white: #fff;
   --black: #000;
   --primary-color: #8a2ce2;
   --secondary-color: #6a11cb;
@@ -39,9 +40,13 @@ body {
   align-items: center;
   padding: 20px;
   color: #333;
+  line-height: 1.6;
 }
 
+/* -------------- */
 /* General Styles */
+/* -------------- */
+
 .container {
   width: 100%;
   max-width: 900px;
@@ -86,6 +91,7 @@ input {
   font-size: 16px;
 }
 
+/* Welcome page styles */
 h1 {
   color: var(--primary-color);
   font-size: 2.5rem;
@@ -114,7 +120,7 @@ textarea {
 }
 
 /* Main View Styles (Welcome Page) */
-.subtitle {
+.header__subtitle {
   font-size: 1.2rem;
   color: #6b7280;
   max-width: 600px;
@@ -235,7 +241,9 @@ textarea {
   box-shadow: 0 10px 25px rgba(34, 139, 34, 0.4);
 }
 
-/* Responsive Welcome page */
+/* ------------------------------ */
+/* Welcome page responsive design */
+/* ------------------------------ */
 @media (max-width: 768px) {
   .options-container {
     flex-direction: column;
@@ -257,7 +265,9 @@ textarea {
   }
 }
 
+/* --------------------- */
 /* Styles for login page */
+/* --------------------- */
 .login-page {
   background: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
   min-height: 100vh;
@@ -413,7 +423,8 @@ textarea {
 }
 
 .form-group-login input:focus,
-.form-group-register input:focus {
+.form-group-register input:focus,
+.form-group-profile-coder input:focus {
   border-color: #4b0082;
   outline: none;
   box-shadow: 0 0 0 4px rgba(75, 0, 130, 0.15);
@@ -491,7 +502,9 @@ textarea {
   color: #4b0082;
 }
 
-/* Responsive para login */
+/* ---------------------------- */
+/* Login page responsive design */
+/* ---------------------------- */
 @media (max-width: 500px) {
   .login-container {
     padding: 30px 25px;
@@ -611,7 +624,9 @@ textarea {
   }
 }
 
-/* Estilos específicos para la página de login de empresas */
+/* ------------------------------------------ */
+/* Specific styles for the company login page */
+/* ------------------------------------------ */
 .login-company-page {
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
 }
@@ -653,7 +668,9 @@ textarea {
   color: #228b22;
 }
 
-/* Estilos específicos para la página de registro de empresas */
+/* -------------------------------------------------- */
+/* Specific styles for the business registration page */
+/* -------------------------------------------------- */
 .register-company-page {
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
 }
@@ -695,7 +712,9 @@ textarea {
   color: #228b22;
 }
 
-/* Estilos para el dashboard de aplicante */
+/* ------------------------------- */
+/* Applicant dashboard page styles */
+/* ------------------------------- */
 .dashboard-page {
   background-color: #f8fafc;
   min-height: 100vh;
@@ -758,19 +777,6 @@ textarea {
   text-decoration: none;
 }
 
-/* .btn-profile-company {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  text-decoration: none;
-} */
-
 .btn-logout:hover,
 .btn-profile:hover {
   background: rgba(255, 255, 255, 0.3);
@@ -826,6 +832,9 @@ textarea {
   gap: 30px;
 }
 
+/* ----------------- */
+/* Jobs cards styles */
+/* ----------------- */
 .job-offers-section h2,
 .applications-section h2 {
   color: #2d3748;
@@ -925,7 +934,9 @@ textarea {
   gap: 15px;
 }
 
-/* Modal Job Details */
+/* ---------------------------------- */
+/* Modal window (button view details) */
+/* ---------------------------------- */
 .job-modal {
   display: none;
   position: fixed;
@@ -1022,7 +1033,9 @@ textarea {
   background: #360061;
 }
 
-/* Animations */
+/* --------------------- */
+/* Modal input animation */
+/* --------------------- */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1043,6 +1056,9 @@ textarea {
   }
 }
 
+/* ---------------------- */
+/* Modal output animation */
+/* ---------------------- */
 @keyframes slideDown {
   from {
     transform: translateY(0);
@@ -1168,8 +1184,9 @@ textarea {
   }
 }
 
-/* Estilos específicos para el dashboard de empresa */
-
+/* ----------------------------------------- */
+/* Specific styles for the company dashboard */
+/* ----------------------------------------- */
 .dashboard-company-page {
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
 }
@@ -1180,17 +1197,17 @@ textarea {
 }
 
 .dashboard-company-page .dashboard-header {
-  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  background: var(--accent-color);
   box-shadow: 0 10px 30px rgba(34, 139, 34, 0.2);
 }
 
 .dashboard-company-page .stat-card {
-  border-left: 5px solid #228b22;
+  border-left: 5px solid var(--green-dark);
 }
 
 .dashboard-company-page .stat-number {
-  color: #228b22;
-  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  color: var(--green-dark);
+  background: var(--accent-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1198,45 +1215,45 @@ textarea {
 
 .dashboard-company-page .job-offers-section h2,
 .dashboard-company-page .applications-section h2 {
-  border-left: 4px solid #228b22;
+  border-left: 4px solid var(--green-dark);
 }
 
 .dashboard-company-page .job-card,
 .dashboard-company-page .application-card {
-  border-left: 4px solid #228b22;
+  border-left: 4px solid var(--green-dark);
 }
 
 .dashboard-company-page .company-name {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .dashboard-company-page .detail-icon {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .dashboard-company-page .job-tag {
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
-  color: #228b22;
+  color: var(--green-dark);
   border: 1px solid rgba(34, 139, 34, 0.1);
 }
 
 .dashboard-company-page .btn-apply {
-  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  background: var(--accent-color);
   box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
 }
 
 .dashboard-company-page .btn-apply:hover {
-  background: linear-gradient(135deg, #2ab52a 0%, #1c6e1c 100%);
+  background: var(--accent-color);
   box-shadow: 0 6px 20px rgba(34, 139, 34, 0.4);
 }
 
 .dashboard-company-page .btn-view {
-  border: 2px solid #228b22;
-  color: #228b22;
+  border: 2px solid var(--green-dark);
+  color: var(--green-dark);
 }
 
 .dashboard-company-page .btn-view:hover {
-  background: #228b22;
+  background: var(--green-dark);
   color: white;
 }
 
@@ -1255,126 +1272,9 @@ textarea {
   height: 35px;
 }
 
-.modal__offer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.762);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-100%);
-  transition: 400ms ease;
-}
-
-.modal__offer--content {
-  width: 600px;
-}
-
-.modal__offer--form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.modal__offer--form input,
-.modal__offer--form textarea {
-  padding: 10px;
-  border-radius: 0.3rem;
-}
-
-.modal__offer--form > input,
-.modal__offer--form textarea {
-  transition: 400ms ease;
-  border: 2px solid var(--border-input-color);
-}
-
-.modal__offer--form > input:focus,
-.modal__offer--form textarea:focus {
-  border-color: var(--green-dark);
-  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
-  outline: none;
-}
-
-.modal__offer--form textarea {
-  height: 180px;
-}
-
-input[type="checkbox"] {
-  accent-color: green;
-}
-
-.work__mode--title {
-  color: var(--muted-text);
-  margin-bottom: 1rem;
-  text-align: left;
-  font-size: 18px;
-  font-weight: 200;
-}
-
-.work__mode--content {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.checkbox__group {
-  display: flex;
-  flex: 1;
-  gap: 0.7rem;
-  padding: 10px;
-  border-radius: 0.5rem;
-}
-
-.checkbox__group--remote {
-  color: var(--remote-color);
-  background-color: var(--remote-color-bg);
-  border: 1px solid var(--remote-color);
-}
-
-.checkbox__group--onsite {
-  color: var(--onsite-color);
-  background-color: var(--onsite-color-bg);
-  border: 1px solid var(--onsite-color);
-}
-
-.checkbox__group--hybrid {
-  color: var(--hybrid-color);
-  background-color: var(--hybrid-color-bg);
-  border: 1px solid var(--hybrid-color);
-}
-
-.checkbox__group--level {
-  color: var(--level-color);
-  background-color: var(--level-color-bg);
-  border: 1px solid var(--level-color);
-}
-
-.form__group--buttons {
-  display: flex;
-  gap: 2rem;
-}
-
-.form__group--buttons button {
-  color: var(--light-bg);
-  display: inline-block;
-  padding: 10px;
-  cursor: pointer;
-  width: 100%;
-  background: var(--accent-color);
-  border: none;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 0.4rem;
-}
-
-.modal__offer.active {
-  transform: translateY(0);
-}
-
-/* Section Active Offers */
+/* ---------------------------- */
+/* Active offers section styles */
+/* ---------------------------- */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -1405,11 +1305,14 @@ input[type="checkbox"] {
 }
 
 .btn-create-offer:hover {
-  background: linear-gradient(135deg, #2ab52a 0%, #1c6e1c 100%);
+  background: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(34, 139, 34, 0.4);
 }
 
+/* ------------------- */
+/* Offers cards styles */
+/* ------------------- */
 .offer-cards {
   display: flex;
   flex-direction: column;
@@ -1421,7 +1324,7 @@ input[type="checkbox"] {
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid #228b22;
+  border-left: 4px solid var(--green-dark);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1499,8 +1402,9 @@ input[type="checkbox"] {
   flex-wrap: wrap;
 }
 
-/* Modal Edit Offer Styles */
-/* --- Modal general --- */
+/* ---------------------------------------------- */
+/* Modal window (create new offer and edit offer) */
+/* ---------------------------------------------- */
 .modal-offer {
   display: none;
   position: fixed;
@@ -1515,7 +1419,6 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* --- Contenido del modal --- */
 .modal-offer-content {
   background: #fff;
   margin: 5% auto;
@@ -1524,7 +1427,7 @@ input[type="checkbox"] {
   width: 90%;
   max-width: 600px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-  border-left: 4px solid #228b22;
+  border-left: 4px solid var(--green-dark);
   animation: slideUp 0.3s ease;
 }
 
@@ -1542,40 +1445,11 @@ input[type="checkbox"] {
 }
 
 .modal-offer-close:hover {
-  color: #228b22;
+  color: var(--green-dark);
 }
-
-/* --- Form inside the modal window --- */
-.form-group {
-  margin-bottom: 18px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2d3748;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e0;
-  font-size: 1rem;
-  transition: border 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none !important;
-  border: 2px solid #228b22 !important;
-}
-
-/* --- Modal Buttons --- */
+/* ------------------------------------- */
+/* Modal window buttons (save and close) */
+/* ------------------------------------- */
 .modal-offer-actions {
   display: flex;
   justify-content: flex-end;
@@ -1584,7 +1458,7 @@ input[type="checkbox"] {
 }
 
 .btn-save {
-  background: #228b22;
+  background: var(--green-dark);
   color: white;
   border: none;
   padding: 10px 18px;
@@ -1600,8 +1474,8 @@ input[type="checkbox"] {
 
 .btn-cancel {
   background: transparent;
-  border: 2px solid #228b22;
-  color: #228b22;
+  border: 2px solid var(--green-dark);
+  color: var(--green-dark);
   padding: 10px 18px;
   border-radius: 8px;
   font-weight: 600;
@@ -1623,7 +1497,9 @@ input[type="checkbox"] {
   }
 }
 
-/* --- Animaciones de entrada --- */
+/* --------------------- */
+/* modal input animation */
+/* --------------------- */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -1634,7 +1510,9 @@ input[type="checkbox"] {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* --- Animaciones de salida --- */
+/* ---------------------- */
+/* modal output animation */
+/* ---------------------- */
 @keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
@@ -1645,7 +1523,9 @@ input[type="checkbox"] {
   to { transform: translateY(50px); opacity: 0; }
 }
 
-/* Animación al abrir */
+/* ----------------------------- */
+/* Aanimation when opening modal */
+/* ----------------------------- */
 .modal-offer.show {
   display: block;
   animation: fadeIn 0.3s ease forwards;
@@ -1655,7 +1535,9 @@ input[type="checkbox"] {
   animation: slideUp 0.3s ease forwards;
 }
 
-/* Animación al cerrar */
+/* ---------------------------- */
+/* animation when closing modal */
+/* ---------------------------- */
 .modal-offer.closing {
   animation: fadeOut 0.3s ease forwards;
 }
@@ -1711,30 +1593,32 @@ input[type="checkbox"] {
 }
 
 .btn-view-applicants {
-  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  background: var(--accent-color);
   color: white;
   box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
 }
 
 .btn-view-applicants:hover {
-  background: linear-gradient(135deg, #2ab52a 0%, #1c6e1c 100%);
+  background: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(34, 139, 34, 0.4);
 }
 
 .btn-edit-offer {
   background: transparent;
-  border: 2px solid #228b22;
-  color: #228b22;
+  border: 2px solid var(--green-dark);
+  color: var(--green-dark);
 }
 
 .btn-edit-offer:hover {
-  background: #228b22;
+  background: var(--green-dark);
   color: white;
   transform: translateY(-2px);
 }
 
-/* Sidebar */
+/* ---------------------- */
+/* Sidebar section styles */
+/* ---------------------- */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -1758,6 +1642,9 @@ input[type="checkbox"] {
   padding-bottom: 10px;
 }
 
+/* --------------------------- */
+/* Recommendations card styles */
+/* --------------------------- */
 .recommendation-card {
   background: #f8f9fa;
   padding: 20px;
@@ -1774,7 +1661,7 @@ input[type="checkbox"] {
 }
 
 .btn-small {
-  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+  background: var(--accent-color);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -1790,6 +1677,9 @@ input[type="checkbox"] {
   transform: translateY(-1px);
 }
 
+/* ----------------------- */
+/* Quick stats card styles */
+/* ----------------------- */
 .quick-stats {
   display: flex;
   flex-direction: column;
@@ -1814,12 +1704,14 @@ input[type="checkbox"] {
 }
 
 .stat-value-company {
-  color: #228b22;
+  color: var(--green-dark);
   font-weight: 800;
   font-size: 1.2rem;
 }
 
-/* Responsive para dashboard de empresa */
+/* ---------------------------------------- */
+/* Compnay dashboard page responsive design */
+/* ---------------------------------------- */
 @media (max-width: 900px) {
   .dashboard-sections {
     grid-template-columns: 1fr;
@@ -1855,22 +1747,9 @@ input[type="checkbox"] {
   }
 }
 
-/*----------------------------------------------------------------------*/
-/* Estilos para la página de perfil del aplicante */
-/* Estilos generales */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  line-height: 1.6;
-  color: #333;
-  background-color: #f5f5f5;
-  padding: 20px;
-}
-
+/* ----------------------------- */
+/* Applicant profile page styles */
+/* ----------------------------- */
 .profile-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1880,7 +1759,6 @@ body {
   overflow: hidden;
 }
 
-/* Encabezado */
 .profile-header {
   background: var(--primary-color);
   padding: 20px;
@@ -1898,14 +1776,15 @@ body {
   opacity: 0.9;
 }
 
-/* Contenido principal */
 .profile-content {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
 }
 
-/* Sidebar */
+/* ------------------------------ */
+/* Profile sidebar section styles */
+/* ------------------------------ */
 .profile-sidebar {
   flex: 1;
   min-width: 250px;
@@ -1926,8 +1805,16 @@ body {
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #3498db;
+  border: 3px solid;
   margin-bottom: 15px;
+}
+
+.profile-avatar-coder img {
+  border-color: var(--primary-color);
+}
+
+.profile-avatar-company img {
+  border-color: var(--green);
 }
 
 /* Estadísticas */
@@ -1954,16 +1841,16 @@ body {
   align-items: center;
   margin-bottom: 16px;
   padding: 10px 0;
-  border-bottom: 1.5px solid #e2e8f0; /* gris suave y consistente */
+  border-bottom: 1.5px solid #e2e8f0; 
   transition: background-color 0.3s ease;
 }
 
 .stat-item:last-child {
-  border-bottom: none; /* quita borde en el último ítem para limpieza */
+  border-bottom: none; 
 }
 
 .stat-item:hover {
-  background-color: #caa6f1; /* sutil cambio al pasar mouse para interacción */
+  background-color: #caa6f1;
 }
 
 .stat-value {
@@ -1977,7 +1864,9 @@ body {
   color: var(--muted-text);
 }
 
-/* Contenido principal */
+/* ------------------------- */
+/* Main content profile page */
+/* ------------------------- */
 .profile-main {
   flex: 3;
   min-width: 300px;
@@ -2038,14 +1927,6 @@ body {
   transition: border-color 0.3s, box-shadow 0.3s;
   background-color: #fff;
   color: #2c3e50;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #6a11cb;
-  box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
-  outline: none;
 }
 
 .form-group input:focus,
@@ -2275,47 +2156,6 @@ body {
   user-select: none;
   display: inline-block;
   text-align: center;
-}
-
-.btn-primary-company {
-  background: #32cd32;
-  color: white;
-  border: none;
-  padding: 14px 32px;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(75, 0, 130, 0.3);
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary-company::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
-}
-
-.btn-primary-company:hover::before {
-  left: 100%;
-}
-
-.btn-primary-company:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(75, 0, 130, 0.4);
 }
 
 .btn-secondary-company {

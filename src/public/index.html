@@ -3,24 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Montserrat from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Roboto from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <!-- CSS File link -->
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="shortcut icon" href="./assets/img/jobfinderlogo.png" type="image/x-icon">
     <title>JobFinder - Connecting Talent with Opportunities</title>
   </head>
   <body>
     <div class="container">
+      <!-- Header Section -->
       <header class="header">
         <div class="container__home">
           <img
@@ -29,19 +33,19 @@
               alt="JobFinder Icon"
             />
           <h1 class="header__title">Welcome to JobFinder</h1>
-          <p class="subtitle">
+          <p class="header__subtitle">
             We connect talent with opportunities. Choose your profile to get
             started.
           </p>
         </div>
-        
       </header>
 
+      <!-- Main Content - Welcome page -->
       <main class="options-container">
         <div class="option-card" id="applicant-card">
           <div class="card-content">
-            <h2>I am an Applicant</h2>
-            <p>
+            <h2 class="card-content-title">I am an Applicant</h2>
+            <p class="card-content-paragraph">
               I’m looking for job opportunities and want to connect with
               companies
             </p>
@@ -53,8 +57,8 @@
 
         <div class="option-card" id="company-card">
           <div class="card-content">
-            <h2>I am a Company</h2>
-            <p>I post job offers and look for the best talent</p>
+            <h2 class="card-content-title">I am a Company</h2>
+            <p class="card-content-paragraph">I post job offers and look for the best talent</p>
             <button class="btn-primary" onclick="selectRole('company')">
               Continue as Company
             </button>
@@ -63,6 +67,7 @@
       </main>
     </div>
 
+    <!-- Script JS -->
     <script src="./app.js"></script>
   </body>
 </html>

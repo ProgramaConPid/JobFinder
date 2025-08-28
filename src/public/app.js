@@ -1,4 +1,4 @@
-// Función para seleccionar el rol y redirigir a la página correspondiente
+// Function to select the role and redirect to the corresponding page
 function selectRole(role) {
   if (role === "applicant") {
     window.location.href = "./views/loginCoder.html";
@@ -7,64 +7,24 @@ function selectRole(role) {
   }
 }
 
-// Efectos adicionales al pasar el cursor por las tarjetas
+// Additional effects when hovering over cards
 document.addEventListener("DOMContentLoaded", function () {
   const cards = document.querySelectorAll(".option-card");
 
   cards.forEach((card) => {
-    // Añadir efecto de elevación al pasar el cursor
+    // Add elevation effect when hovering
     card.addEventListener("mouseenter", function () {
       this.style.zIndex = "10";
     });
 
-    // Restablecer al quitar el cursor
+    // Reset when removing the cursor
     card.addEventListener("mouseleave", function () {
       this.style.zIndex = "1";
     });
 
-    // Permitir hacer clic en toda la tarjeta, no solo en el botón
+    // Allow clicking on the entire card, not just the button
     card.addEventListener("click", function (e) {
-      // Evitar que se dispare dos veces si se hace clic en el botón
-      if (e.target.tagName !== "BUTTON") {
-        const button = this.querySelector("button");
-        if (button) {
-          const role = button.getAttribute("onclick").includes("applicant")
-            ? "applicant"
-            : "company";
-          selectRole(role);
-        }
-      }
-    });
-  });
-
-  // Añadir teclado accesible
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "1" || e.key === "a") {
-      selectRole("applicant");
-    } else if (e.key === "2" || e.key === "e") {
-      selectRole("company");
-    }
-  });
-});
-
-// Efectos adicionales al pasar el cursor por las tarjetas
-document.addEventListener("DOMContentLoaded", function () {
-  const cards = document.querySelectorAll(".option-card");
-
-  cards.forEach((card) => {
-    // Añadir efecto de elevación al pasar el cursor
-    card.addEventListener("mouseenter", function () {
-      this.style.zIndex = "10";
-    });
-
-    // Restablecer al quitar el cursor
-    card.addEventListener("mouseleave", function () {
-      this.style.zIndex = "1";
-    });
-
-    // Permitir hacer clic en toda la tarjeta, no solo en el botón
-    card.addEventListener("click", function (e) {
-      // Evitar que se dispare dos veces si se hace clic en el botón
+      // Prevent it from being triggered twice if the button is clicked
       if (e.target.tagName !== "BUTTON") {
         const button = this.querySelector("button");
         if (button) {
