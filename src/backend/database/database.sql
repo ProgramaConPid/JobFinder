@@ -92,9 +92,9 @@ CREATE TABLE Applications (
     CONSTRAINT fk_applications_job FOREIGN KEY (job_id) REFERENCES JobOffers(id) ON DELETE CASCADE
 );
 
--- ==========================================
+-- =========================================
 -- Tabla Interviews
--- ==========================================
+-- =========================================
 CREATE TABLE Interviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     application_id INT NOT NULL,
