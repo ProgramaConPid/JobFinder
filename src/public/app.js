@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Añadir teclado accesible
+  // Add keyboard accessibility
   document.addEventListener("keydown", function (e) {
     if (e.key === "1" || e.key === "a") {
       selectRole("applicant");
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/*Botón Flotante */ 
+/* Floating Button */
 
 document.addEventListener('DOMContentLoaded', function() {
   const contactFloatingBtn = document.getElementById('contactFloatingBtn');
@@ -55,38 +55,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeMenu = document.getElementById('closeMenu');
   const overlay = document.getElementById('overlay');
   
-  // Abrir menú de contacto
+  // Open contact menu
   contactFloatingBtn.addEventListener('click', function() {
       contactMenu.classList.add('active');
       overlay.classList.add('active');
   });
   
-  // Cerrar menú de contacto
+  // Close contact menu
   closeMenu.addEventListener('click', function() {
       contactMenu.classList.remove('active');
       overlay.classList.remove('active');
   });
   
-  // Cerrar menú al hacer clic en el overlay
+  // Close menu when clicking on the overlay
   overlay.addEventListener('click', function() {
       contactMenu.classList.remove('active');
       overlay.classList.remove('active');
   });
   
-  // Cerrar menú al hacer clic en una opción (opcional)
+  // Close menu when clicking on an option (optional)
   const contactOptions = document.querySelectorAll('.contact-option');
   contactOptions.forEach(option => {
       option.addEventListener('click', function() {
-          // Aquí puedes agregar la funcionalidad específica para cada opción
-          console.log('Opción seleccionada: ' + this.querySelector('h4').textContent);
+          // You can add specific functionality for each option here
+          console.log('Selected option: ' + this.querySelector('h4').textContent);
           
-          // Cerrar el menú después de seleccionar una opción
+          // Close the menu after selecting an option
           contactMenu.classList.remove('active');
           overlay.classList.remove('active');
       });
   });
   
-  // Cerrar menú con la tecla Escape
+  // Close menu with Escape key
   document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
           contactMenu.classList.remove('active');

@@ -1192,6 +1192,15 @@ textarea {
   }
 }
 
+@media (max-width: 500px) {
+
+  .header-actions {
+    display: grid;
+    /* grid-template-columns: 1fr; */
+  }
+}
+
+
 /* ----------------------------------------- */
 /* Specific styles for the company dashboard */
 /* ----------------------------------------- */
@@ -1200,9 +1209,10 @@ textarea {
 }
 
 .dashboard-company-page {
-  background-color: #f0fff4;
+  background-color: #f0fff4;  
   min-height: 100vh;
 }
+
 
 .dashboard-company-page .dashboard-header {
   background: var(--accent-color);
