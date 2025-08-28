@@ -1,278 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="shortcut icon"
+      href="../assets/img/jobfinderlogo.png"
+      type="image/x-icon"
+    />
     <title>JobFinder - Company Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
-</head>
-<body class="dashboard-company-page">
+  </head>
+  <body class="dashboard-company-page">
     <div class="dashboard-container">
-        <!-- Header -->
-        <header class="dashboard-header">
-            <div class="header-content">
-                <h1>Company Dashboard</h1>
-                <p>Manage your job offers and review applicants</p>
-            </div>
-            <div class="header-actions">
-                <span class="user-info">Hello, TechCorp</span>
+      <!-- Header -->
+      <header class="dashboard-header">
+        <div class="header-content">
+          <h1>Company Dashboard</h1>
+          <p>Manage your job offers and review applicants</p>
+        </div>
+        <div class="header-actions">
+          <span class="user-info">Hello, TechCorp</span>
 
-                <a class="btn-profile-company" href="./profileCompany.html">Profile</a>
-                <button class="btn-logout" onclick="logout()">Log Out</button>
-            </div>
-        </header>
+          <a class="btn-profile" href="./profileCompany.html">Profile</a>
+          <button class="btn-logout" onclick="logout()">Log Out</button>
+        </div>
+      </header>
 
-        <!-- Main Content -->
-        <main class="dashboard-content">
-            <!-- Stats Cards -->
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <h3>Active Offers</h3>
-                    <span class="stat-number">2</span>
-                    <p class="stat-label">My Offers</p>
+      <!-- Main Content -->
+      <main class="dashboard-content">
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+          <div class="stat-card">
+            <h3>Active Offers</h3>
+            <span class="stat-number">2</span>
+            <p class="stat-label">My Offers</p>
+          </div>
+          <div class="stat-card">
+            <h3>New Applications</h3>
+            <span class="stat-number">20</span>
+            <p class="stat-label">Applicants</p>
+          </div>
+          <div class="stat-card">
+            <h3>Company Profile</h3>
+            <span class="stat-number">90%</span>
+            <p class="stat-label">Completed</p>
+          </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="dashboard-sections">
+          <!-- Active Offers -->
+          <section class="active-offers-section">
+            <div class="section-header">
+              <h2>Active Offers</h2>
+              <button class="btn-create-offer" id="createNewOffer">
+                + Create New Offer
+              </button>
+            </div>
+
+            <div class="offer-cards">
+              <!-- Offer 1 -->
+              <div class="offer-card" data-id="1">
+                <div class="offer-header">
+                  <h3 class="offer-title">Backend Developer Node.js</h3>
+                  <div class="offer-tags">
+                    <span class="offer-tag remote">Remote</span>
+                    <span class="offer-tag level">Mid-level</span>
+                  </div>
                 </div>
-                <div class="stat-card">
-                    <h3>New Applications</h3>
-                    <span class="stat-number">20</span>
-                    <p class="stat-label">Applicants</p>
+                <div class="offer-details">
+                  <div class="offer-salary">
+                    <strong>Salary:</strong>
+                    <span class="offer-salary-value">$50,000 - $70,000</span>
+                  </div>
+                  <div class="description-offer">
+                    <p class="offer-description">
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Rerum vero facilis quidem quas, dolor dolorum est, soluta
+                      velit optio sapiente blanditiis deserunt saepe quis
+                      deleniti! Corporis tempora animi accusamus assumenda!
+                    </p>
+                  </div>
+                  <div class="offer-stats">
+                    <span class="stat-item-offer">
+                      <strong>12</strong> Applicants
+                    </span>
+                    <span class="stat-item-offer">
+                      <strong>8</strong> Under review
+                    </span>
+                    <span class="stat-item-offer">
+                      <strong>4</strong> Interviews
+                    </span>
+                  </div>
                 </div>
-                <div class="stat-card">
-                    <h3>Company Profile</h3>
-                    <span class="stat-number">90%</span>
-                    <p class="stat-label">Completed</p>
+                <div class="offer-actions">
+                  <button
+                    class="btn-view-applicants"
+                    onclick="viewApplicants(1)"
+                  >
+                    View Applicants
+                  </button>
+                  <button
+                    class="btn-edit-offer"
+                    id="openEditOffer"
+                    onclick="editOffer(1)"
+                    data-id="1"
+                  >
+                    Edit
+                  </button>
+                  <button class="btn-delete-offer">
+                    <img src="../assets/img/trash_icon.png" alt="" />
+                  </button>
                 </div>
+              </div>
+
+              <!-- Offer 2 -->
+              <div class="offer-card" data-id="2">
+                <div class="offer-header">
+                  <h3 class="offer-title">Product Manager</h3>
+                  <div class="offer-tags">
+                    <span class="offer-tag hybrid">Hybrid</span>
+                    <span class="offer-tag level">Senior</span>
+                  </div>
+                </div>
+                <div class="offer-details">
+                  <div class="offer-salary">
+                    <strong>Salary:</strong>
+                    <span class="offer-salary-value">$60,000 - $80,000</span>
+                  </div>
+                  <div class="description-offer">
+                    <p class="offer-description">
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Rerum vero facilis quidem quas, dolor dolorum est, soluta
+                      velit optio sapiente blanditiis deserunt saepe quis
+                      deleniti! Corporis tempora animi accusamus assumenda!
+                    </p>
+                  </div>
+                  <div class="offer-stats">
+                    <span class="stat-item-offer">
+                      <strong>8</strong> Applicants
+                    </span>
+                    <span class="stat-item-offer">
+                      <strong>5</strong> Under review
+                    </span>
+                    <span class="stat-item-offer">
+                      <strong>3</strong> Interviews
+                    </span>
+                  </div>
+                </div>
+                <div class="offer-actions">
+                  <button
+                    class="btn-view-applicants"
+                    onclick="viewApplicants(2)"
+                  >
+                    View Applicants
+                  </button>
+                  <button
+                    class="btn-edit-offer"
+                    id="openEditOffer"
+                    onclick="editOffer(2)"
+                    data-id="2"
+                  >
+                    Edit
+                  </button>
+                  <button class="btn-delete-offer">
+                    <img src="../assets/img/trash_icon.png" alt="" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- Recommendations -->
+            <div class="sidebar-section">
+              <h3>Recommendations</h3>
+              <div class="recommendation-card">
+                <p>Complete your company profile to increase visibility</p>
+                <button class="btn-small" onclick="completeProfile()">
+                  Complete
+                </button>
+              </div>
+              <div class="recommendation-card">
+                <p>Review the 5 new pending applications</p>
+                <button class="btn-small" onclick="viewPendingApplications()">
+                  Review
+                </button>
+              </div>
             </div>
 
-            <!-- Sections -->
-            <div class="dashboard-sections">
-                <!-- Active Offers -->
-                <section class="active-offers-section">
-                    <div class="section-header">
-                        <h2>Active Offers</h2>
-                        <button class="btn-create-offer" id="createNewOffer">+ Create New Offer</button>
-                    </div>
-                    
-                    <div class="offer-cards">
-                        <!-- Offer 1 -->
-                        <div class="offer-card">
-                            <div class="offer-header">
-                                <h3>Backend Developer Node.js</h3>
-                                <div class="offer-tags">
-                                    <span class="offer-tag remote">Remote</span>
-                                    <span class="offer-tag level">Mid-level</span>
-                                </div>
-                            </div>
-                            <div class="offer-details">
-                                <div class="offer-salary">
-                                    <strong>Salary:</strong> <span>$50,000 - $70,000</span>
-                                </div>
-                                <div class="description-offer">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vero facilis quidem quas, dolor dolorum est, soluta velit optio sapiente blanditiis deserunt saepe quis deleniti! Corporis tempora animi accusamus assumenda!</p>
-                                </div>
-                                <div class="offer-stats">
-                                    <span class="stat-item-offer">
-                                        <strong>12</strong> Applicants
-                                    </span>
-                                    <span class="stat-item-offer">
-                                        <strong>8</strong> Under review
-                                    </span>
-                                    <span class="stat-item-offer">
-                                        <strong>4</strong> Interviews
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="offer-actions">
-                                <button class="btn-view-applicants" onclick="viewApplicants(1)">View Applicants</button>
-                                <button class="btn-edit-offer" id="openEditOffer" onclick="editOffer(1)">Edit</button>
-                                <button class="btn-delete-offer">
-                                    <img src="../assets/img/trash_icon.png" alt="">
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Offer 2 -->
-                        <div class="offer-card">
-                            <div class="offer-header">
-                                <h3>Product Manager</h3>
-                                <div class="offer-tags">
-                                    <span class="offer-tag hybrid">Hybrid</span>
-                                    <span class="offer-tag level">Senior</span>
-                                </div>
-                            </div>
-                            <div class="offer-details">
-                                <div class="offer-salary">
-                                    <strong>Salary:</strong> <span>$60,000 - $80,000</span>
-                                </div>
-                                <div class="description-offer">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum vero facilis quidem quas, dolor dolorum est, soluta velit optio sapiente blanditiis deserunt saepe quis deleniti! Corporis tempora animi accusamus assumenda!</p>
-                                </div>
-                                <div class="offer-stats">
-                                    <span class="stat-item-offer">
-                                        <strong>8</strong> Applicants
-                                    </span>
-                                    <span class="stat-item-offer">
-                                        <strong>5</strong> Under review
-                                    </span>
-                                    <span class="stat-item-offer">
-                                        <strong>3</strong> Interviews
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="offer-actions">
-                                <button class="btn-view-applicants" onclick="viewApplicants(2)">View Applicants</button>
-                                <button class="btn-edit-offer" id="openEditOffer" onclick="editOffer(2)">Edit</button>
-                                <button class="btn-delete-offer">
-                                    <img src="../assets/img/trash_icon.png" alt="">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Sidebar -->
-                <aside class="sidebar">
-                    <!-- Recommendations -->
-                    <div class="sidebar-section">
-                        <h3>Recommendations</h3>
-                        <div class="recommendation-card">
-                            <p>Complete your company profile to increase visibility</p>
-                            <button class="btn-small" onclick="completeProfile()">Complete</button>
-                        </div>
-                        <div class="recommendation-card">
-                            <p>Review the 5 new pending applications</p>
-                            <button class="btn-small" onclick="viewPendingApplications()">Review</button>
-                        </div>
-                    </div>
-
-                    <!-- Quick Stats -->
-                    <div class="sidebar-section">
-                        <h3>Quick Stats</h3>
-                        <div class="quick-stats">
-                            <div class="quick-stat">
-                                <span class="stat-label">Total Applicants</span>
-                                <span class="stat-value-company">20</span>
-                            </div>
-                            <div class="quick-stat">
-                                <span class="stat-label">Under Review</span>
-                                <span class="stat-value-company">8</span>
-                            </div>
-                            <div class="quick-stat">
-                                <span class="stat-label">Active</span>
-                                <span class="stat-value-company">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
+            <!-- Quick Stats -->
+            <div class="sidebar-section">
+              <h3>Quick Stats</h3>
+              <div class="quick-stats">
+                <div class="quick-stat">
+                  <span class="stat-label">Total Applicants</span>
+                  <span class="stat-value-company">20</span>
+                </div>
+                <div class="quick-stat">
+                  <span class="stat-label">Under Review</span>
+                  <span class="stat-value-company">8</span>
+                </div>
+                <div class="quick-stat">
+                  <span class="stat-label">Active</span>
+                  <span class="stat-value-company">0</span>
+                </div>
+              </div>
             </div>
-        </main>
-
+          </aside>
+        </div>
+      </main>
     </div>
 
-    <!-- Modal New Offer -->
-    <div class="modal__offer" id="modalNewOffer">
-        <div class="modal__offer--content">
-            <form action="" class="modal__offer--form stat-card">
-                <h2>Create your offer job</h2>
-                <div class="work__mode--group">
-                    <h2 class="work__mode--title">Select the employment modality.</h2>
-                    <div class="work__mode--content">
-                        <div class="checkbox__group checkbox__group--remote">
-                            <input type="checkbox" name="remote" id="remoteCheck">
-                            <label for="">Remote</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--onsite">
-                            <input type="checkbox" name="onSite" id="onSiteCheck">
-                            <label for="">On-site</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--hybrid">
-                            <input type="checkbox" name="hybrid" id="hybridCheck">
-                            <label for="">Hybrid</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="work__mode--group">
-                    <h2 class="work__mode--title">We are looking for.</h2>
-                    <div class="work__mode--content">
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="junior" id="remoteCheck">
-                            <label for="">Junior</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="midlevel" id="onSiteCheck">
-                            <label for="">Mid-level</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="senior" id="hybridCheck">
-                            <label for="">Senior</label>
-                        </div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Offer Name">
-                <input type="number" placeholder="Minimum Salary">
-                <input type="number" placeholder="Maximum Salary">
-                <textarea name="offer__description" id="" placeholder="Offer Description"></textarea>
-                <div class="form__group--buttons">
-                    <button id="closeNewOffer">Close</button>
-                    <button>Submit</button>
-                </div>
-            </form>
-        </div>
+    <!-- Modal Create Offer -->
+    <div id="createOfferModal" class="modal-offer">
+      <div class="modal-offer-content">
+        <span class="modal-offer-close" id="closeCreateOffer">&times;</span>
+        <h2>New Job Offer</h2>
+
+        <form id="createOfferForm">
+          <div class="form-row">
+            <div class="form-group form-group-company half">
+              <label for="newJobTitle">Job Title</label>
+              <input type="text" id="newJobTitle" name="newJobTitle" placeholder="e.g. Backend Developer Node.js" required />
+            </div>
+
+            <div class="form-group form-group-compnay half">
+              <label for="newJobSalary">Salary Range</label>
+              <input
+                type="text"
+                id="newJobSalary"
+                name="newJobSalary"
+                required
+                placeholder="e.g. $50,000 - $70,000"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group form-group-company half">
+              <label for="newJobMode">Work Mode</label>
+              <select id="newJobMode" name="newJobMode">
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="onsite">On-site</option>
+              </select>
+            </div>
+
+            <div class="form-group form-group-company half">
+              <label for="newJobLevel">Seniority Level</label>
+              <select id="newJobLevel" name="newJobLevel">
+                <option value="junior">Junior</option>
+                <option value="mid-level">Mid-level</option>
+                <option value="senior">Senior</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group form-group-company">
+            <label for="newJobDescription">Description</label>
+            <textarea
+              id="newJobDescription"
+              name="newJobDescription"
+              rows="5"
+              placeholder="Write a short description about the role, responsibilities and requirements"
+              required
+            ></textarea>
+          </div>
+
+          <div class="modal-offer-actions center">
+            <button type="submit" class="btn-save">Create Offer</button>
+            <button type="button" class="btn-cancel" id="cancelCreateOffer">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Modal Edit Offer -->
-    <div class="modal__offer" id="modalEditOffer">
-        <div class="modal__offer--content">
-            <form action="" class="modal__offer--form stat-card">
-                <h2>Create your offer job</h2>
-                <div class="work__mode--group">
-                    <h2 class="work__mode--title">Select the employment modality.</h2>
-                    <div class="work__mode--content">
-                        <div class="checkbox__group checkbox__group--remote">
-                            <input type="checkbox" name="remote" id="remoteCheck">
-                            <label for="">Remote</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--onsite">
-                            <input type="checkbox" name="onSite" id="onSiteCheck">
-                            <label for="">On-site</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--hybrid">
-                            <input type="checkbox" name="hybrid" id="hybridCheck">
-                            <label for="">Hybrid</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="work__mode--group">
-                    <h2 class="work__mode--title">We are looking for.</h2>
-                    <div class="work__mode--content">
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="junior" id="remoteCheck">
-                            <label for="">Junior</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="midlevel" id="onSiteCheck">
-                            <label for="">Mid-level</label>
-                        </div>
-                        <div class="checkbox__group checkbox__group--level">
-                            <input type="checkbox" name="senior" id="hybridCheck">
-                            <label for="">Senior</label>
-                        </div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Offer Name">
-                <input type="number" placeholder="Minimum Salary">
-                <input type="number" placeholder="Maximum Salary">
-                <textarea name="offer__description" id="" placeholder="Offer Description"></textarea>
-                <div class="form__group--buttons">
-                    <button id="closeEditOffer">Close</button>
-                    <button>Submit</button>
-                </div>
-            </form>
-        </div>
+    <div id="editOfferModal" class="modal-offer">
+      <div class="modal-offer-content">
+        <span class="modal-offer-close" id="closeEditOffer">&times;</span>
+        <h2>Edit Job Offer</h2>
+
+        <form id="editOfferForm">
+          <div class="form-group form-group-company">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" name="jobTitle" required />
+          </div>
+
+          <div class="form-group form-group-company">
+            <label for="jobMode">Work Mode</label>
+            <select id="jobMode" name="jobMode">
+              <option value="remote">Remote</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="onsite">On-site</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-company">
+            <label for="jobLevel">Seniority Level</label>
+            <select id="jobLevel" name="jobLevel">
+              <option value="junior">Junior</option>
+              <option value="mid-level">Mid-level</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-company">
+            <label for="jobSalary">Salary Range</label>
+            <input type="text" id="jobSalary" name="jobSalary" required />
+          </div>
+
+          <div class="form-group form-group-company">
+            <label for="jobDescription">Description</label>
+            <textarea
+              id="jobDescription"
+              name="jobDescription"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <div class="modal-offer-actions">
+            <button type="submit" class="btn-save">Save Changes</button>
+            <button type="button" class="btn-cancel" id="cancelEditOffer">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- External JS -->
     <script src="../js/dashboardCompany.js"></script>
     <script src="../app.js"></script>
-</body>
+  </body>
 </html>
