@@ -1192,6 +1192,15 @@ textarea {
   }
 }
 
+@media (max-width: 500px) {
+
+  .header-actions {
+    display: grid;
+    /* grid-template-columns: 1fr; */
+  }
+}
+
+
 /* ----------------------------------------- */
 /* Specific styles for the company dashboard */
 /* ----------------------------------------- */
