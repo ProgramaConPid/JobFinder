@@ -1209,9 +1209,10 @@ textarea {
 }
 
 .dashboard-company-page {
-  background-color: #f0fff4;
+  background-color: #f0fff4;  
   min-height: 100vh;
 }
+
 
 .dashboard-company-page .dashboard-header {
   background: var(--accent-color);
