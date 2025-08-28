@@ -46,3 +46,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+/*Botón Flotante */ 
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contactFloatingBtn = document.getElementById('contactFloatingBtn');
+  const contactMenu = document.getElementById('contactMenu');
+  const closeMenu = document.getElementById('closeMenu');
+  const overlay = document.getElementById('overlay');
+  
+  // Abrir menú de contacto
+  contactFloatingBtn.addEventListener('click', function() {
+      contactMenu.classList.add('active');
+      overlay.classList.add('active');
+  });
+  
+  // Cerrar menú de contacto
+  closeMenu.addEventListener('click', function() {
+      contactMenu.classList.remove('active');
+      overlay.classList.remove('active');
+  });
+  
+  // Cerrar menú al hacer clic en el overlay
+  overlay.addEventListener('click', function() {
+      contactMenu.classList.remove('active');
+      overlay.classList.remove('active');
+  });
+  
+  // Cerrar menú al hacer clic en una opción (opcional)
+  const contactOptions = document.querySelectorAll('.contact-option');
+  contactOptions.forEach(option => {
+      option.addEventListener('click', function() {
+          // Aquí puedes agregar la funcionalidad específica para cada opción
+          console.log('Opción seleccionada: ' + this.querySelector('h4').textContent);
+          
+          // Cerrar el menú después de seleccionar una opción
+          contactMenu.classList.remove('active');
+          overlay.classList.remove('active');
+      });
+  });
+  
+  // Cerrar menú con la tecla Escape
+  document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+          contactMenu.classList.remove('active');
+          overlay.classList.remove('active');
+      }
+  });
+});
