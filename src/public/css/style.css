@@ -404,7 +404,7 @@ textarea {
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-  color: #228b22;
+  color: var(--green-dark);
   font-size: 1.15rem;
   text-align: left;
 }
@@ -441,7 +441,7 @@ textarea {
 
 .form-group-login-company input:focus,
 .form-group-register-company input:focus {
-  border-color: #32cd32;
+  border-color: var(--green);
   outline: none;
   box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
   background: white;
@@ -647,11 +647,11 @@ textarea {
 }
 
 .login-company-page .form-group label {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .login-company-page .form-group input:focus {
-  border-color: #228b22;
+  border-color: var(--green-dark);
   box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
 }
 
@@ -665,15 +665,15 @@ textarea {
 }
 
 .login-company-page .login-footer a {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .login-company-page .login-footer a:hover {
-  color: #32cd32;
+  color: var(--green);
 }
 
 .login-company-page .back-button a:hover {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 /* -------------------------------------------------- */
@@ -691,11 +691,11 @@ textarea {
 }
 
 .register-company-page .form-group label {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .register-company-page .form-group input:focus {
-  border-color: #228b22;
+  border-color: var(--green-dark);
   box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.15);
 }
 
@@ -709,15 +709,15 @@ textarea {
 }
 
 .register-company-page .register-footer a {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 .register-company-page .register-footer a:hover {
-  color: #32cd32;
+  color: var(--green);
 }
 
 .register-company-page .back-button a:hover {
-  color: #228b22;
+  color: var(--green-dark);
 }
 
 /* ------------------------------- */
@@ -952,7 +952,7 @@ textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -1078,7 +1078,6 @@ textarea {
   }
 }
 
-
 .btn-apply,
 .btn-view {
   padding: 12px 24px;
@@ -1193,13 +1192,11 @@ textarea {
 }
 
 @media (max-width: 500px) {
-
   .header-actions {
     display: grid;
     /* grid-template-columns: 1fr; */
   }
 }
-
 
 /* ----------------------------------------- */
 /* Specific styles for the company dashboard */
@@ -1209,10 +1206,9 @@ textarea {
 }
 
 .dashboard-company-page {
-  background-color: #f0fff4;  
+  background-color: #f0fff4;
   min-height: 100vh;
 }
-
 
 .dashboard-company-page .dashboard-header {
   background: var(--accent-color);
@@ -1403,6 +1399,12 @@ textarea {
   border: 1px solid #b8daff;
 }
 
+.offer-tag.on-site {
+  color: var(--onsite-color);
+  background-color: var(--onsite-color-bg);
+  border: 1px solid #b8daff;
+}
+
 .offer-details {
   margin-bottom: 25px;
 }
@@ -1432,7 +1434,7 @@ textarea {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   animation: fadeIn 0.3s ease;
   overflow: hidden;
 }
@@ -1441,12 +1443,32 @@ textarea {
   background: #fff;
   margin: 5% auto;
   padding: 30px;
-  border-radius: 16px;
+  border-radius: 12px;
   width: 90%;
   max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   border-left: 4px solid var(--green-dark);
   animation: slideUp 0.3s ease;
+}
+  
+.modal-offer-content::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-offer-content::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 16px;
+}
+.modal-offer-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+}
+
+@media (width <= 500px) {
+  .modal-offer-content {
+    max-height: 100vh;
+  }
 }
 
 .modal-offer h2 {
@@ -1505,7 +1527,9 @@ textarea {
   background: #f1fdf1;
 }
 
-/* --- Animaciones --- */
+/* ----------------------- */
+/* Modal window animations */
+/* ----------------------- */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1519,26 +1543,46 @@ textarea {
 /* modal input animation */
 /* --------------------- */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ---------------------- */
 /* modal output animation */
 /* ---------------------- */
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes slideDown {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(50px); opacity: 0; }
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 }
 
 /* ----------------------------- */
@@ -1564,7 +1608,6 @@ textarea {
   animation: slideDown 0.3s ease forwards;
 }
 
-
 .form-row {
   display: flex;
   gap: 16px;
@@ -1578,7 +1621,6 @@ textarea {
   justify-content: center;
 }
 
-
 .stat-item-offer {
   background: #f8f9fa;
   padding: 12px 20px;
@@ -1588,7 +1630,7 @@ textarea {
 }
 
 .stat-item-offer strong {
-  color: #228b22;
+  color: var(--green-dark);
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -1648,7 +1690,7 @@ textarea {
   padding: 25px;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid #228b22;
+  border-left: 4px solid var(--green-dark);
 }
 
 .sidebar-section h3 {
@@ -1863,12 +1905,12 @@ textarea {
   align-items: center;
   margin-bottom: 16px;
   padding: 10px 0;
-  border-bottom: 1.5px solid #e2e8f0; 
+  border-bottom: 1.5px solid #e2e8f0;
   transition: background-color 0.3s ease;
 }
 
 .stat-item:last-child {
-  border-bottom: none; 
+  border-bottom: none;
 }
 
 .stat-item:hover {
@@ -2086,7 +2128,7 @@ textarea {
 /* Profile company page styles */
 /*-----------------------------*/
 .profile-header-company {
-  background: #32cd32;
+  background: var(--green);
   padding: 20px;
   text-align: center;
   color: white;
@@ -2279,7 +2321,7 @@ form-section-company {
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border-left: 5px solid #32cd32;
+  border-left: 5px solid var(--green);
   transition: transform 0.3s ease;
 }
 
@@ -2297,7 +2339,7 @@ form-section-company {
 .stat-number-company {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #32cd32;
+  color: var(--green);
   margin-bottom: 10px;
 }
 
@@ -2309,7 +2351,6 @@ form-section-company {
   font-size: 0.95rem;
   color: #2d3748;
 }
-
 
 /* side navigation bar*/
 
@@ -2347,15 +2388,6 @@ form-section-company {
   line-height: 1.5;
 }
 
-/* .contact-floating-btn{
-  background-color: var(--dark-bg);
-  color: #228b22;
-} */
-
-/* .span-contact img{
-  width: 25px;
-  background-color: ;
-} */
 
 button {
   background: #2d5b88;
@@ -2367,8 +2399,6 @@ button {
   cursor: pointer;
   transition: background 0.3s;
 }
-
-
 
 /* Estilos para el botón flotante de contacto */
 .contact-floating-btn {
@@ -2389,12 +2419,12 @@ button {
 }
 
 .contact-floating-btn:hover {
-  background:var(--dark-bg);
+  background: var(--dark-bg);
   transform: translateY(-10px);
 }
 
 .contact-floating-btn {
-  width: 100px;     /* o el tamaño que desees */
+  width: 100px; /* o el tamaño que desees */
   height: 100px;
   overflow: hidden;
 }
@@ -2402,9 +2432,8 @@ button {
 .contact-floating-btn img {
   width: 100%;
   height: 100%;
-  object-fit: contain; 
+  object-fit: contain;
 }
-
 
 .contact-icon {
   font-size: 1.5rem;
@@ -2506,15 +2535,20 @@ button {
   visibility: visible;
 }
 
-footer {
-  height: 80px;
+/* style="text-align:center; padding: 1em; ; ; background-color: #f9f9f9;" */
+
+.contact-menu footer {
+  color: #666;
   background: white;
   position: relative;
   align-items: center;
+  font-size: 0.7em;
+  padding: 1em;
+  text-align: center;
   /* width: 60px; */
 }
 
-footer::before {
+.contact-menu footer::before {
   content: "";
   position: absolute;
   top: 0;
@@ -2524,39 +2558,40 @@ footer::before {
   background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
   .profile-selection {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .contact-menu {
-      width: 300px;
-      right: 15px;
+    width: 300px;
+    right: 15px;
   }
-  
+
   .contact-floating-btn {
-      right: 15px;
-      bottom: 15px;
+    right: 15px;
+    bottom: 15px;
   }
 }
 
 @media (max-width: 480px) {
   header h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
-  
+
   .contact-menu {
-      width: calc(100% - 30px);
+    width: calc(100% - 30px);
   }
-  
+
   .contact-floating-btn span {
-      display: none;
+    display: none;
   }
-  
+
   .contact-floating-btn {
+      height: 60px;
+      width: 60px;
       padding: 15px;
   }
 }
@@ -2568,3 +2603,117 @@ footer::before {
 .warn-msg { color: #b06a00; }
 .error-msg { color: #b00020; }
 .no-offers { opacity: .8; }
+
+  .contact-floating-btn img {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    right: 6px;
+  }
+}
+
+
+/* -------------------------------------------------- */
+/* Dark mode variables y overrides (pegar al final)  */
+/* -------------------------------------------------- */
+
+/* Variables por defecto (si quieres puedes ajustar) */
+:root {
+  --card-bg: #ffffff;
+  --card-border: rgba(0,0,0,0.05);
+  --page-bg: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
+  --text-color: #333333;
+  --muted-text: #6b7280;
+}
+
+/* Estilos cuando el body tiene la clase dark-theme */
+body.dark-theme {
+  /* fondo de página (sustituye el gradient claro) */
+  background: linear-gradient(135deg, #071027 0%, #0b1530 100%) !important;
+  color: #e6eef6; /* color base de texto */
+}
+
+/* Aseguramos que los bloques principales cambien */
+body.dark-theme .option-card,
+body.dark-theme .login-container,
+body.dark-theme .contact-menu {
+  background-color: #0f1722;         /* fondo de tarjetas en dark */
+  color: #e6eef6;                    /* texto en tarjetas */
+  border-color: rgba(255,255,255,0.04);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+}
+
+/* Textos secundarios */
+body.dark-theme .header__subtitle,
+body.dark-theme .option-card p,
+body.dark-theme p,
+body.dark-theme .muted {
+  color: #9aa3ad;
+}
+
+/* Botones primarios — en tu CSS ya usan var(--primary-color),
+   aquí solo ajustamos contraste si hace falta */
+body.dark-theme .btn-primary {
+  color: #0b0b0b;
+  /* si quieres otro background distinto, descomenta y ajusta: */
+  /* background: linear-gradient(135deg,#7a3cff,#32cd32); */
+}
+
+/* Botón Dark Mode (solo icono arriba a la derecha) */
+.btn-toggle-theme {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: transparent;  /* sin fondo */
+  color: var(--text-color); /* se adapta al tema */
+  border: none;
+  font-size: 1.5rem;        /* tamaño del icono */
+  cursor: pointer;
+  z-index: 2000;
+  transition: transform 0.15s ease;
+}
+
+.btn-toggle-theme:hover {
+  transform: scale(1.2);   /* efecto al pasar el mouse */
+}
+
+/* Texto base */
+.option-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color); /* gris oscuro en modo claro */
+  transition: color 0.4s ease;
+}
+
+/* Dark Mode */
+body.dark-theme .option-card.applicant h2 {
+  color: var(--primary-color); /* morado */
+}
+
+body.dark-theme .option-card.company h2 {
+  color: var(--green); /* verde */
+}
+
+
+
+body.dark-theme .contact-floating-btn {
+  background: #181c2a; 
+  box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+  border: 1px solid #23263a;
+  color: #e6eef6;
+  transition: all 0.3s ease;
+}
+
+body.dark-theme .contact-floating-btn:hover {
+  background: #23263a;
+  transform: translateY(-10px);
+} 
+
+body.dark-theme .contact-menu footer {
+  color: #9aa3ad;
+  background: #0f1722;
+}
+
+body.dark-theme .contact-option h4 a {
+  color: #7a3cff;
+}

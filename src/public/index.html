@@ -41,30 +41,32 @@
       </header>
 
       <!-- Main Content - Welcome page -->
-      <main class="options-container">
-        <div class="option-card" id="applicant-card">
-          <div class="card-content">
-            <h2 class="card-content-title">I am an Applicant</h2>
-            <p class="card-content-paragraph">
-              I’m looking for job opportunities and want to connect with
-              companies
-            </p>
-            <button class="btn-primary" onclick="selectRole('applicant')">
-              Continue as Applicant
-            </button>
-          </div>
-        </div>
+<main class="options-container">
+  <div class="option-card applicant" id="applicant-card">
+    <div class="card-content">
+      <h2 class="card-content-title">I am an Applicant</h2>
+      <p class="card-content-paragraph">
+        I’m looking for job opportunities and want to connect with companies
+      </p>
+      <button class="btn-primary" onclick="selectRole('applicant')">
+        Continue as Applicant
+      </button>
+    </div>
+  </div>
 
-        <div class="option-card" id="company-card">
-          <div class="card-content">
-            <h2 class="card-content-title">I am a Company</h2>
-            <p class="card-content-paragraph">I post job offers and look for the best talent</p>
-            <button class="btn-primary" onclick="selectRole('company')">
-              Continue as Company
-            </button>
-          </div>
-        </div>
-      </main>
+  <div class="option-card company" id="company-card">
+    <div class="card-content">
+      <h2 class="card-content-title">I am a Company</h2>
+      <p class="card-content-paragraph">
+        I post job offers and look for the best talent
+      </p>
+      <button class="btn-primary" onclick="selectRole('company')">
+        Continue as Company
+      </button>
+    </div>
+  </div>
+</main>
+
     </div>
 
     <!-- Botón flotante de contacto -->
@@ -121,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <footer style="text-align:center; padding: 1em; font-size: 0.9em; color: #666; background-color: #f9f9f9;">
+        <footer>
           © 2025 JobFinder. All rights reserved — We don’t just help you find work, we help you find purpose.
         </footer>        
     </div>
@@ -131,5 +133,11 @@
 
     <!-- Script JS -->
     <script src="./app.js"></script>
+
+    <script src="./js/theme.js"></script>
+
+    <!-- Button Dark Mode -->
+<button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
+
   </body>
 </html>
