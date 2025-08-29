@@ -1452,7 +1452,7 @@ textarea {
   border-left: 4px solid var(--green-dark);
   animation: slideUp 0.3s ease;
 }
-  
+
 .modal-offer-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -2388,7 +2388,6 @@ form-section-company {
   line-height: 1.5;
 }
 
-
 button {
   background: #2d5b88;
   color: white;
@@ -2590,28 +2589,31 @@ button {
   }
 
   .contact-floating-btn {
-      height: 60px;
-      width: 60px;
-      padding: 15px;
+    height: 60px;
+    width: 60px;
+    padding: 15px;
   }
 }
 
-
-.form-msg { font-size: 0.9rem; margin-top: 6px; }
-.form-msg.error { color: #b00020; }
-.form-msg.ok { color: #0a7a0a; }
-.warn-msg { color: #b06a00; }
-.error-msg { color: #b00020; }
-.no-offers { opacity: .8; }
-
-  .contact-floating-btn img {
-    height: 40px;
-    width: 40px;
-    position: relative;
-    right: 6px;
-  }
+.form-msg {
+  font-size: 0.9rem;
+  margin-top: 6px;
 }
-
+.form-msg.error {
+  color: #b00020;
+}
+.form-msg.ok {
+  color: #0a7a0a;
+}
+.warn-msg {
+  color: #b06a00;
+}
+.error-msg {
+  color: #b00020;
+}
+.no-offers {
+  opacity: 0.8;
+}
 
 /* -------------------------------------------------- */
 /* Dark mode variables y overrides (pegar al final)  */
@@ -2620,7 +2622,7 @@ button {
 /* Variables por defecto (si quieres puedes ajustar) */
 :root {
   --card-bg: #ffffff;
-  --card-border: rgba(0,0,0,0.05);
+  --card-border: rgba(0, 0, 0, 0.05);
   --page-bg: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
   --text-color: #333333;
   --muted-text: #6b7280;
@@ -2637,10 +2639,10 @@ body.dark-theme {
 body.dark-theme .option-card,
 body.dark-theme .login-container,
 body.dark-theme .contact-menu {
-  background-color: #0f1722;         /* fondo de tarjetas en dark */
-  color: #e6eef6;                    /* texto en tarjetas */
-  border-color: rgba(255,255,255,0.04);
-  box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+  background-color: #0f1722; /* fondo de tarjetas en dark */
+  color: #e6eef6; /* texto en tarjetas */
+  border-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
 }
 
 /* Textos secundarios */
@@ -2664,17 +2666,17 @@ body.dark-theme .btn-primary {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: transparent;  /* sin fondo */
+  background: transparent; /* sin fondo */
   color: var(--text-color); /* se adapta al tema */
   border: none;
-  font-size: 1.5rem;        /* tamaño del icono */
+  font-size: 1.5rem; /* tamaño del icono */
   cursor: pointer;
   z-index: 2000;
   transition: transform 0.15s ease;
 }
 
 .btn-toggle-theme:hover {
-  transform: scale(1.2);   /* efecto al pasar el mouse */
+  transform: scale(1.2); /* efecto al pasar el mouse */
 }
 
 /* Texto base */
@@ -2694,11 +2696,9 @@ body.dark-theme .option-card.company h2 {
   color: var(--green); /* verde */
 }
 
-
-
 body.dark-theme .contact-floating-btn {
-  background: #181c2a; 
-  box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+  background: #181c2a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
   border: 1px solid #23263a;
   color: #e6eef6;
   transition: all 0.3s ease;
@@ -2707,7 +2707,7 @@ body.dark-theme .contact-floating-btn {
 body.dark-theme .contact-floating-btn:hover {
   background: #23263a;
   transform: translateY(-10px);
-} 
+}
 
 body.dark-theme .contact-menu footer {
   color: #9aa3ad;
