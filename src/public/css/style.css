@@ -2560,3 +2560,88 @@ footer::before {
       padding: 15px;
   }
 }
+
+
+/* -------------------------------------------------- */
+/* Dark mode variables y overrides (pegar al final)  */
+/* -------------------------------------------------- */
+
+/* Variables por defecto (si quieres puedes ajustar) */
+:root {
+  --card-bg: #ffffff;
+  --card-border: rgba(0,0,0,0.05);
+  --page-bg: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
+  --text-color: #333333;
+  --muted-text: #6b7280;
+}
+
+/* Estilos cuando el body tiene la clase dark-theme */
+body.dark-theme {
+  /* fondo de página (sustituye el gradient claro) */
+  background: linear-gradient(135deg, #071027 0%, #0b1530 100%) !important;
+  color: #e6eef6; /* color base de texto */
+}
+
+/* Aseguramos que los bloques principales cambien */
+body.dark-theme .option-card,
+body.dark-theme .login-container,
+body.dark-theme .contact-menu {
+  background-color: #0f1722;         /* fondo de tarjetas en dark */
+  color: #e6eef6;                    /* texto en tarjetas */
+  border-color: rgba(255,255,255,0.04);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+}
+
+/* Textos secundarios */
+body.dark-theme .header__subtitle,
+body.dark-theme .option-card p,
+body.dark-theme p,
+body.dark-theme .muted {
+  color: #9aa3ad;
+}
+
+/* Botones primarios — en tu CSS ya usan var(--primary-color),
+   aquí solo ajustamos contraste si hace falta */
+body.dark-theme .btn-primary {
+  color: #0b0b0b;
+  /* si quieres otro background distinto, descomenta y ajusta: */
+  /* background: linear-gradient(135deg,#7a3cff,#32cd32); */
+}
+
+/* Botón Dark Mode (solo icono arriba a la derecha) */
+.btn-toggle-theme {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: transparent;  /* sin fondo */
+  color: var(--text-color); /* se adapta al tema */
+  border: none;
+  font-size: 1.5rem;        /* tamaño del icono */
+  cursor: pointer;
+  z-index: 2000;
+  transition: transform 0.15s ease;
+}
+
+.btn-toggle-theme:hover {
+  transform: scale(1.2);   /* efecto al pasar el mouse */
+}
+
+/* Texto base */
+.option-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color); /* gris oscuro en modo claro */
+  transition: color 0.4s ease;
+}
+
+/* Dark Mode */
+body.dark-theme .option-card.applicant h2 {
+  color: var(--primary-color); /* morado */
+}
+
+body.dark-theme .option-card.company h2 {
+  color: var(--green); /* verde */
+}
+
+
+
