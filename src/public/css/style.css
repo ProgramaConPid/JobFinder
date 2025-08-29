@@ -2717,3 +2717,23 @@ body.dark-theme .contact-menu footer {
 body.dark-theme .contact-option h4 a {
   color: #7a3cff;
 }
+
+
+/* --------------------------------- */
+/* Change Language */
+.btn-toggle-language {
+  position: absolute;
+  top: 22px;
+  right: 80px; /* justo a la izquierda del botón de modo oscuro */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* tamaño del emoji */
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.btn-toggle-language:hover {
+  transform: scale(1.2);
+}
+
