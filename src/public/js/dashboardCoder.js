@@ -152,3 +152,65 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+// === Datos reales para Applicant (solo añade esto al final) ===
+(async function cargarOfertasParaApplicant() {
+  const possibleSelectors = [
+    '.job-offers-section .job-cards',
+    '.job-cards',
+    '#jobs-list',
+    '.offers-list',
+    '#offers'
+  ];
+  let contenedor = null;
+  for (const sel of possibleSelectors) {
+    const el = document.querySelector(sel);
+    if (el) { contenedor = el; break; }
+  }
+  if (!contenedor) return;
+
+  try {
+    const res = await fetch('/api/offers');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const offers = await res.json();
+
+    contenedor.innerHTML = '';
+    if (!Array.isArray(offers) || offers.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'no-offers';
+      empty.textContent = 'No hay ofertas disponibles por ahora.';
+      contenedor.appendChild(empty);
+      return;
+    }
+
+    offers.forEach(o => {
+      const card = document.createElement('div');
+      card.className = 'job-card';
+      const salaryText = (o.salary_min || o.salary_max)
+        ? `${o.salary_min ?? ''}${o.salary_min && o.salary_max ? ' - ' : ''}${o.salary_max ?? ''}`
+        : 'A convenir';
+
+      card.innerHTML = `
+        <div class="job-card__header">
+          <h3 class="job-title">${o.title}</h3>
+          <span class="job-badge">${o.modality}</span>
+          <span class="job-badge">${o.level}</span>
+        </div>
+        <div class="job-card__meta">
+          <span class="job-company">${o.company_name ?? ''}</span>
+          <span class="job-location">${o.location}</span>
+          <span class="job-salary">${salaryText}</span>
+        </div>
+        <div class="job-card__body">
+          <p class="job-desc">${o.description}</p>
+        </div>
+        <div class="job-card__footer">
+          ${o.created_at ? `<span class="job-date">${new Date(o.created_at).toLocaleDateString()}</span>` : ''}
+          <button class="btn btn-apply" data-id="${o.id}">Ver</button>
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+  } catch (err) {
+    console.error('[ApplicantDashboard] Error cargando ofertas:', err);
+  }
+})();

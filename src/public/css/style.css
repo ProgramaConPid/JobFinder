@@ -2594,6 +2594,15 @@ button {
       width: 60px;
       padding: 15px;
   }
+}
+
+
+.form-msg { font-size: 0.9rem; margin-top: 6px; }
+.form-msg.error { color: #b00020; }
+.form-msg.ok { color: #0a7a0a; }
+.warn-msg { color: #b06a00; }
+.error-msg { color: #b00020; }
+.no-offers { opacity: .8; }
 
   .contact-floating-btn img {
     height: 40px;

@@ -1,77 +1,70 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('companyLoginForm');
-    
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('companyEmail').value;
-            const password = document.getElementById('companyPassword').value;
-            
-            // Basic validation
-            if (!email || !password) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Error',
-                    text: 'Please fill in all fields',
-                });
-                return;
-            }
-            
-            // Email format validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Email',
-                    text: 'Please enter a valid email address',
-                });
-                return;
-            }
-            
-            // Simulate company login
-            loginCompany(email, password);
-        });
+// src/public/js/loginCompany.js
+// Login de Company con bloqueo si el email no existe o la password es incorrecta.
+// Guarda company_id en localStorage SOLO cuando el backend responde 200.
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Evita entrar “por accidente” con un company_id previo
+  localStorage.removeItem('company_id');
+
+  const form = document.getElementById('companyLoginForm');
+  if (!form) return;
+
+  const emailEl = form.querySelector('#companyEmail, [name="companyEmail"], input[type="email"]');
+  const passEl  = form.querySelector('#companyPassword, [name="companyPassword"], input[type="password"]');
+
+  // Zona de mensajes (usa Swal si está disponible; fallback a texto)
+  let msg = document.getElementById('loginCompanyMsg');
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.id = 'loginCompanyMsg';
+    msg.style.marginTop = '8px';
+    form.appendChild(msg);
+  }
+  const showMsg = (t, ok = false) => {
+    if (window.Swal) {
+      Swal.fire({ icon: ok ? 'success' : 'error', title: ok ? 'OK' : 'Error', text: t });
+    } else {
+      msg.textContent = t;
+      msg.className = ok ? 'form-msg ok' : 'form-msg error';
     }
-    
-    // Function to simulate company login process
-    function loginCompany(email, password) {
-        // Show loading state
-        const loginButton = document.querySelector('.company-btn');
-        const originalText = loginButton.textContent;
-        loginButton.textContent = 'Signing in...';
-        loginButton.disabled = true;
-        
-        // Simulate server request
-        setTimeout(() => {
-            // Normally you would send a request to your backend here
-            console.log('Attempting company login with:', { email, password });
-            
-            // Simulate successful login
-            Swal.fire({
-                icon: 'success',
-                title: 'Login Successful',
-                text: 'Redirecting to your dashboard...',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                // Redirect to company dashboard (simulated)
-                window.location.href = 'dashboardCompany.html';
-            });
-            
-            // Restore button (in case of error)
-            loginButton.textContent = originalText;
-            loginButton.disabled = false;
-        }, 1500);
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = (emailEl?.value || '').trim();
+    const password = passEl?.value || '';
+    if (!email || !password) { showMsg('Por favor ingresa email y contraseña.'); return; }
+
+    try {
+      const res = await fetch('/api/auth/company/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        // Backend: 'El correo no está registrado' o 'Contraseña incorrecta'
+        showMsg(data.error || 'Credenciales inválidas');
+        return; // ⛔ no redirigir
+      }
+
+      // ✅ OK
+      localStorage.setItem('company_id', String(data.id));
+      window.location.href = '/views/dashboardCompany.html';
+    } catch (err) {
+      console.error('[loginCompany] Error:', err);
+      showMsg('Error de red. Intenta nuevamente.');
     }
-    
-    // Accessibility improvement: allow form submission with Enter key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA') {
-            const loginForm = document.getElementById('companyLoginForm');
-            if (loginForm && loginForm.contains(document.activeElement)) {
-                loginForm.dispatchEvent(new Event('submit'));
-            }
-        }
-    });
+  });
+
+  // Enviar con Enter SOLO si el foco está dentro del form
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA') {
+      if (form.contains(document.activeElement)) {
+        form.dispatchEvent(new Event('submit'));
+      }
+    }
+  });
 });
