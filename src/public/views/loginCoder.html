@@ -19,7 +19,8 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>JobFinder - Applicant Login</title>
+    <!-- Data-i18n en title para que cambie también el título de la pestaña -->
+    <title data-i18n="login.title">JobFinder - Applicant Login</title>
 </head>
 <body class="login-page">
     <div class="login-container">
@@ -32,48 +33,58 @@
                     alt="Buildings Icon"
                 />
             </figure>
-            <h2 class="login__title login__title--applicants">Applicants</h2>
-            <p>Log in to access your account</p>
+            <!-- header title y subtitle traducibles -->
+            <h2 class="login__title login__title--applicants" data-i18n="login.header">Applicants</h2>
+            <p data-i18n="login.subtitle">Log in to access your account</p>
         </header>
         
         <!-- Login Form -->
         <main class="login-form">
             <form id="coderLoginForm">
                 <div class="form-group-login">
-                    <label for="email">Email Address</label>
+                    <!-- label traducible -->
+                    <label for="email" data-i18n="login.emailLabel">Email Address</label>
                     <div class="input-with-icon">
                         <img src="../assets/img/email_violet.png" alt="email icon" class="input-icon-left">
-                        <input type="email" id="email"  placeholder="your@email.com" required>
+                        <!-- placeholder traducible via data-i18n + data-i18n-attr="placeholder" -->
+                        <input type="email" id="email" placeholder="your@email.com"
+                               data-i18n="login.emailPlaceholder" data-i18n-attr="placeholder" required>
                     </div>
                 </div>
                 
                 <div class="form-group-login">
-                    <label for="password">Password</label>
+                    <label for="password" data-i18n="login.passwordLabel">Password</label>
                     <div class="input-with-icon">
                         <img src="../assets/img/lock_violet.png" alt="lock icon" class="input-icon-left">
-                        <input type="password" id="password" placeholder="••••••••••" required>
+                        <input type="password" id="password" placeholder="••••••••••"
+                               data-i18n="login.passwordPlaceholder" data-i18n-attr="placeholder" required>
                     </div>
                 </div>
                 
-                <button type="submit" class="btn-login">Log In</button>
+                <button type="submit" class="btn-login" data-i18n="login.button">Log In</button>
             </form>
             
             <!-- Footer with register redirect -->
             <div class="login-footer">
-                <p>Don't have an account? <a href="./registerCoder.html">Sign Up</a></p>
+                <p>
+                  <span data-i18n="login.noAccount">Don't have an account?</span>
+                  <a href="./registerCoder.html" data-i18n="login.signUp">Sign Up</a>
+                </p>
             </div>
         </main>
         
-        <!-- Back button -->
+        <!-- Back button: el texto está en un span para no borrar el icono al traducir -->
         <div class="back-button">
-            <a href="../index.html"> <i class='bxr  bx-arrow-left-stroke-square'  ></i>  Back to Home</a>
+            <a href="../index.html"> <i class='bxr  bx-arrow-left-stroke-square'  ></i>
+              <span data-i18n="login.back">Back to Home</span>
+            </a>
         </div>
     </div>
 
-    <!-- External JS -->
+    <!-- External JS (mantén el orden: loginCoder.js, theme, language) -->
     <script src="../js/loginCoder.js"></script>
-
     <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
 
     <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
 </body>

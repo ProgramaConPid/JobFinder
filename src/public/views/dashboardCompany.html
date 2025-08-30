@@ -22,21 +22,21 @@
       type="image/x-icon"
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>JobFinder - Company Dashboard</title>
+    <title data-i18n="dashboardCompany.title">JobFinder - Company Dashboard</title>
   </head>
   <body class="dashboard-company-page">
     <div class="dashboard-container">
       <!-- Header -->
       <header class="dashboard-header">
         <div class="header-content">
-          <h1>Company Dashboard</h1>
-          <p>Manage your job offers and review applicants</p>
+          <h1 data-i18n="dashboardCompany.header">Company Dashboard</h1>
+          <p data-i18n="dashboardCompany.subtitle">Manage your job offers and review applicants</p>
         </div>
         <div class="header-actions">
-          <span class="user-info">Hello, TechCorp</span>
+          <span class="user-info" data-i18n="dashboardCompany.userInfo">Hello, TechCorp</span>
 
-          <a class="btn-profile" href="./profileCompany.html">Profile</a>
-          <button class="btn-logout" onclick="logout()">Log Out</button>
+          <a class="btn-profile" href="./profileCompany.html" data-i18n="dashboardCompany.profile">Profile</a>
+          <button class="btn-logout" onclick="logout()" data-i18n="dashboardCompany.logout">Log Out</button>
         </div>
       </header>
 
@@ -45,19 +45,19 @@
         <!-- Stats Cards -->
         <div class="stats-cards">
           <div class="stat-card">
-            <h3>Active Offers</h3>
+            <h3 data-i18n="dashboardCompany.activeOffers">Active Offers</h3>
             <span class="stat-number">2</span>
-            <p class="stat-label">My Offers</p>
+            <p class="stat-label" data-i18n="dashboardCompany.myOffers">My Offers</p>
           </div>
           <div class="stat-card">
-            <h3>New Applications</h3>
+            <h3 data-i18n="dashboardCompany.newApplications">New Applications</h3>
             <span class="stat-number">20</span>
-            <p class="stat-label">Applicants</p>
+            <p class="stat-label" data-i18n="dashboardCompany.applicants">Applicants</p>
           </div>
           <div class="stat-card">
-            <h3>Company Profile</h3>
+            <h3 data-i18n="dashboardCompany.companyProfile">Company Profile</h3>
             <span class="stat-number">90%</span>
-            <p class="stat-label">Completed</p>
+            <p class="stat-label" data-i18n="dashboardCompany.completed">Completed</p>
           </div>
         </div>
 
@@ -66,8 +66,8 @@
           <!-- Active Offers -->
           <section class="active-offers-section">
             <div class="section-header">
-              <h2>Active Offers</h2>
-              <button class="btn-create-offer" id="createNewOffer">
+              <h2 data-i18n="dashboardCompany.activeOffersSection">Active Offers</h2>
+              <button class="btn-create-offer" id="createNewOffer" data-i18n="dashboardCompany.createOffer">
                 + Create New Offer
               </button>
             </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="offer-details">
                   <div class="offer-salary">
-                    <strong>Salary:</strong>
+                    <strong data-i18n="dashboardCompany.salary">Salary:</strong>
                     <span class="offer-salary-value">$50,000 - $70,000</span>
                   </div>
                   <div class="description-offer">
@@ -97,7 +97,7 @@
                   </div>
                   <div class="offer-stats">
                     <span class="stat-item-offer">
-                      <strong>12</strong> Applicants
+                      <strong>12</strong> <span data-i18n="dashboardCompany.applicants">Applicants</span>
                     </span>
                     <span class="stat-item-offer">
                       <strong>8</strong> Under review
@@ -111,6 +111,7 @@
                   <button
                     class="btn-view-applicants"
                     onclick="viewApplicants(1)"
+                    data-i18n="dashboardCompany.viewApplicants"
                   >
                     View Applicants
                   </button>
@@ -119,11 +120,12 @@
                     id="openEditOffer"
                     onclick="editOffer(1)"
                     data-id="1"
+                    data-i18n="dashboardCompany.edit"
                   >
                     Edit
                   </button>
                   <button class="btn-delete-offer">
-                    <img src="../assets/img/trash_icon.png" alt="" />
+                    <img src="../assets/img/trash_icon.png" alt="Delete" />
                   </button>
                 </div>
               </div>
@@ -139,7 +141,7 @@
                 </div>
                 <div class="offer-details">
                   <div class="offer-salary">
-                    <strong>Salary:</strong>
+                    <strong data-i18n="dashboardCompany.salary">Salary:</strong>
                     <span class="offer-salary-value">$60,000 - $80,000</span>
                   </div>
                   <div class="description-offer">
@@ -152,7 +154,7 @@
                   </div>
                   <div class="offer-stats">
                     <span class="stat-item-offer">
-                      <strong>8</strong> Applicants
+                      <strong>8</strong> <span data-i18n="dashboardCompany.applicants">Applicants</span>
                     </span>
                     <span class="stat-item-offer">
                       <strong>5</strong> Under review
@@ -166,6 +168,7 @@
                   <button
                     class="btn-view-applicants"
                     onclick="viewApplicants(2)"
+                    data-i18n="dashboardCompany.viewApplicants"
                   >
                     View Applicants
                   </button>
@@ -174,11 +177,12 @@
                     id="openEditOffer"
                     onclick="editOffer(2)"
                     data-id="2"
+                    data-i18n="dashboardCompany.edit"
                   >
                     Edit
                   </button>
                   <button class="btn-delete-offer">
-                    <img src="../assets/img/trash_icon.png" alt="" />
+                    <img src="../assets/img/trash_icon.png" alt="Delete" />
                   </button>
                 </div>
               </div>
@@ -189,16 +193,16 @@
           <aside class="sidebar">
             <!-- Recommendations -->
             <div class="sidebar-section">
-              <h3>Recommendations</h3>
+              <h3 data-i18n="dashboardCompany.recommendations">Recommendations</h3>
               <div class="recommendation-card">
-                <p>Complete your company profile to increase visibility</p>
-                <button class="btn-small" onclick="completeProfile()">
+                <p data-i18n="dashboardCompany.completeProfileText">Complete your company profile to increase visibility</p>
+                <button class="btn-small" onclick="completeProfile()" data-i18n="dashboardCompany.complete">
                   Complete
                 </button>
               </div>
               <div class="recommendation-card">
-                <p>Review the 5 new pending applications</p>
-                <button class="btn-small" onclick="viewPendingApplications()">
+                <p data-i18n="dashboardCompany.reviewApplicationsText">Review the 5 new pending applications</p>
+                <button class="btn-small" onclick="viewPendingApplications()" data-i18n="dashboardCompany.review">
                   Review
                 </button>
               </div>
@@ -206,18 +210,18 @@
 
             <!-- Quick Stats -->
             <div class="sidebar-section">
-              <h3>Quick Stats</h3>
+              <h3 data-i18n="dashboardCompany.quickStats">Quick Stats</h3>
               <div class="quick-stats">
                 <div class="quick-stat">
-                  <span class="stat-label">Total Applicants</span>
+                  <span class="stat-label" data-i18n="dashboardCompany.totalApplicants">Total Applicants</span>
                   <span class="stat-value-company">20</span>
                 </div>
                 <div class="quick-stat">
-                  <span class="stat-label">Under Review</span>
+                  <span class="stat-label" data-i18n="dashboardCompany.underReview">Under Review</span>
                   <span class="stat-value-company">8</span>
                 </div>
                 <div class="quick-stat">
-                  <span class="stat-label">Active</span>
+                  <span class="stat-label" data-i18n="dashboardCompany.active">Active</span>
                   <span class="stat-value-company">0</span>
                 </div>
               </div>
@@ -231,22 +235,25 @@
     <div id="createOfferModal" class="modal-offer">
       <div class="modal-offer-content">
         <span class="modal-offer-close" id="closeCreateOffer">&times;</span>
-        <h2>New Job Offer</h2>
+        <h2 data-i18n="dashboardCompany.newOffer">New Job Offer</h2>
 
         <form id="createOfferForm">
           <div class="form-row">
             <div class="form-group form-group-company half">
-              <label for="newJobTitle">Job Title</label>
-              <input type="text" id="newJobTitle" name="newJobTitle" placeholder="e.g. Backend Developer Node.js" required />
+              <label for="newJobTitle" data-i18n="dashboardCompany.jobTitle">Job Title</label>
+              <input type="text" id="newJobTitle" name="newJobTitle" 
+                     data-i18n-placeholder="dashboardCompany.jobTitlePlaceholder"
+                     placeholder="e.g. Backend Developer Node.js" required />
             </div>
 
             <div class="form-group form-group-company half">
-              <label for="newJobSalary">Salary Range</label>
+              <label for="newJobSalary" data-i18n="dashboardCompany.salaryRange">Salary Range</label>
               <input
                 type="text"
                 id="newJobSalary"
                 name="newJobSalary"
                 required
+                data-i18n-placeholder="dashboardCompany.salaryPlaceholder"
                 placeholder="e.g. $50,000 - $70,000"
               />
             </div>
@@ -254,7 +261,7 @@
 
           <div class="form-row">
             <div class="form-group form-group-company half">
-              <label for="newJobMode">Work Mode</label>
+              <label for="newJobMode" data-i18n="dashboardCompany.workMode">Work Mode</label>
               <select id="newJobMode" name="newJobMode">
                 <option value="remote">Remote</option>
                 <option value="hybrid">Hybrid</option>
@@ -263,7 +270,7 @@
             </div>
 
             <div class="form-group form-group-company half">
-              <label for="newJobLevel">Seniority Level</label>
+              <label for="newJobLevel" data-i18n="dashboardCompany.seniorityLevel">Seniority Level</label>
               <select id="newJobLevel" name="newJobLevel">
                 <option value="junior">Junior</option>
                 <option value="mid-level">Mid-level</option>
@@ -273,19 +280,20 @@
           </div>
 
           <div class="form-group form-group-company">
-            <label for="newJobDescription">Description</label>
+            <label for="newJobDescription" data-i18n="dashboardCompany.description">Description</label>
             <textarea
               id="newJobDescription"
               name="newJobDescription"
               rows="5"
+              data-i18n-placeholder="dashboardCompany.descriptionPlaceholder"
               placeholder="Write a short description about the role, responsibilities and requirements"
               required
             ></textarea>
           </div>
 
           <div class="modal-offer-actions center">
-            <button type="submit" class="btn-save">Create Offer</button>
-            <button type="button" class="btn-cancel" id="cancelCreateOffer">
+            <button type="submit" class="btn-save" data-i18n="dashboardCompany.createOfferBtn">Create Offer</button>
+            <button type="button" class="btn-cancel" id="cancelCreateOffer" data-i18n="dashboardCompany.cancel">
               Cancel
             </button>
           </div>
@@ -297,16 +305,16 @@
     <div id="editOfferModal" class="modal-offer">
       <div class="modal-offer-content">
         <span class="modal-offer-close" id="closeEditOffer">&times;</span>
-        <h2>Edit Job Offer</h2>
+        <h2 data-i18n="dashboardCompany.editOffer">Edit Job Offer</h2>
 
         <form id="editOfferForm">
           <div class="form-group form-group-company">
-            <label for="jobTitle">Job Title</label>
+            <label for="jobTitle" data-i18n="dashboardCompany.jobTitle">Job Title</label>
             <input type="text" id="jobTitle" name="jobTitle" required />
           </div>
 
           <div class="form-group form-group-company">
-            <label for="jobMode">Work Mode</label>
+            <label for="jobMode" data-i18n="dashboardCompany.workMode">Work Mode</label>
             <select id="jobMode" name="jobMode">
               <option value="remote">Remote</option>
               <option value="hybrid">Hybrid</option>
@@ -315,7 +323,7 @@
           </div>
 
           <div class="form-group form-group-company">
-            <label for="jobLevel">Seniority Level</label>
+            <label for="jobLevel" data-i18n="dashboardCompany.seniorityLevel">Seniority Level</label>
             <select id="jobLevel" name="jobLevel">
               <option value="junior">Junior</option>
               <option value="mid-level">Mid-level</option>
@@ -324,12 +332,12 @@
           </div>
 
           <div class="form-group form-group-company">
-            <label for="jobSalary">Salary Range</label>
+            <label for="jobSalary" data-i18n="dashboardCompany.salaryRange">Salary Range</label>
             <input type="text" id="jobSalary" name="jobSalary" required />
           </div>
 
           <div class="form-group form-group-company">
-            <label for="jobDescription">Description</label>
+            <label for="jobDescription" data-i18n="dashboardCompany.description">Description</label>
             <textarea
               id="jobDescription"
               name="jobDescription"
@@ -339,8 +347,8 @@
           </div>
 
           <div class="modal-offer-actions">
-            <button type="submit" class="btn-save">Save Changes</button>
-            <button type="button" class="btn-cancel" id="cancelEditOffer">
+            <button type="submit" class="btn-save" data-i18n="dashboardCompany.saveChanges">Save Changes</button>
+            <button type="button" class="btn-cancel" id="cancelEditOffer" data-i18n="dashboardCompany.cancel">
               Cancel
             </button>
           </div>
@@ -350,13 +358,9 @@
 
     <!-- External JS -->
     <script src="../js/dashboardCompany.js"></script>
-
-    <script src="../app.js"></script>
-
     <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
 
     <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
-
-
   </body>
 </html>
