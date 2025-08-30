@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Company Profile - JobFinder</title>
+    <title data-i18n="profileCompany.title">Company Profile - JobFinder</title>
   </head>
   <body class="dashboard-company-page">
     <div class="profile-container">
       <header class="profile-header-company">
-        <h1>Company Profile</h1>
-        <p>Manage your company information and job postings</p>
+        <h1 data-i18n="profileCompany.header">Company Profile</h1>
+        <p data-i18n="profileCompany.subtitle">Manage your company information and job postings</p>
       </header>
 
       <div class="profile-content">
@@ -36,7 +36,7 @@
               id="companyLogo"
               class="company-logo"
             />
-            <button id="changeLogoBtn" class="btn-secondary-company">
+            <button id="changeLogoBtn" class="btn-secondary-company" data-i18n="profileCompany.changeLogo">
               Change logo
             </button>
             <input
@@ -50,15 +50,15 @@
           <div class="company-stats">
             <div class="stat-card-company">
               <span class="stat-number-company">8</span>
-              <span class="stat-label">Active Jobs</span>
+              <span class="stat-label" data-i18n="profileCompany.activeJobs">Active Jobs</span>
             </div>
             <div class="stat-card-company">
               <span class="stat-number-company">142</span>
-              <span class="stat-label">Applications</span>
+              <span class="stat-label" data-i18n="profileCompany.applications">Applications</span>
             </div>
             <div class="stat-card-company">
               <span class="stat-number-company">24</span>
-              <span class="stat-label">Interviews</span>
+              <span class="stat-label" data-i18n="profileCompany.interviews">Interviews</span>
             </div>
           </div>
         </div>
@@ -66,10 +66,10 @@
         <div class="profile-main">
           <form id="companyForm" class="profile-form">
             <div class="form-section-company">
-              <h3>Company Information</h3>
+              <h3 data-i18n="profileCompany.companyInfo">Company Information</h3>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="companyName">Company Name *</label>
+                  <label for="companyName" data-i18n="profileCompany.companyName">Company Name *</label>
                   <input
                     type="text"
                     id="companyName"
@@ -78,22 +78,22 @@
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="industry">Industry *</label>
+                  <label for="industry" data-i18n="profileCompany.industry">Industry *</label>
                   <select id="industry" name="industry" required>
-                    <option value="">Select Industry</option>
-                    <option value="technology">Technology</option>
-                    <option value="finance">Finance</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="education">Education</option>
-                    <option value="manufacturing">Manufacturing</option>
-                    <option value="retail">Retail</option>
-                    <option value="other">Other</option>
+                    <option value="" data-i18n="profileCompany.selectIndustry">Select Industry</option>
+                    <option value="technology" data-i18n="profileCompany.technology">Technology</option>
+                    <option value="finance" data-i18n="profileCompany.finance">Finance</option>
+                    <option value="healthcare" data-i18n="profileCompany.healthcare">Healthcare</option>
+                    <option value="education" data-i18n="profileCompany.education">Education</option>
+                    <option value="manufacturing" data-i18n="profileCompany.manufacturing">Manufacturing</option>
+                    <option value="retail" data-i18n="profileCompany.retail">Retail</option>
+                    <option value="other" data-i18n="profileCompany.other">Other</option>
                   </select>
                 </div>
               </div>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="website">Website</label>
+                  <label for="website" data-i18n="profileCompany.website">Website</label>
                   <input
                     type="url"
                     id="website"
@@ -102,35 +102,36 @@
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="employees">Company Size</label>
+                  <label for="employees" data-i18n="profileCompany.companySize">Company Size</label>
                   <select id="employees" name="employees">
-                    <option value="">Select Size</option>
-                    <option value="1-10">1-10 employees</option>
-                    <option value="11-50">11-50 employees</option>
-                    <option value="51-200">51-200 employees</option>
-                    <option value="201-500">201-500 employees</option>
-                    <option value="501-1000">501-1000 employees</option>
-                    <option value="1000+">1000+ employees</option>
+                    <option value="" data-i18n="profileCompany.selectSize">Select Size</option>
+                    <option value="1-10" data-i18n="profileCompany.employees1">1-10 employees</option>
+                    <option value="11-50" data-i18n="profileCompany.employees2">11-50 employees</option>
+                    <option value="51-200" data-i18n="profileCompany.employees3">51-200 employees</option>
+                    <option value="201-500" data-i18n="profileCompany.employees4">201-500 employees</option>
+                    <option value="501-1000" data-i18n="profileCompany.employees5">501-1000 employees</option>
+                    <option value="1000+" data-i18n="profileCompany.employees6">1000+ employees</option>
                   </select>
                 </div>
               </div>
               <div class="form-group-company">
-                <label for="companyDescription">Company Description *</label>
+                <label for="companyDescription" data-i18n="profileCompany.companyDescription">Company Description *</label>
                 <textarea
                   id="companyDescription"
                   name="companyDescription"
                   rows="4"
                   required
+                  data-i18n-placeholder="profileCompany.descriptionPlaceholder"
                   placeholder="Describe your company culture, mission, and values..."
                 ></textarea>
               </div>
             </div>
 
             <div class="form-section-company">
-              <h3>Contact Information</h3>
+              <h3 data-i18n="profileCompany.contactInfo">Contact Information</h3>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="contactName">Contact Person *</label>
+                  <label for="contactName" data-i18n="profileCompany.contactPerson">Contact Person *</label>
                   <input
                     type="text"
                     id="contactName"
@@ -139,7 +140,7 @@
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="contactPosition">Position *</label>
+                  <label for="contactPosition" data-i18n="profileCompany.position">Position *</label>
                   <input
                     type="text"
                     id="contactPosition"
@@ -150,7 +151,7 @@
               </div>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="contactEmail">Email *</label>
+                  <label for="contactEmail" data-i18n="profileCompany.email">Email *</label>
                   <input
                     type="email"
                     id="contactEmail"
@@ -159,54 +160,58 @@
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="contactPhone">Phone</label>
+                  <label for="contactPhone" data-i18n="profileCompany.phone">Phone</label>
                   <input type="tel" id="contactPhone" name="contactPhone" />
                 </div>
               </div>
               <div class="form-group-company">
-                <label for="address">Company Address</label>
+                <label for="address" data-i18n="profileCompany.companyAddress">Company Address</label>
                 <input type="text" id="address" name="address" />
               </div>
             </div>
 
             <div class="form-section-company">
-              <h3>Social Media</h3>
+              <h3 data-i18n="profileCompany.socialMedia">Social Media</h3>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="linkedin">LinkedIn</label>
+                  <label for="linkedin" data-i18n="profileCompany.linkedin">LinkedIn</label>
                   <input
                     type="url"
                     id="linkedin"
                     name="linkedin"
+                    data-i18n-placeholder="profileCompany.linkedinPlaceholder"
                     placeholder="https://linkedin.com/company/"
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="twitter">Twitter</label>
+                  <label for="twitter" data-i18n="profileCompany.twitter">Twitter</label>
                   <input
                     type="url"
                     id="twitter"
                     name="twitter"
+                    data-i18n-placeholder="profileCompany.twitterPlaceholder"
                     placeholder="https://twitter.com/"
                   />
                 </div>
               </div>
               <div class="form-row-company">
                 <div class="form-group-company">
-                  <label for="facebook">Facebook</label>
+                  <label for="facebook" data-i18n="profileCompany.facebook">Facebook</label>
                   <input
                     type="url"
                     id="facebook"
                     name="facebook"
+                    data-i18n-placeholder="profileCompany.facebookPlaceholder"
                     placeholder="https://facebook.com/"
                   />
                 </div>
                 <div class="form-group-company">
-                  <label for="instagram">Instagram</label>
+                  <label for="instagram" data-i18n="profileCompany.instagram">Instagram</label>
                   <input
                     type="url"
                     id="instagram"
                     name="instagram"
+                    data-i18n-placeholder="profileCompany.instagramPlaceholder"
                     placeholder="https://instagram.com/"
                   />
                 </div>
@@ -214,13 +219,14 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" id="saveBtn" class="btn-secondary-company">
+              <button type="submit" id="saveBtn" class="btn-secondary-company" data-i18n="profileCompany.saveChanges">
                 Save Changes
               </button>
               <button
                 type="button"
                 id="cancelBtn"
                 class="btn-secondary-company"
+                data-i18n="profileCompany.cancel"
               >
                 Cancel
               </button>
@@ -232,7 +238,8 @@
 
     <script src="../js/profileCompany.js"></script>
     <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
     <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
-    
   </body>
 </html>
