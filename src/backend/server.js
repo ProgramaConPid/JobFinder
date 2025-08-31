@@ -9,7 +9,7 @@ const app = express();
 
 /* ===== Middleware ===== */
 app.use(cors({
-  origin: 'https://jobfinderprojectdemo.netlify.app/',
+  origin: 'https://jobfinderprojectdemo.netlify.app',
   credentials: true,
   methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
