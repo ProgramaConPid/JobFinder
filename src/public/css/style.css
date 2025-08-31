@@ -2789,7 +2789,7 @@ body.dark-theme .contact-option h4 a {
 /* Links generales */
 body.dark-theme a {
   color: var(--primary-color);
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 body.dark-theme.register-company-page a,
@@ -3354,4 +3354,9 @@ body.dark-theme .swal2-cancel {
   background: var(--dark-btn-secondary-bg) !important;
   color: var(--dark-btn-secondary-text) !important;
   border: 1px solid var(--dark-btn-secondary-border) !important;
+}
+
+body.dark-theme .btn-cancel:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
 }
