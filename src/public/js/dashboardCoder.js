@@ -1,5 +1,13 @@
-// Applicant dashboard functionalities
+const isLocalhost = ["localhost", "127.0.0.1"].includes(
+  window.location.hostname
+);
+
+const API_BASE = isLocalhost
+  ? "http://localhost:5173" // Local Backend Host
+  : "https://jobfinder-jdp5.onrender.com"; // Backend on production (Render)
+
 document.addEventListener("DOMContentLoaded", function () {
+
   console.log("Applicant dashboard loaded");
 
   // Load user data
@@ -167,7 +175,7 @@ document.addEventListener("keydown", function (e) {
   if (!contenedor) return;
 
   try {
-    const res = await fetch("/api/offers");
+    const res = await fetch(`${API_BASE}/api/offers`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const offers = await res.json();
 
