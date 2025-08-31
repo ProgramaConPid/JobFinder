@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title data-i18n="profileCoder.title">My Profile - JobFinder</title>
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <h1 data-i18n="profileCoder.header">My Profile</h1>
+            <p data-i18n="profileCoder.subtitle">Manage your personal and professional information</p>
+        </header>
+
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="profile-avatar profile-avatar-coder">
+                    <img src="../assets/img/withOutUser.png" alt="Avatar" id="profileAvatar">
+                    <button id="changeAvatarBtn" class="btn-secondary" data-i18n="profileCoder.changePhoto">
+                        Change photo
+                    </button>
+                    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="profile-stats">
+                    <h3 data-i18n="profileCoder.statistics">Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label" data-i18n="profileCoder.applications">Applications</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label" data-i18n="profileCoder.interviews">Interviews</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">1</span>
+                        <span class="stat-label" data-i18n="profileCoder.offers">Offers</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-main">
+                <form id="profileForm" class="profile-form">
+                    <div class="form-section">
+                        <h3 data-i18n="profileCoder.personalInfo">Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group form-group-profile-coder">
+                                <label for="firstName" data-i18n="profileCoder.firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group form-group-profile-coder">
+                                <label for="lastName" data-i18n="profileCoder.lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group form-group-profile-coder">
+                                <label for="email" data-i18n="profileCoder.email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group form-group-profile-coder">
+                                <label for="phone" data-i18n="profileCoder.phone">Phone</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="address" data-i18n="profileCoder.address">Address</label>
+                            <input type="text" id="address" name="address">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="profileCoder.professionalInfo">Professional Information</h3>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="profession" data-i18n="profileCoder.profession">Profession</label>
+                            <input type="text" id="profession" name="profession">
+                        </div>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="experience" data-i18n="profileCoder.yearsExperience">Years of Experience</label>
+                            <input type="number" id="experience" name="experience" min="0">
+                        </div>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="education" data-i18n="profileCoder.educationLevel">Education Level</label>
+                            <select id="education" name="education">
+                                <option value="" data-i18n="profileCoder.selectEducation">Select</option>
+                                <option value="high_school" data-i18n="profileCoder.highSchool">High School</option>
+                                <option value="technical" data-i18n="profileCoder.technical">Technical</option>
+                                <option value="university" data-i18n="profileCoder.university">University</option>
+                                <option value="master" data-i18n="profileCoder.master">Master's</option>
+                                <option value="phd" data-i18n="profileCoder.phd">PhD</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="skills" data-i18n="profileCoder.skills">Skills (separated by commas)</label>
+                            <textarea id="skills" name="skills" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 data-i18n="profileCoder.resume">Resume</h3>
+                        <div class="form-group form-group-profile-coder">
+                            <label for="resume" data-i18n="profileCoder.uploadResume">Upload Resume (PDF)</label>
+                            <input type="file" id="resume" name="resume" accept=".pdf">
+                        </div>
+                        <div id="resumeStatus" class="resume-status">
+                            <span data-i18n="profileCoder.noResume">No resume uploaded</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="saveBtn" class="btn-primary" data-i18n="profileCoder.saveChanges">
+                            Save Changes
+                        </button>
+                        <button type="button" id="cancelBtn" class="btn-secondary" data-i18n="profileCoder.cancel">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/profileCoder.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
+    <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
+</body>
+</html>

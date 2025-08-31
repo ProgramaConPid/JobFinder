@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title data-i18n="profileCompany.title">Company Profile - JobFinder</title>
+  </head>
+  <body class="dashboard-company-page">
+    <div class="profile-container">
+      <header class="profile-header-company">
+        <h1 data-i18n="profileCompany.header">Company Profile</h1>
+        <p data-i18n="profileCompany.subtitle">Manage your company information and job postings</p>
+      </header>
+
+      <div class="profile-content">
+        <div class="profile-sidebar">
+          <div class="profile-avatar profile-avatar-company">
+            <img
+              src="../assets/img/icon_company.png"
+              alt="Company Logo"
+              id="companyLogo"
+              class="company-logo"
+            />
+            <button id="changeLogoBtn" class="btn-secondary-company" data-i18n="profileCompany.changeLogo">
+              Change logo
+            </button>
+            <input
+              type="file"
+              id="logoUpload"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+
+          <div class="company-stats">
+            <div class="stat-card-company">
+              <span class="stat-number-company">8</span>
+              <span class="stat-label" data-i18n="profileCompany.activeJobs">Active Jobs</span>
+            </div>
+            <div class="stat-card-company">
+              <span class="stat-number-company">142</span>
+              <span class="stat-label" data-i18n="profileCompany.applications">Applications</span>
+            </div>
+            <div class="stat-card-company">
+              <span class="stat-number-company">24</span>
+              <span class="stat-label" data-i18n="profileCompany.interviews">Interviews</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-main">
+          <form id="companyForm" class="profile-form">
+            <div class="form-section-company">
+              <h3 data-i18n="profileCompany.companyInfo">Company Information</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="companyName" data-i18n="profileCompany.companyName">Company Name *</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="industry" data-i18n="profileCompany.industry">Industry *</label>
+                  <select id="industry" name="industry" required>
+                    <option value="" data-i18n="profileCompany.selectIndustry">Select Industry</option>
+                    <option value="technology" data-i18n="profileCompany.technology">Technology</option>
+                    <option value="finance" data-i18n="profileCompany.finance">Finance</option>
+                    <option value="healthcare" data-i18n="profileCompany.healthcare">Healthcare</option>
+                    <option value="education" data-i18n="profileCompany.education">Education</option>
+                    <option value="manufacturing" data-i18n="profileCompany.manufacturing">Manufacturing</option>
+                    <option value="retail" data-i18n="profileCompany.retail">Retail</option>
+                    <option value="other" data-i18n="profileCompany.other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="website" data-i18n="profileCompany.website">Website</label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    placeholder="https://"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="employees" data-i18n="profileCompany.companySize">Company Size</label>
+                  <select id="employees" name="employees">
+                    <option value="" data-i18n="profileCompany.selectSize">Select Size</option>
+                    <option value="1-10" data-i18n="profileCompany.employees1">1-10 employees</option>
+                    <option value="11-50" data-i18n="profileCompany.employees2">11-50 employees</option>
+                    <option value="51-200" data-i18n="profileCompany.employees3">51-200 employees</option>
+                    <option value="201-500" data-i18n="profileCompany.employees4">201-500 employees</option>
+                    <option value="501-1000" data-i18n="profileCompany.employees5">501-1000 employees</option>
+                    <option value="1000+" data-i18n="profileCompany.employees6">1000+ employees</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group-company">
+                <label for="companyDescription" data-i18n="profileCompany.companyDescription">Company Description *</label>
+                <textarea
+                  id="companyDescription"
+                  name="companyDescription"
+                  rows="4"
+                  required
+                  data-i18n-placeholder="profileCompany.descriptionPlaceholder"
+                  placeholder="Describe your company culture, mission, and values..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-section-company">
+              <h3 data-i18n="profileCompany.contactInfo">Contact Information</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="contactName" data-i18n="profileCompany.contactPerson">Contact Person *</label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="contactPosition" data-i18n="profileCompany.position">Position *</label>
+                  <input
+                    type="text"
+                    id="contactPosition"
+                    name="contactPosition"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="contactEmail" data-i18n="profileCompany.email">Email *</label>
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    required
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="contactPhone" data-i18n="profileCompany.phone">Phone</label>
+                  <input type="tel" id="contactPhone" name="contactPhone" />
+                </div>
+              </div>
+              <div class="form-group-company">
+                <label for="address" data-i18n="profileCompany.companyAddress">Company Address</label>
+                <input type="text" id="address" name="address" />
+              </div>
+            </div>
+
+            <div class="form-section-company">
+              <h3 data-i18n="profileCompany.socialMedia">Social Media</h3>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="linkedin" data-i18n="profileCompany.linkedin">LinkedIn</label>
+                  <input
+                    type="url"
+                    id="linkedin"
+                    name="linkedin"
+                    data-i18n-placeholder="profileCompany.linkedinPlaceholder"
+                    placeholder="https://linkedin.com/company/"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="twitter" data-i18n="profileCompany.twitter">Twitter</label>
+                  <input
+                    type="url"
+                    id="twitter"
+                    name="twitter"
+                    data-i18n-placeholder="profileCompany.twitterPlaceholder"
+                    placeholder="https://twitter.com/"
+                  />
+                </div>
+              </div>
+              <div class="form-row-company">
+                <div class="form-group-company">
+                  <label for="facebook" data-i18n="profileCompany.facebook">Facebook</label>
+                  <input
+                    type="url"
+                    id="facebook"
+                    name="facebook"
+                    data-i18n-placeholder="profileCompany.facebookPlaceholder"
+                    placeholder="https://facebook.com/"
+                  />
+                </div>
+                <div class="form-group-company">
+                  <label for="instagram" data-i18n="profileCompany.instagram">Instagram</label>
+                  <input
+                    type="url"
+                    id="instagram"
+                    name="instagram"
+                    data-i18n-placeholder="profileCompany.instagramPlaceholder"
+                    placeholder="https://instagram.com/"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="saveBtn" class="btn-secondary-company" data-i18n="profileCompany.saveChanges">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                id="cancelBtn"
+                class="btn-secondary-company"
+                data-i18n="profileCompany.cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/profileCompany.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
+    <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
+  </body>
+</html>

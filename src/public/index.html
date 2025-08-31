@@ -1,59 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <title>JobFinder - Connecting Talent with Opportunities</title>
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <h1 class="header__title">Welcome to JobFinder</h1>
-        <p class="subtitle">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font Montserrat from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <!-- Font Roboto from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="shortcut icon" href="./assets/img/jobfinderlogo.png" type="image/x-icon">
+  <title>JobFinder - Connecting Talent with Opportunities</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="container__home">
+        <img class="home__icon" src="./assets/img/jobfinderlogo.png" alt="JobFinder Icon" />
+        <h1 class="header__title" data-i18n="header.title">Welcome to JobFinder</h1>
+        <p class="header__subtitle" data-i18n="header.subtitle">
           We connect talent with opportunities. Choose your profile to get
           started.
         </p>
-      </header>
+      </div>
+    </header>
 
-      <main class="options-container">
-        <div class="option-card" id="applicant-card">
-          <div class="card-content">
-            <h2>I am an Applicant</h2>
-            <p>
-              I’m looking for job opportunities and want to connect with
-              companies
-            </p>
-            <button class="btn-primary" onclick="selectRole('applicant')">
-              Continue as Applicant
-            </button>
-          </div>
+    <!-- Main Content - Welcome page -->
+    <main class="options-container">
+      <div class="option-card applicant" id="applicant-card">
+        <div class="card-content">
+          <h2 class="card-content-title" data-i18n="applicant.title">I am an Applicant</h2>
+          <p class="card-content-paragraph" data-i18n="applicant.description">
+            I’m looking for job opportunities and want to connect with companies
+          </p>
+          <button class="btn-primary" onclick="selectRole('applicant')" data-i18n="applicant.button">
+            Continue as Applicant
+          </button>
         </div>
+      </div>
 
-        <div class="option-card" id="company-card">
-          <div class="card-content">
-            <h2>I am a Company</h2>
-            <p>I post job offers and look for the best talent</p>
-            <button class="btn-primary" onclick="selectRole('company')">
-              Continue as Company
-            </button>
-          </div>
+      <div class="option-card company" id="company-card">
+        <div class="card-content">
+          <h2 class="card-content-title" data-i18n="company.title">I am a Company</h2>
+          <p class="card-content-paragraph" data-i18n="company.description">
+            I post job offers and look for the best talent
+          </p>
+          <button class="btn-primary" onclick="selectRole('company')" data-i18n="company.button">
+            Continue as Company
+          </button>
         </div>
-      </main>
+      </div>
+    </main>
+  </div>
+
+  <!-- Botón flotante de contacto -->
+  <div class="contact-floating-btn" id="contactFloatingBtn">
+    <img src="./assets/img/jobfinderlogo.png" alt="logoJobfinder" class="logo-img">
+    <div class="contact-icon"></div>
+  </div>
+
+  <!-- Menú de contacto desplegable -->
+  <div class="contact-menu" id="contactMenu">
+    <div class="contact-header">
+      <h3 data-i18n="contact.title">JobFinder Tools</h3>
+      <div class="close-btn" id="closeMenu">×</div>
     </div>
 
-    <script src="./app.js"></script>
-  </body>
+    <div class="contact-content">
+      <div class="contact-option">
+        <div class="option-icon">🔍</div>
+        <div class="option-text">
+          <h4><a href="https://jobfindersdemo.netlify.app/views/logincoder" target="_blank"
+              data-i18n="contact.searchJobs">Search Jobs</a></h4>
+          <p data-i18n="contact.searchJobsDesc">Find openings that match your profile</p>
+        </div>
+      </div>
+
+      <div class="contact-option">
+        <div class="option-icon">📄</div>
+        <div class="option-text">
+          <h4><a href="" target="_blank" data-i18n="contact.aboutUs">About Us</a></h4>
+          <p data-i18n="contact.aboutUsDesc">This project is your all-in-one launchpad to job opportunities, recruiter
+            connections, and skill-building — giving every job seeker the tools to rise, thrive, and lead their future.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-option">
+        <div class="option-icon">💬</div>
+        <div class="option-text">
+          <h4><a href="https://api.whatsapp.com/send/?phone=573226486866&text&type=phone_number&app_absent=0"
+              target="_blank" data-i18n="contact.chatRecruiters">Chat with Recruiters</a></h4>
+          <p data-i18n="contact.chatRecruitersDesc">Start conversations with potential employers</p>
+        </div>
+      </div>
+
+      <div class="contact-option">
+        <div class="option-icon">📍</div>
+        <div class="option-text">
+          <h4><a href="https://maps.app.goo.gl/e8X3kN9sowu6iZwGA" target="_blank" data-i18n="contact.findCenters">Find
+              Job Centers</a></h4>
+          <p data-i18n="contact.findCentersDesc">Locate offices near you</p>
+        </div>
+      </div>
+
+      <div class="contact-option">
+        <div class="option-icon">🧠</div>
+        <div class="option-text">
+          <h4><a href="https://www.coursera.org" target="_blank" data-i18n="contact.learnSkills">Learn New Skills</a>
+          </h4>
+          <p data-i18n="contact.learnSkillsDesc">Improve your resume with online courses</p>
+        </div>
+      </div>
+    </div>
+    <footer data-i18n="footer.copyright">
+      © 2025 JobFinder. All rights reserved — We don't just help you find work, we help you find purpose.
+    </footer>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Botón de cambio de idioma (solo en index) -->
+  <button id="toggle-language" class="btn-toggle-language" aria-label="Toggle language mode">
+    <span id="language-flag">
+      <img src="https://flagcdn.com/co.svg" alt="Español" width="22" height="18">
+    </span>
+  </button>
+
+  <!-- Botón Dark Mode -->
+  <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
+
+  <!-- Script JS -->
+  <script src="./app.js"></script>
+  <script src="./js/theme.js"></script>
+  <script src="./js/language.js"></script>
+
+</body>
 </html>

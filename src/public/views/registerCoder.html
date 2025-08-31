@@ -3,56 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobFinder - Applicant Registration</title>
+    <!-- Font Montserrat from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Roboto from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS File link -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- Website Icon -->
+    <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
+    <!-- Box Icons CDN -->
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <title>JobFinder - Applicant Registration</title>
 </head>
 <body class="register-page">
     <div class="register-container">
         <!-- Page Header -->
         <header class="register-header">
-            <h1>Applicant Registration</h1>
-            <p>Create your account to get started</p>
+            <h1 data-i18n="register_title">Applicant Registration</h1>
+            <p data-i18n="register_subtitle">Create your account to get started</p>
         </header>
         
         <!-- Registration Form -->
         <main class="register-form">
             <form id="coderRegisterForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" placeholder="John Smith" required>
+                <div class="form-group-register">
+                    <label for="fullName" data-i18n="register_fullname">Full Name</label>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/user.png" alt="user" class="input-icon-left">
+                        <input type="text" id="fullName" placeholder="John Smith" data-i18n-placeholder="register_placeholder_fullname" required>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com" required>
+                <div class="form-group-register">
+                    <label for="email" data-i18n="register_email">Email Address</label>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/email_violet.png" alt="email" class="input-icon-left">
+                        <input type="email" id="email" placeholder="your@email.com" data-i18n-placeholder="register_placeholder_email" required>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="•••••••••" required>
+                <div class="form-group-register">
+                    <label for="password" data-i18n="register_password">Password</label>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_violet.png" alt="password" class="input-icon-left">
+                        <input type="password" id="password" placeholder="•••••••••" data-i18n-placeholder="register_placeholder_password" required>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="••••••••••" required>
+                <div class="form-group-register">
+                    <label for="confirmPassword" data-i18n="register_confirm_password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <img src="../assets/img/lock_violet.png" alt="password" class="input-icon-left">
+                        <input type="password" id="confirmPassword" placeholder="••••••••••" data-i18n-placeholder="register_placeholder_confirm_password" required>
+                    </div>
                 </div>
                 
-                <button type="submit" class="btn-register">Create Account</button>
+                <button type="submit" class="btn-register" data-i18n="register_button">Create Account</button>
             </form>
             
             <!-- Footer with login redirect -->
             <div class="register-footer">
-                <p>Already have an account? <a href="loginCoder.html">Log in</a></p>
+                <p>
+                    <span data-i18n="register_have_account">Already have an account?</span> 
+                    <a href="loginCoder.html" data-i18n="register_login_link">Log in</a>
+                </p>
             </div>
         </main>
         
         <!-- Back button -->
         <div class="back-button">
-            <a href="../index.html">&larr; Back to Home</a>
+            <a href="../index.html"><i class='bxr  bx-arrow-left-stroke-square'></i> <span data-i18n="back_home">Back to Home</span></a>
         </div>
     </div>
 
     <!-- External JS -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/registerCoder.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
+    <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
 </body>
 </html>
