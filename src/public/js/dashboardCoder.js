@@ -68,10 +68,21 @@ function loadUserData() {
 // --------------------------
 function renderOffers(list, cont) {
   cont.innerHTML = "";
+
+  // ✅ contador siempre reflejado
+  const span = $("#availableOffersCount");
+  if (span) span.textContent = String(Array.isArray(list) ? list.length : 0);
+
   if (!Array.isArray(list) || list.length === 0) {
     const empty = document.createElement("div");
-    empty.className = "no-offers";
-    empty.textContent = "No hay ofertas disponibles por ahora.";
+    empty.className = "no-offers card-empty";
+    empty.innerHTML = `
+      <div class="empty-icon">🔎</div>
+      <div class="empty-text">
+        <h4>No hay ofertas disponibles por ahora</h4>
+        <p>Vuelve más tarde o ajusta los filtros.</p>
+      </div>
+    `;
     cont.appendChild(empty);
     return;
   }
@@ -93,23 +104,12 @@ function renderOffers(list, cont) {
       </div>
 
       <div class="job-details">
-        <div class="job-detail">
-          <span class="detail-icon">📍</span>
-          <span class="job-location">${o.location}</span>
-        </div>
-        <div class="job-detail">
-          <span class="detail-icon">💰</span>
-          <span class="job-salary">${minMaxText}</span>
-        </div>
-        <div class="job-detail">
-          <span class="detail-icon">🕒</span>
-          <span class="job-posted">${posted}</span>
-        </div>
+        <div class="job-detail"><span class="detail-icon">📍</span><span class="job-location">${o.location}</span></div>
+        <div class="job-detail"><span class="detail-icon">💰</span><span class="job-salary">${minMaxText}</span></div>
+        <div class="job-detail"><span class="detail-icon">🕒</span><span class="job-posted">${posted}</span></div>
       </div>
 
-      <div class="job-description">
-        <p>${o.description}</p>
-      </div>
+      <div class="job-description"><p>${o.description}</p></div>
 
       <div class="job-tags">
         <span class="job-tag">${o.modality}</span>
@@ -121,7 +121,7 @@ function renderOffers(list, cont) {
         <button class="btn-view" data-i18n="dashboardCoder.viewDetails">View Details</button>
       </div>
     `;
-    // Estado inicial del botón Apply si ya aplicó
+
     const btn = card.querySelector(".btn-apply");
     if (btn && isApplied(o.id)) {
       btn.textContent = "Already applied";
@@ -130,11 +130,8 @@ function renderOffers(list, cont) {
     }
     cont.appendChild(card);
   });
-
-  // Actualiza contador Available Offers (total ofertas)
-  const span = $("#availableOffersCount");
-  if (span) span.textContent = String(list.length);
 }
+
 
 // --------------------------
 // Render de Postulaciones
@@ -188,17 +185,41 @@ function renderApplications(apps, cont) {
 async function loadJobOffers() {
   const container = $(".job-cards");
   if (!container) return;
+
   try {
-    const res = await fetch(`${API_BASE}/api/offers`);
+    const res = await fetch(`${API_BASE}/api/offers`, { headers: { "Accept": "application/json" } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const offers = await res.json();
+
+    const payload = await res.json();
+
+    // 🔧 Normaliza: array directo o dentro de .data / .offers / .results / .rows
+    let offers =
+      (Array.isArray(payload) && payload) ||
+      payload?.offers ||
+      payload?.data ||
+      payload?.results ||
+      payload?.rows ||
+      [];
+
+    // Por si viene como objeto-index (id => offer)
+    if (!Array.isArray(offers) && typeof offers === "object") {
+      offers = Object.values(offers);
+    }
+
+    console.debug("[DashboardCoder] offers count:", Array.isArray(offers) ? offers.length : "N/A", offers);
+
+    // Asegura que cada item tenga un id numérico
+    offers = (offers || []).map(o => ({ ...o, id: Number(o.id ?? o.job_id ?? o.offer_id) }));
 
     offersIndex = new Map((offers || []).map((o) => [Number(o.id), o]));
     renderOffers(offers, container);
   } catch (err) {
     console.error("[DashboardCoder] loadJobOffers error:", err);
+    // Muestra card vacía si falla
+    renderOffers([], container);
   }
 }
+
 
 async function loadUserApplications() {
   const container = $(".application-cards");
