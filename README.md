@@ -1,102 +1,227 @@
-# Jobfinder
+# 💼 JobFinder
 
-A front‑end **Vanilla JS + HTML + CSS** project with a **Node/Express + MySQL** backend.
+**JobFinder** is a web and mobile platform designed to enhance
+employability by connecting candidates with relevant job opportunities,
+while providing companies with efficient recruitment tools.\
+This project also strengthens the relationship between the Employability
+Department and organizations, creating a dynamic and reliable talent
+ecosystem.
 
-## Introduction
-This repository contains a static front‑end (multi‑page layout under `src/public/`) for **JobFinder**, plus a backend scaffold and an SQL script to create the database schema. The project aims to **improve employability** for both individuals and companies by streamlining how candidates and employers connect.
+------------------------------------------------------------------------
 
-## Features
-- Multi‑page front‑end with dedicated views:
-  - `loginCoder.html`, `loginCompany.html`
-  - `registerCoder.html`, `registerCompany.html`
-  - `dashboardCoder.html`, `dashboardCompany.html`
-  - `profileCoder.html`, `profileCompany.html`
-- Central `index.html` and a single stylesheet `css/style.css`
-- Page‑specific JS under `public/js/` (e.g., `dashboardCoder.js`, `registerCompany.js`, etc.)
-- Backend **placeholders**: `server.js`, Express routers (`routes/`), and `database.sql` for MySQL schema
+## 📖 Table of Contents
 
+1.  [About the Project](#-about-the-project)\
+2.  [Objectives](#-objectives)\
+3.  [Scope](#-scope)\
+4.  [Methodology](#-methodology)\
+5.  [Database Architecture](#-database-architecture)\
+6.  [Navigation Flow](#-navigation-flow)\
+7.  [Project Structure](#-project-structure)\
+8.  [Technologies](#-technologies)\
+9.  [Installation & Execution](#-installation--execution)\
+10. [MVP (Minimum Viable Product)](#-mvp-minimum-viable-product)\
+11. [Expected Results](#-expected-results)\
+12. [Team](#-team)\
+13. [License](#-license)
 
-## Project Structure
-```
+------------------------------------------------------------------------
 
-src
-│  ├─ backend
-│  │  ├─ database
-│  │  │  ├─ database.sql
-│  │  ├─ middlewares
-│  │  │  ├─ auth.js
-│  │  ├─ routes
-│  │  │  ├─ coderRoutes.js
-│  │  │  ├─ companyRoutes.js
-│  │  ├─ server.js
-│  ├─ public
-│  │  ├─ assets
-│  │  │  ├─ img
-│  │  ├─ css
-│  │  │  ├─ style.css
-│  │  ├─ js
-│  │  │  ├─ applications.js
-│  │  │  ├─ dashboardCoder.js
-│  │  │  ├─ dashboardCompany.js
-│  │  │  ├─ loginCoder.js
-│  │  │  ├─ loginCompany.js
-│  │  │  ├─ offers.js
-│  │  │  ├─ profile.js
-│  │  │  ├─ profileCoder.js
-│  │  │  ├─ profileCompany.js
-│  │  │  ├─ recommendations.js
-│  │  │  ├─ registerCoder.js
-│  │  │  ├─ registerCompany.js
-│  │  ├─ views
-│  │  │  ├─ dashboardCoder.html
-│  │  │  ├─ dashboardCompany.html
-│  │  │  ├─ loginCoder.html
-│  │  │  ├─ loginCompany.html
-│  │  │  ├─ profileCoder.html
-│  │  │  ├─ profileCompany.html
-│  │  │  ├─ registerCoder.html
-│  │  │  ├─ registerCompany.html
-│  │  ├─ app.js
-│  │  ├─ index.html
-.gitignore
-netlify.toml
-package-lock.json
-package.json
-README.md
-```
+## 📌 About the Project
 
-## Front‑end
-- Entry: `src/public/index.html`
-- Styles: `src/public/css/style.css`
-- Views: `src/public/views/*.html`
-- Scripts: `src/public/js/*.js`
+**JobFinder** aims to bridge the gap between talent and companies by
+offering:\
+- Candidate profiles with online CV upload.\
+- Job posting and management for companies.\
+- Application and interview tracking.\
+- An admin panel for the Employability Department.
 
+In short: **a complete solution for job matching and employability
+improvement.**
 
-## Backend
-- Location: `src/backend/`
-  - `server.js`
-  - `routes/companyRoutes.js`
-  - `routes/coderRoutes.js`
-  - `middlewares/auth.js`
-  - `database/database.sql`
+------------------------------------------------------------------------
 
+## 🎯 Objectives
 
-## Database Schema
-The SQL script at `src/backend/database/database.sql` creates the following tables:
-- `Users`
-- `Coders`
-- `Companies`
-- `JobOffers`
-- `Applications`
-- `Skills`
-- `Coders_Skills` (M:N)
-- `Offers_Skills` (M:N)
+### General Objective
 
+Design and implement a digital solution (website and mobile app) that
+improves employability within organizations by connecting talent with
+opportunities and offering companies efficient recruitment tools.
 
-## Contributors (5)
-- **Kevin Londoño** — _Product Owner_
-- **Felipe Marín** — _Scrum Master_
-- **Andrés Severino** — _Developer_
-- **Emanuel Gaviria** — _Developer_
-- **Samuel Monsalve** — _Developer_
+### Specific Objectives
 
+1.  Expand access to job opportunities and career growth.\
+2.  Strengthen partnerships between the Employability Department and
+    companies.\
+3.  Facilitate interaction between applicants and organizations.\
+4.  Help companies find qualified candidates efficiently.
+
+------------------------------------------------------------------------
+
+## 📍 Scope
+
+The platform includes:\
+- User registration and authentication.\
+- Candidate profile management.\
+- Job posting, searching, and applying.\
+- Application and interview management.\
+- An admin dashboard for employability staff.
+
+------------------------------------------------------------------------
+
+## 📌 Methodology
+
+The project follows an **Agile (Scrum)** methodology, focusing on
+iterative development, testing, and stakeholder feedback.
+
+Main phases:\
+1. Requirements gathering.\
+2. UI and system architecture design.\
+3. Core development (front-end + back-end).\
+4. Testing and integration.\
+5. Deployment and feedback.
+
+------------------------------------------------------------------------
+
+## 🗄 Database Architecture
+
+The database is designed to reflect relationships between **companies,
+applicants, job offers, applications, and interviews**.
+
+![Database Model](./docs/DB_page-0001.jpg)
+
+**Explanation:**\
+- **Applicants**: candidate information (CV, skills, experience, social
+links).\
+- **Companies**: company details (industry, size, contacts).\
+- **JobOffers**: job postings linked to companies.\
+- **Applications**: connects candidates with jobs.\
+- **Interviews**: scheduled interviews linked to applications.
+
+This design ensures integrity, traceability, and efficient queries.
+
+------------------------------------------------------------------------
+
+## 🔀 Navigation Flow
+
+Two main flows exist: **Companies** and **Applicants**.
+
+![Navigation Flow](./docs/Navigation_Diagram.png)
+
+**Flow explanation:**\
+- **Companies**: register/login, manage offers, track applications, view
+stats, and edit profile.\
+- **Applicants**: register/login, manage profile, browse jobs, apply,
+and track interviews.\
+- **Both**: simple login and logout functionality.
+
+------------------------------------------------------------------------
+
+## 📂 Project Structure
+
+Current repository structure (from `.rar`):
+
+\`\`\`bash 📦 JobFinder ┣ 📂 backend ┃ ┣ 📂 controllers ┃ ┣ 📂 models ┃
+┣ 📂 routes ┃ ┗ 📂 utils ┣ 📂 frontend ┃ ┣ 📂 components ┃ ┣ 📂 pages ┃
+┣ 📂 services ┃ ┗ 📂 assets ┣ 📂 database ┃ ┣ schema.sql ┃ ┗ seeds.sql ┣
+📂 docs ┃ ┗ JobFinder_Project_Proposal.pdf ┣ 📜 package.json ┣ 📜
+README.md ┗ 📜 LICENSE \`\`\`
+
+**Explanation:**\
+- **backend/** → API logic, routes, and controllers.\
+- **frontend/** → web app with UI components.\
+- **database/** → SQL scripts (schema & seed data).\
+- **docs/** → project documentation.
+
+------------------------------------------------------------------------
+
+## 🛠 Technologies
+
+-   **Frontend**: HTML5, CSS3\
+-   **Backend**: JavaScript, Python\
+-   **Database**: MySQL\
+-   **Version Control**: Git & GitHub\
+-   **Methodology**: Agile (Scrum)
+
+------------------------------------------------------------------------
+
+## ⚙️ Installation & Execution
+
+### 📥 Download the Project
+
+Clone the repository from GitHub:\
+\`\`\`bash git clone https://github.com/your-username/jobfinder.git cd
+jobfinder \`\`\`
+
+### 🔧 Backend Setup
+
+\`\`\`bash cd backend npm install \# or for Python dependencies pip
+install -r requirements.txt \`\`\`
+
+### 💻 Frontend Setup
+
+\`\`\`bash cd frontend npm install \`\`\`
+
+### 🗄 Database Setup
+
+1.  Create a MySQL database.\
+2.  Import the schema:\
+    \`\`\`bash mysql -u your_user -p your_database \<
+    database/schema.sql \`\`\`
+3.  (Optional) Seed the database:\
+    \`\`\`bash mysql -u your_user -p your_database \< database/seeds.sql
+    \`\`\`
+
+### 🚀 Run the Project
+
+Run backend:\
+\`\`\`bash npm start \# or python app.py \`\`\`
+
+Run frontend:\
+\`\`\`bash npm start \`\`\`
+
+The app will be available at:\
+👉 **Frontend:** \`http://localhost:3000\`\
+👉 **Backend API:** \`http://localhost:5000\`
+
+------------------------------------------------------------------------
+
+## 🚀 MVP (Minimum Viable Product)
+
+The first version delivers:\
+- User registration/login.\
+- Candidate profile + CV upload.\
+- Job posting by companies.\
+- Basic job search & applications.\
+- Initial admin panel.
+
+------------------------------------------------------------------------
+
+## 📊 Expected Results
+
+-   Improved employability for students and graduates.\
+-   Faster and more efficient recruitment.\
+-   Stronger company partnerships.\
+-   Better matching between candidates and offers.\
+-   Data insights for HR strategies.
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Team
+
+**Team Name:** 🚀 *Breakpoint*
+
+**Members:**\
+- **Kevin** *(Clan: Linus)* → Product Owner\
+- **Pipe** *(Clan: Linus)* → Scrum Master\
+- **Emanuel** *(Clan: Lovelace)* → Developer\
+- **Andres** *(Clan: Lovelace)* → Developer\
+- **Samuel** *(Clan: Gosling)* → Developer
+
+------------------------------------------------------------------------
+
+## 📜 License
+
+This project is licensed under the **MIT License**.\
+See the [LICENSE](./LICENSE) file for details.
