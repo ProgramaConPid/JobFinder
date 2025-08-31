@@ -253,7 +253,46 @@
         
         // Buttons
         "profileCoder.saveChanges": "Save Changes",
-        "profileCoder.cancel": "Cancel"
+        "profileCoder.cancel": "Cancel",
+         "pricing.title": "Subscription Plans - JobFinder",
+        "pricing.pageTitle": "Subscription Plans",
+        "pricing.back": "← Back",
+        
+        // Plan Básico
+        "pricing.basicPlan": "Basic Plan",
+        "pricing.basicDescription": "Ideal for small businesses starting out",
+        "pricing.basicPrice": "$99",
+        "pricing.perMonth": "/month",
+        "pricing.accessCandidates": "Access to 500,000+ candidates",
+        "pricing.basicATS": "Basic ATS software",
+        "pricing.jobVacancies": "3 job vacancies",
+        "pricing.emailSupport": "Email support",
+        "pricing.selectPlan": "Select Plan",
+        
+        // Plan Growth
+        "pricing.growthPlan": "Growth + Superpower AI",
+        "pricing.popular": "MOST POPULAR",
+        "pricing.growthDescription": "Perfect for scalable recruitment",
+        "pricing.originalPrice": "$250",
+        "pricing.growthPrice": "$200",
+        "pricing.discount": "20% OFF",
+        "pricing.accessMillionCandidates": "Access to 1,300,000+ candidates",
+        "pricing.advancedATS": "State-of-the-art ATS software",
+        "pricing.smartFilters": "Smart filters and summaries",
+        "pricing.aiMatching": "5 vacancies with AI matching",
+        "pricing.prioritySupport": "24/7 priority support",
+        
+        // Plan Enterprise
+        "pricing.enterprisePlan": "Enterprise Plan",
+        "pricing.enterpriseDescription": "For large corporations",
+        "pricing.enterprisePrice": "$499",
+        "pricing.fullAccess": "Full access to database",
+        "pricing.premiumATS": "Premium ATS with advanced features",
+        "pricing.unlimitedVacancies": "Unlimited vacancies",
+        "pricing.advancedAIMatching": "Advanced AI matching",
+        "pricing.dedicatedSupport": "Dedicated and personalized support",
+        "pricing.apiIntegrations": "API integrations"
+
     },
     "es": {
       "header.title": "Bienvenido a JobFinder",
@@ -504,7 +543,45 @@
         
         // Buttons
         "profileCoder.saveChanges": "Guardar Cambios",
-        "profileCoder.cancel": "Cancelar"
+        "profileCoder.cancel": "Cancelar",
+        "pricing.title": "Planes de Suscripción - JobFinder",
+        "pricing.pageTitle": "Planes de Suscripción",
+        "pricing.back": "← Volver",
+        
+        // Plan Básico
+        "pricing.basicPlan": "Plan Básico",
+        "pricing.basicDescription": "Ideal para pequeñas empresas que comienzan",
+        "pricing.basicPrice": "$99",
+        "pricing.perMonth": "/mes",
+        "pricing.accessCandidates": "Acceso a 500,000+ candidatos",
+        "pricing.basicATS": "Software ATS básico",
+        "pricing.jobVacancies": "3 vacantes de empleo",
+        "pricing.emailSupport": "Soporte por email",
+        "pricing.selectPlan": "Seleccionar Plan",
+        
+        // Plan Growth
+        "pricing.growthPlan": "Growth + Superpower AI",
+        "pricing.popular": "MÁS POPULAR",
+        "pricing.growthDescription": "Perfecto para reclutamiento escalable",
+        "pricing.originalPrice": "$250",
+        "pricing.growthPrice": "$200",
+        "pricing.discount": "20% OFF",
+        "pricing.accessMillionCandidates": "Acceso a 1,300,000+ candidatos",
+        "pricing.advancedATS": "Software ATS de vanguardia",
+        "pricing.smartFilters": "Filtros y resúmenes inteligentes",
+        "pricing.aiMatching": "5 vacantes con AI matching",
+        "pricing.prioritySupport": "Soporte prioritario 24/7",
+        
+        // Plan Enterprise
+        "pricing.enterprisePlan": "Plan Enterprise",
+        "pricing.enterpriseDescription": "Para grandes corporaciones",
+        "pricing.enterprisePrice": "$499",
+        "pricing.fullAccess": "Acceso completo a la base de datos",
+        "pricing.premiumATS": "ATS premium con funciones avanzadas",
+        "pricing.unlimitedVacancies": "Vacantes ilimitadas",
+        "pricing.advancedAIMatching": "AI matching avanzado",
+        "pricing.dedicatedSupport": "Soporte dedicado y personalizado",
+        "pricing.apiIntegrations": "Integraciones API"
     }
   };
 
