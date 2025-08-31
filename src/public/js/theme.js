@@ -22,14 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Detecta si el usuario ya guardó un tema o prefiere oscuro por defecto
-  const saved = localStorage.getItem("theme"); 
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+const saved = localStorage.getItem("theme");
 
-  if (saved === "dark" || (!saved && prefersDark)) {
-    applyTheme("dark");
-  } else {
-    applyTheme("light");
-  }
+if (saved === "dark") {
+  applyTheme("dark");
+} else {
+  applyTheme("light"); // siempre claro si no hay nada guardado
+}
+
 
   // Cambia entre temas al hacer click
   toggleBtn.addEventListener("click", () => {

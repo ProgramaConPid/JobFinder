@@ -188,7 +188,6 @@ textarea {
 .option-card h2 {
   font-size: 1.9rem;
   margin-bottom: 20px;
-  color: #2d3748;
   font-weight: 700;
 }
 
@@ -665,11 +664,11 @@ textarea {
 }
 
 .login-company-page .login-footer a {
-  color: var(--green-dark);
+  color: var(--green);
 }
 
 .login-company-page .login-footer a:hover {
-  color: var(--green);
+  color: var(--green-dark);
 }
 
 .login-company-page .back-button a:hover {
@@ -709,15 +708,15 @@ textarea {
 }
 
 .register-company-page .register-footer a {
-  color: var(--green-dark);
-}
-
-.register-company-page .register-footer a:hover {
   color: var(--green);
 }
 
-.register-company-page .back-button a:hover {
+.register-company-page .register-footer a:hover {
   color: var(--green-dark);
+}
+
+.register-company-page .back-button a:hover {
+  color: var(--green);
 }
 
 /* ------------------------------- */
@@ -1954,7 +1953,7 @@ textarea {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2c3e50;
-  border-left: 4px solid #4b0082;
+  border-left: 4px solid var(--primary-color);
   background-color: transparent;
 }
 
@@ -2616,33 +2615,62 @@ button {
 }
 
 /* -------------------------------------------------- */
-/* Dark mode variables y overrides (pegar al final)  */
+/* Dark mode */
 /* -------------------------------------------------- */
 
-/* Variables por defecto (si quieres puedes ajustar) */
+
 :root {
-  --card-bg: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.05);
-  --page-bg: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%);
-  --text-color: #333333;
-  --muted-text: #6b7280;
+  --dark-page-bg: linear-gradient(135deg, #071027 0%, #0b1530 100%);
+  --dark-text-color: #e6eef6;
+  --dark-muted-text: #9aa3ad;
+
+  --dark-card-bg: #0f1722;
+  --dark-card-border: rgba(255, 255, 255, 0.04);
+  --dark-card-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+
+  --dark-btn-primary-text: #0b0b0b;
+
+  --dark-btn-secondary-bg: #1f2937;
+  --dark-btn-secondary-text: #e6eef6;
+  --dark-btn-secondary-border: #374151;
+
+  --dark-input-bg: #111827;
+  --dark-input-text: #f3f4f6;
+  --dark-input-border: #374151;
+
+  --dark-navbar-bg: #0d1117;
+  --dark-navbar-border: #222;
+
+  --dark-floating-btn-bg: #181c2a;
+  --dark-floating-btn-bg-hover: #23263a;
+  --dark-floating-btn-border: #23263a;
+  --dark-floating-btn-text: #e6eef6;
+
+  --dark-link-color: #64ffda; 
+  --dark-highlight-purple: #7a3cff; 
+  --dark-highlight-green: #35d298;
+  
+ 
+  --company-green: #35D298;      /* Verde principal */
+  --company-green-hover: #28a97b; 
 }
 
-/* Estilos cuando el body tiene la clase dark-theme */
+
+/* 🌙 Estilos cuando el body tiene la clase dark-theme */
 body.dark-theme {
-  /* fondo de página (sustituye el gradient claro) */
-  background: linear-gradient(135deg, #071027 0%, #0b1530 100%) !important;
-  color: #e6eef6; /* color base de texto */
+  background: var(--dark-page-bg) !important;
+  color: var(--dark-text-color);
 }
 
 /* Aseguramos que los bloques principales cambien */
 body.dark-theme .option-card,
 body.dark-theme .login-container,
+body.dark-theme .register-container,
 body.dark-theme .contact-menu {
-  background-color: #0f1722; /* fondo de tarjetas en dark */
-  color: #e6eef6; /* texto en tarjetas */
-  border-color: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.6);
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border-color: var(--dark-card-border);
+  box-shadow: var(--dark-card-shadow);
 }
 
 /* Textos secundarios */
@@ -2650,90 +2678,680 @@ body.dark-theme .header__subtitle,
 body.dark-theme .option-card p,
 body.dark-theme p,
 body.dark-theme .muted {
-  color: #9aa3ad;
+  color: var(--dark-muted-text);
 }
 
-/* Botones primarios — en tu CSS ya usan var(--primary-color),
-   aquí solo ajustamos contraste si hace falta */
+body.dark-theme.dashboard-company-page p,
+body.dark-theme.register-company-page p,
+body.dark-theme.login-company-page p {
+  color: var(--white) !important;
+}
+
+/* Botones primarios */
 body.dark-theme .btn-primary {
-  color: #0b0b0b;
-  /* si quieres otro background distinto, descomenta y ajusta: */
-  /* background: linear-gradient(135deg,#7a3cff,#32cd32); */
+  color: var(--dark-btn-primary-text);
 }
 
-/* Botón Dark Mode (solo icono arriba a la derecha) */
-.btn-toggle-theme {
+/* Botones secundarios */
+body.dark-theme .btn-secondary {
+  background: var(--dark-btn-secondary-bg);
+  color: var(--dark-btn-secondary-text);
+  border: 1px solid var(--dark-btn-secondary-border);
+}
+
+/* Botón Dark Mode (icono arriba a la derecha) */
+.btn-toggle-theme,
+.btn-toggle-language {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background: transparent; /* sin fondo */
-  color: var(--text-color); /* se adapta al tema */
-  border: none;
-  font-size: 1.5rem; /* tamaño del icono */
-  cursor: pointer;
+  top: 18px;
+  /* .btn-toggle-theme a la derecha, .btn-toggle-language a la izquierda de ella */
   z-index: 2000;
-  transition: transform 0.15s ease;
-}
-
-.btn-toggle-theme:hover {
-  transform: scale(1.2); /* efecto al pasar el mouse */
-}
-
-/* Texto base */
-.option-card h2 {
+  background: transparent;
+  border: none;
+  cursor: pointer;
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-color); /* gris oscuro en modo claro */
-  transition: color 0.4s ease;
+  line-height: 1;
+  padding: 6px 8px;
+  transition: transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
 }
 
-/* Dark Mode */
+.btn-toggle-theme {
+  right: 18px;
+}
+
+.btn-toggle-language {
+  right: 62px; /* separadas por ~44px */
+}
+
+.btn-toggle-theme:hover,
+.btn-toggle-language:hover {
+  transform: scale(1.15);
+  background: rgba(0,0,0,0.07);
+}
+
+@media (max-width: 500px) {
+  .btn-toggle-theme,
+  .btn-toggle-language {
+    top: 10px;
+    font-size: 1.2rem;
+    height: 30px;
+    width: 30px;
+    padding: 4px 6px;
+  }
+  .btn-toggle-theme {
+    right: 10px;
+  }
+  .btn-toggle-language {
+    right: 42px;
+  }
+}
+
+
+
+/* Dark Mode títulos con colores específicos */
 body.dark-theme .option-card.applicant h2 {
-  color: var(--primary-color); /* morado */
+  color: var(--dark-highlight-purple);
 }
 
 body.dark-theme .option-card.company h2 {
-  color: var(--green); /* verde */
+  color: var(--green);
 }
 
+/* Floating contact button */
 body.dark-theme .contact-floating-btn {
-  background: #181c2a;
+  background: var(--dark-floating-btn-bg);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-  border: 1px solid #23263a;
-  color: #e6eef6;
+  border: 1px solid var(--dark-floating-btn-border);
+  color: var(--dark-floating-btn-text);
   transition: all 0.3s ease;
 }
 
 body.dark-theme .contact-floating-btn:hover {
-  background: #23263a;
+  background: var(--dark-floating-btn-bg-hover);
   transform: translateY(-10px);
 }
 
+/* Contact menu */
 body.dark-theme .contact-menu footer {
-  color: #9aa3ad;
-  background: #0f1722;
+  color: var(--dark-muted-text);
+  background: var(--dark-card-bg);
 }
 
 body.dark-theme .contact-option h4 a {
-  color: #7a3cff;
+  color: var(--dark-highlight-purple);
+}
+
+/* Links generales */
+body.dark-theme a {
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+body.dark-theme.register-company-page a,
+body.dark-theme.login-company-page a {
+  color: var(--green);
+  transition: color 0.3s ease;
+}
+
+body.dark-theme a:hover {
+  color: var(--dark-link-color); 
+}
+
+/* Navbar */
+body.dark-theme .navbar {
+  background-color: var(--dark-navbar-bg);
+  border-bottom: 1px solid var(--dark-navbar-border);
+}
+
+/* Iconos en login */
+body.dark-theme .login__icon--container {
+  background-color: var(--card-bg);
+}
+
+/* Labels y placeholders */
+body.dark-theme .form-group-login label,
+body.dark-theme .form-group-register label {
+  color: var(--primary-color);
+}
+body.dark-theme input::placeholder {
+  color: var(--primary-color);
+}
+
+/* Inputs + focus */
+body.dark-theme input,
+body.dark-theme textarea {
+  background: var(--dark-input-bg);
+  color: var(--primary-color); 
+  border: 1px solid var(--dark-input-border);
+}
+body.dark-theme input:focus,
+body.dark-theme textarea:focus {
+  outline: none;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 4px var(--primary-color);
+  background: var(--dark-input-bg);
+  color: var(--primary-color);
+}
+
+body.dark-theme.login-page .login-footer,
+body.dark-theme.register-page .register-footer {
+  border-top: 2px solid var(--primary-color);
+}
+
+:root.register-company-page {
+  --primary-color: #32cd32; /* verde */
+}
+
+/* 🎯 Inputs en la vista Register Company con verde */
+body.dark-theme.register-company-page input,
+body.dark-theme.register-company-page textarea {
+  border: 1px solid var(--green) !important;
+  background: var(--dark-input-bg) !important;
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme.register-company-page input:focus,
+body.dark-theme.register-company-page textarea:focus {
+  border: 1px solid var(--green) !important;
+  box-shadow: 0 0 4px var(--green) !important;
+  outline: none !important;
+}
+
+body.dark-theme.login-company-page input::placeholder,
+body.dark-theme.register-company-page input::placeholder,
+body.dark-theme.login-company-page textarea::placeholder,
+body.dark-theme.register-company-page textarea::placeholder {
+  color: var(--green) !important;
+  opacity: 0.8; 
 }
 
 
-/* --------------------------------- */
-/* Change Language */
-.btn-toggle-language {
-  position: absolute;
-  top: 22px;
-  right: 80px; /* justo a la izquierda del botón de modo oscuro */
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 24px; /* tamaño del emoji */
-  line-height: 1;
-  transition: transform 0.15s ease;
+body.dark-theme.login-company-page a.back-home,
+body.dark-theme.register-company-page a.back-home{
+  color: var(--green); 
 }
 
-.btn-toggle-language:hover {
-  transform: scale(1.2);
+body.dark-theme.login-company-page a.back-home:hover,
+body.dark-theme.register-company-page a.back-home:hover {
+  color: var(--green-dark); 
 }
 
+body.dark-theme.login-company-page .login-footer,
+body.dark-theme.register-company-page .register-footer {
+  border-top: 2px solid var(--green);
+}
+
+body.dark-theme.login-company-page input:focus,
+body.dark-theme.login-company-page textarea:focus {
+  border: 1.5px solid var(--green) !important;
+  box-shadow: 0 0 4px var(--green) !important;
+  outline: none !important;
+  color: var(--green) !important;
+}
+
+body.dark-theme.login-company-page input,
+body.dark-theme.login-company-page textarea {
+  color: var(--green) !important;
+  background: var(--dark-input-bg) !important;
+  border: 1px solid var(--green) !important;
+}
+
+body.dark-theme.register-company-page input:focus,
+body.dark-theme.register-company-page textarea:focus {
+  border: 1.5px solid var(--green) !important;
+  box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25) !important; /* verde con opacidad */
+  outline: none !important;
+  color: var(--green) !important;
+}
+
+body.dark-theme.register-company-page input,
+body.dark-theme.register-company-page textarea {
+  border: 1px solid var(--green) !important;
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important; /* <-- Cambia aquí */
+}
+
+body.dark-theme .stat-card,
+body.dark-theme .stat-card-company {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border-left: 5px solid var(--primary-color);
+}
+
+body.dark-theme .stat-number,
+body.dark-theme .stat-number-company {
+  color: var(--primary-color) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+/* Dark mode para job-card y application-card */
+body.dark-theme .job-card,
+body.dark-theme .application-card {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border-left: 4px solid var(--primary-color);
+  box-shadow: var(--dark-card-shadow);
+}
+
+/* Números destacados en las cards */
+body.dark-theme .job-card .stat-number,
+body.dark-theme .application-card .stat-number {
+  color: var(--primary-color) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+/* Títulos h2 en dashboard coder */
+body.dark-theme.dashboard-page .job-offers-section h2,
+body.dark-theme.dashboard-page .applications-section h2 {
+  color: var(--primary-color);
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Títulos h2 en dashboard company */
+body.dark-theme.dashboard-company-page .job-offers-section h2,
+body.dark-theme.dashboard-company-page .applications-section h2 {
+  color: var(--green);
+  border-left: 4px solid var(--green);
+}
+
+/* Borde izquierdo en job-card y application-card en dashboard company */
+body.dark-theme.dashboard-company-page .job-card,
+body.dark-theme.dashboard-company-page .application-card {
+  border-left: 4px solid var(--green);
+}
+
+body.dark-theme.dashboard-page .stat-card h3,
+body.dark-theme.dashboard-page .job-card h3,
+body.dark-theme.dashboard-page .application-card h3,
+body.dark-theme.dashboard-page .job-card h4,
+body.dark-theme.dashboard-page .application-card h4 {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme .btn-view {
+  background: linear-gradient(135deg, #f8f5ff 0%, #e8e2ff 100%) !important;
+  color: var(--primary-color) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .btn-view {
+  color: var(--green) !important;
+  border: 2px solid var(--green) !important;
+}
+
+/* Company name blanco en dark mode */
+body.dark-theme .company-name {
+  color: var(--dark-btn-secondary-text) !important;
+}
+
+body.dark-theme .job-modal-content,
+body.dark-theme .modal-offer-content {
+  background: var(--dark-card-bg) !important;
+  color: var(--dark-text-color) !important;
+  box-shadow: var(--dark-card-shadow) !important;
+  border-left: 4px solid var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-content,
+body.dark-theme.dashboard-company-page .modal-offer-content {
+  border-left: 4px solid var(--green) !important;
+}
+
+body.dark-theme .job-modal-close,
+body.dark-theme .modal-offer-close {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-close,
+body.dark-theme.dashboard-company-page .modal-offer-close {
+  color: var(--green) !important;
+}
+
+body.dark-theme .job-modal-header h2,
+body.dark-theme .modal-offer h2 {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-header h2,
+body.dark-theme.dashboard-company-page .modal-offer h2 {
+  color: var(--green) !important;
+}
+
+body.dark-theme .job-modal-details strong {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme .job-modal-details span {
+  color: var(--dark-btn-secondary-text) !important;
+}
+
+
+/* DASHBOARD COMPANY dark mode: igual que coder pero con verde */
+body.dark-theme.dashboard-company-page .stat-card,
+body.dark-theme.dashboard-company-page .stat-card-company,
+body.dark-theme.dashboard-company-page .job-card,
+body.dark-theme.dashboard-company-page .application-card {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border-left: 5px solid var(--green);
+  box-shadow: var(--dark-card-shadow);
+}
+
+/* Números destacados en las cards */
+body.dark-theme.dashboard-company-page .stat-number,
+body.dark-theme.dashboard-company-page .stat-number-company,
+body.dark-theme.dashboard-company-page .job-card .stat-number,
+body.dark-theme.dashboard-company-page .application-card .stat-number {
+  color: var(--green) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+/* Títulos h2, h3, h4 en dashboard company */
+body.dark-theme.dashboard-company-page .job-offers-section h2,
+body.dark-theme.dashboard-company-page .applications-section h2,
+body.dark-theme.dashboard-company-page .stat-card h3,
+body.dark-theme.dashboard-company-page .job-card h3,
+body.dark-theme.dashboard-company-page .application-card h3,
+body.dark-theme.dashboard-company-page .job-card h4,
+body.dark-theme.dashboard-company-page .application-card h4 {
+  color: var(--green) !important;
+
+}
+
+/* Botón View Details verde en dark mode */
+body.dark-theme.dashboard-company-page .btn-view {
+  background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%) !important;
+  color: var(--green) !important;
+  border: 2px solid var(--green) !important;
+}
+
+/* Company name verde en dark mode */
+body.dark-theme.dashboard-company-page .company-name {
+  color: var(--green) !important;
+}
+
+/* Modal en dashboard company */
+body.dark-theme.dashboard-company-page .job-modal-content,
+body.dark-theme.dashboard-company-page .modal-offer-content {
+  background: var(--dark-card-bg) !important;
+  color: var(--dark-text-color) !important;
+  box-shadow: var(--dark-card-shadow) !important;
+  border-left: 4px solid var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-close,
+body.dark-theme.dashboard-company-page .modal-offer-close {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-header h2,
+body.dark-theme.dashboard-company-page .modal-offer h2 {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-details strong {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .job-modal-details span {
+  color: var(--dark-btn-secondary-text) !important;
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content input,
+body.dark-theme.dashboard-company-page .modal-offer-content textarea {
+  border: 1.5px solid var(--green) !important;
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content label{
+  color: var(--green) !important
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content input::placeholder,
+body.dark-theme.dashboard-company-page .modal-offer-content textarea::placeholder,
+body.dark-theme.dashboard-company-page .modal-offer-content select::placeholder {
+  color: var(--green) !important;
+  opacity: 0.8;
+}
+
+body.dark-theme.dashboard-company-page .sidebar-section {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border-left: 4px solid var(--green);
+  box-shadow: var(--dark-card-shadow);
+}
+
+body.dark-theme.dashboard-company-page .sidebar-section h3 {
+  color: var(--green) !important;
+  border-bottom: 2px solid var(--green);
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content input:focus,
+body.dark-theme.dashboard-company-page .modal-offer-content textarea:focus {
+  border: 2px solid var(--green) !important;
+  box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25) !important;
+  outline: none !important;
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content select {
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important;
+  border: 1.5px solid var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .modal-offer-content select:focus {
+  border: 2px solid var(--green) !important;
+  box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25) !important;
+  outline: none !important;
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .recommendation-card {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border: 1px solid var(--green);
+  box-shadow: var(--dark-card-shadow);
+}
+
+body.dark-theme.dashboard-company-page .recommendation-card p {
+  color: var(--dark-btn-secondary-text);
+}
+
+body.dark-theme.dashboard-company-page .recommendation-card strong {
+  color: var(--green);
+}
+
+body.dark-theme.dashboard-company-page .quick-stat {
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border: 1px solid var(--green);
+}
+
+body.dark-theme.dashboard-company-page .stat-label {
+  color: var(--dark-btn-secondary-text);
+}
+
+body.dark-theme.dashboard-company-page .stat-value-company {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page h2 {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .offer-card {
+  background: var(--dark-card-bg) !important;
+  color: var(--dark-text-color) !important;
+  border-left: 4px solid var(--green) !important;
+  box-shadow: var(--dark-card-shadow) !important;
+}
+
+body.dark-theme.dashboard-company-page .offer-card h3,
+body.dark-theme.dashboard-company-page .offer-card .offer-salary {
+  color: var(--green) !important;
+}
+
+body.dark-theme.dashboard-company-page .offer-tag {
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important;
+  border: 1px solid var(--green) !important;
+}
+
+body.dark-theme .stat-item-offer {
+  background: var(--dark-card-bg) !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .stat-item-offer {
+  background: var(--dark-card-bg) !important;
+  color: var(--green) !important;
+  border: 1px solid var(--green) !important;
+}
+
+body.dark-theme .btn-delete-offer {
+  background: var(--dark-input-bg) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+
+body.dark-theme.dashboard-company-page .btn-delete-offer {
+  background: var(--dark-input-bg) !important;
+  border: 2px solid var(--green) !important;
+}
+
+body.dark-theme .profile-content,
+body.dark-theme .profile-container,
+body.dark-theme .form-section,
+body.dark-theme .form-section-company,
+body.dark-theme .profile-form,
+body.dark-theme .register-container,
+body.dark-theme .login-container,
+body.dark-theme .modal-offer-content,
+body.dark-theme .job-modal-content,
+body.dark-theme .profile-sidebar {
+  background: var(--dark-card-bg) !important;
+  color: var(--dark-text-color) !important;
+  box-shadow: var(--dark-card-shadow) !important;
+}
+
+
+body.dark-theme .profile-sidebar,
+body.dark-theme .form-section {
+  border-bottom: 8px solid var(--primary-color);
+}
+
+body.dark-theme .form-section h3{
+  border-bottom :3px solid var(--primary-color)
+}
+
+body.dark-theme .profile-header p{
+  color: var(--dark-btn-secondary-text);
+}
+
+body.dark-theme .form-section h3,
+body.dark-theme .form-section p,
+body.dark-theme .form-section label,
+body.dark-theme .form-section select {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme .stat-item {
+  border-bottom: 1.5px solid var(--primary-color) !important;
+}
+
+body.dark-theme .profile-stats h3{
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme .resume-status {
+  background: var(--dark-card-bg) !important;
+  color: var(--primary-color) !important;
+  border-radius: 4px;
+}
+
+body.dark-theme .form-group select#education,
+body.dark-theme .form-group-company select#education {
+  background: var(--dark-card-bg) !important;
+  color: var(--primary-color) !important;
+  border: 1.5px solid var(--primary-color) !important;
+}
+
+body.dark-theme .profile-stats h3{
+  border-bottom: 2px solid var(--primary-color);
+}
+
+body.dark-theme button {
+  color: #fff !important;
+}
+
+body.dark-theme .section-company input,
+body.dark-theme .section-company textarea,
+body.dark-theme .section-company select {
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important;
+  border: 1.5px solid var(--green) !important;
+}
+
+body.dark-theme .form-section-company h3,
+body.dark-theme .form-section-company label,
+body.dark-theme .form-section-company select {
+  color: var(--green) !important;
+}
+
+body.dark-theme .form-section-company input,
+body.dark-theme .form-section-company textarea,
+body.dark-theme .form-section-company select {
+  background: var(--dark-input-bg) !important;
+  color: var(--green) !important;
+  border: 1.5px solid var(--green) !important;
+}
+
+body.dark-theme .form-section-company input::placeholder,
+body.dark-theme .form-section-company textarea::placeholder,
+body.dark-theme .form-section-company select::placeholder {
+  color: var(--green) !important;
+  opacity: 0.8;
+}
+
+
+body.dark-theme.dashboard-company-page .profile-sidebar {
+  border-bottom: 8px solid var(--green) !important;
+}
+
+body.dark-theme .swal2-popup {
+  background: var(--dark-card-bg) !important;
+  color: var(--dark-text-color) !important;
+  box-shadow: var(--dark-card-shadow) !important;
+}
+
+body.dark-theme .swal2-title,
+body.dark-theme .swal2-html-container {
+  color: var(--primary-color) !important;
+}
+
+body.dark-theme .swal2-confirm {
+  background: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+body.dark-theme .swal2-cancel {
+  background: var(--dark-btn-secondary-bg) !important;
+  color: var(--dark-btn-secondary-text) !important;
+  border: 1px solid var(--dark-btn-secondary-border) !important;
+}
