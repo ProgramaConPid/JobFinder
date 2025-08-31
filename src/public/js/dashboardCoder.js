@@ -12,15 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
   loadUserApplications();
 
   // Logica Modal - Ver detalles
+  // Modal - Ver detalles
   const jobModal = document.getElementById("jobModal");
   const closeJobModal = document.getElementById("closeJobModal");
 
-  // Asignamos evento a todos los botones "View Details"
-  document.querySelectorAll(".btn-view").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+  // Delegación de eventos: escucha clicks en el contenedor de las cards
+  document.querySelector(".job-cards").addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-view")) {
       const card = e.target.closest(".job-card");
 
-      // Sacamos info desde el card
+      // Extraer datos
       const title = card.querySelector(".job-title").innerText;
       const company = card.querySelector(".company-name").innerText;
       const location = card.querySelector(".job-location").innerText;
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tagsContainer.appendChild(span);
       });
 
-      // Pintamos en el modal
+      // Pasar datos al modal
       document.getElementById("modalJobTitle").innerText = title;
       document.getElementById("modalCompanyName").innerText = company;
       document.getElementById("modalLocation").innerText = location;
@@ -48,24 +49,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Mostrar modal
       jobModal.classList.add("active");
-    });
+    }
   });
 
-  // 🔥 Función para cerrar con animación
-  function closeJobModalWithAnimation() {
-    jobModal.classList.add("closing");
-    setTimeout(() => {
-      jobModal.classList.remove("active", "closing");
-    }, 300); // mismo tiempo que tu animación CSS
-  }
+  // Cerrar modal (X)
+  closeJobModal.addEventListener("click", () => {
+    jobModal.classList.remove("active");
+  });
 
-  // Botón de cerrar
-  closeJobModal.addEventListener("click", closeJobModalWithAnimation);
-
-  // Click fuera del modal
+  // Cerrar modal al hacer click fuera
   window.addEventListener("click", (e) => {
     if (e.target === jobModal) {
-      closeJobModalWithAnimation();
+      jobModal.classList.remove("active");
     }
   });
 });
@@ -99,8 +94,8 @@ function applyJob(jobId) {
       title: "Application Sent!",
       text: `You have successfully applied for job #${jobId}.`,
       confirmButtonColor: "#6A0DAD", // morado principal
-      background: "#f5f0fa",         // fondo lila claro
-      color: "#2c2c2c",              // texto oscuro
+      background: "#f5f0fa", // fondo lila claro
+      color: "#2c2c2c", // texto oscuro
     });
     applyButton.textContent = "Already applied";
     applyButton.disabled = true;
@@ -114,8 +109,8 @@ function logout() {
     text: "You will be logged out from your session.",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#d33",      // rojo acción peligrosa
-    cancelButtonColor: "#6A0DAD",    // morado botón cancelar
+    confirmButtonColor: "#d33", // rojo acción peligrosa
+    cancelButtonColor: "#6A0DAD", // morado botón cancelar
     confirmButtonText: "Yes, log out",
     background: "#f5f0fa",
     color: "#2c2c2c",
@@ -155,62 +150,94 @@ document.addEventListener("keydown", function (e) {
 // === Datos reales para Applicant (solo añade esto al final) ===
 (async function cargarOfertasParaApplicant() {
   const possibleSelectors = [
-    '.job-offers-section .job-cards',
-    '.job-cards',
-    '#jobs-list',
-    '.offers-list',
-    '#offers'
+    ".job-offers-section .job-cards",
+    ".job-cards",
+    "#jobs-list",
+    ".offers-list",
+    "#offers",
   ];
   let contenedor = null;
   for (const sel of possibleSelectors) {
     const el = document.querySelector(sel);
-    if (el) { contenedor = el; break; }
+    if (el) {
+      contenedor = el;
+      break;
+    }
   }
   if (!contenedor) return;
 
   try {
-    const res = await fetch('/api/offers');
+    const res = await fetch("/api/offers");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const offers = await res.json();
 
-    contenedor.innerHTML = '';
+    contenedor.innerHTML = "";
     if (!Array.isArray(offers) || offers.length === 0) {
-      const empty = document.createElement('div');
-      empty.className = 'no-offers';
-      empty.textContent = 'No hay ofertas disponibles por ahora.';
+      const empty = document.createElement("div");
+      empty.className = "no-offers";
+      empty.textContent = "No hay ofertas disponibles por ahora.";
       contenedor.appendChild(empty);
       return;
     }
 
-    offers.forEach(o => {
-      const card = document.createElement('div');
-      card.className = 'job-card';
-      const salaryText = (o.salary_min || o.salary_max)
-        ? `${o.salary_min ?? ''}${o.salary_min && o.salary_max ? ' - ' : ''}${o.salary_max ?? ''}`
-        : 'A convenir';
+    offers.forEach((o) => {
+      const card = document.createElement("div");
+      card.className = "job-card";
+      card.dataset.id = o.id;
+
+      const salaryText =
+        o.salary_min || o.salary_max
+          ? `${o.salary_min ?? ""}${o.salary_min && o.salary_max ? " - " : ""}${
+              o.salary_max ?? ""
+            }`
+          : "A convenir";
 
       card.innerHTML = `
-        <div class="job-card__header">
-          <h3 class="job-title">${o.title}</h3>
-          <span class="job-badge">${o.modality}</span>
-          <span class="job-badge">${o.level}</span>
-        </div>
-        <div class="job-card__meta">
-          <span class="job-company">${o.company_name ?? ''}</span>
-          <span class="job-location">${o.location}</span>
-          <span class="job-salary">${salaryText}</span>
-        </div>
-        <div class="job-card__body">
-          <p class="job-desc">${o.description}</p>
-        </div>
-        <div class="job-card__footer">
-          ${o.created_at ? `<span class="job-date">${new Date(o.created_at).toLocaleDateString()}</span>` : ''}
-          <button class="btn btn-apply" data-id="${o.id}">Ver</button>
-        </div>
-      `;
+    <div class="job-header">
+      <h3 class="job-title">${o.title}</h3>
+      <span class="company-name">${o.company_name ?? ""}</span>
+    </div>
+
+    <div class="job-details">
+      <div class="job-detail">
+        <span class="detail-icon">📍</span>
+        <span class="job-location">${o.location}</span>
+      </div>
+      <div class="job-detail">
+        <span class="detail-icon">💰</span>
+        <span class="job-salary">${salaryText}</span>
+      </div>
+      <div class="job-detail">
+        <span class="detail-icon">🕒</span>
+        <span class="job-posted">${
+          o.created_at
+            ? new Date(o.created_at).toLocaleDateString()
+            : "Recently"
+        }</span>
+      </div>
+    </div>
+
+    <div class="job-description">
+      <p>${o.description}</p>
+    </div>
+
+    <div class="job-tags">
+      <span class="job-tag">${o.modality}</span>
+      <span class="job-tag">${o.level}</span>
+    </div>
+
+    <div class="job-actions">
+      <button class="btn-apply" onclick="applyJob(${
+        o.id
+      })" data-i18n="dashboardCoder.applyNow">
+        Apply Now
+      </button>
+      <button class="btn-view" data-i18n="dashboardCoder.viewDetails">View Details</button>
+    </div>
+  `;
       contenedor.appendChild(card);
     });
   } catch (err) {
-    console.error('[ApplicantDashboard] Error cargando ofertas:', err);
+    console.error("[ApplicantDashboard] Error cargando ofertas:", err);
   }
 })();

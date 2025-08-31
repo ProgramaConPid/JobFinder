@@ -98,6 +98,7 @@
         "dashboardCompany.activeOffersSection": "Active Offers",
         "dashboardCompany.createOffer": "+ Create New Offer",
         "dashboardCompany.salary": "Salary:",
+        "dashboardCompany.location": "Location:",
         "dashboardCompany.viewApplicants": "View Applicants",
         "dashboardCompany.edit": "Edit",
         
@@ -117,6 +118,8 @@
         "dashboardCompany.editOffer": "Edit Job Offer",
         "dashboardCompany.jobTitle": "Job Title",
         "dashboardCompany.jobTitlePlaceholder": "e.g. Backend Developer Node.js",
+        "dashboardCompany.jobLocation": "Job Location",
+        "dashboardCompany.jobLocationPlaceholder": "e.g. Madrid - Spain",
         "dashboardCompany.salaryRange": "Salary Range",
         "dashboardCompany.salaryPlaceholder": "e.g. $50,000 - $70,000",
         "dashboardCompany.workMode": "Work Mode",
@@ -346,6 +349,7 @@
         "dashboardCompany.activeOffersSection": "Ofertas Activas",
         "dashboardCompany.createOffer": "+ Crear Nueva Oferta",
         "dashboardCompany.salary": "Salario:",
+        "dashboardCompany.location": "Ubicación:",
         "dashboardCompany.viewApplicants": "Ver Solicitantes",
         "dashboardCompany.edit": "Editar",
         
@@ -365,6 +369,8 @@
         "dashboardCompany.editOffer": "Editar Oferta de Trabajo",
         "dashboardCompany.jobTitle": "Título del Puesto",
         "dashboardCompany.jobTitlePlaceholder": "ej. Desarrollador Backend Node.js",
+        "dashboardCompany.jobLocation": "Ubicacion del Trabajo",
+        "dashboardCompany.jobLocationPlaceholder": "Madrid - España",
         "dashboardCompany.salaryRange": "Rango Salarial",
         "dashboardCompany.salaryPlaceholder": "ej. $50,000 - $70,000",
         "dashboardCompany.workMode": "Modalidad de Trabajo",

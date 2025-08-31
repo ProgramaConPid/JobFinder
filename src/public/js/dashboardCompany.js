@@ -1,9 +1,15 @@
 // src/public/js/dashboardCompany.js
 (function () {
   // API base
-  const API_BASE = (typeof window !== 'undefined' && window.API_BASE != null) ? window.API_BASE : '';
+  const isLocalhost = ["localhost", "127.0.0.1"].includes(
+    window.location.hostname
+  );
 
-  const $  = (sel, root = document) => root.querySelector(sel);
+  const API_BASE = isLocalhost
+    ? "http://localhost:5173" // Local Backend Host
+    : "https://jobfinder-jdp5.onrender.com"; // Backend on production (Render - Web Service)
+
+  const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const getCompanyId = () => {
@@ -16,7 +22,9 @@
 
   // Logout
   window.logout = function () {
-    try { localStorage.removeItem("company_id"); } catch {}
+    try {
+      localStorage.removeItem("company_id");
+    } catch {}
     window.location.href = "./loginCompany.html";
   };
 
@@ -58,17 +66,28 @@
   function renderOffers(offers, cont) {
     cont.innerHTML = "";
     if (!Array.isArray(offers) || offers.length === 0) {
-      cont.innerHTML = '<div class="no-offers">Aún no tienes ofertas publicadas.</div>';
+      cont.innerHTML =
+        `<div class="no-offers">
+          <p>Aún no tienes ofertas publicadas.</p>
+        </div>`;
       return;
     }
     offers.forEach((o) => {
-      const modalityClass = String(o.modality || "").toLowerCase().includes("remote")
+      const modalityClass = String(o.modality || "")
+        .toLowerCase()
+        .includes("remote")
         ? "remote"
-        : String(o.modality || "").toLowerCase().includes("hybrid")
+        : String(o.modality || "")
+            .toLowerCase()
+            .includes("hybrid")
         ? "hybrid"
         : "onsite";
-      const created = o.created_at ? new Date(o.created_at).toLocaleDateString() : "-";
-      const updated = o.updated_at ? new Date(o.updated_at).toLocaleDateString() : "-";
+      const created = o.created_at
+        ? new Date(o.created_at).toLocaleDateString()
+        : "-";
+      const updated = o.updated_at
+        ? new Date(o.updated_at).toLocaleDateString()
+        : "-";
 
       const card = document.createElement("div");
       card.className = "offer-card";
@@ -82,10 +101,19 @@
           </div>
         </div>
         <div class="offer-details">
-          <div class="offer-salary"><strong>Salary:</strong>
-            <span class="offer-salary-value">${salaryText(o.salary_min, o.salary_max)}</span>
+          <div class="offer-location">
+            <strong data-i18n="dashboardCompany.location">Location:</strong>
+            <span class="offer-job-location">${o.location}</span>
           </div>
-          <div class="description-offer"><p class="offer-description">${o.description}</p></div>
+          <div class="offer-salary"><strong>Salary:</strong>
+            <span class="offer-salary-value">${salaryText(
+              o.salary_min,
+              o.salary_max
+            )}</span>
+          </div>
+          <div class="description-offer"><p class="offer-description">${
+            o.description
+          }</p></div>
           <div class="offer-stats">
             <span class="stat-item-offer"><strong>Date posted:</strong> ${created}</span>
             <span class="stat-item-offer"><strong>Last update:</strong> ${updated}</span>
@@ -105,35 +133,67 @@
     const cont = document.querySelector(".offer-cards");
     if (!cont) return;
     const companyId = getCompanyId();
-    if (!companyId) { cont.innerHTML = '<div class="warn-msg">No se detectó company_id. Inicia sesión.</div>'; return; }
+    if (!companyId) {
+      cont.innerHTML =
+        '<div class="warn-msg">No se detectó company_id. Inicia sesión.</div>';
+      return;
+    }
 
     try {
-      const res = await fetch(`${API_BASE}/api/offers?company_id=${encodeURIComponent(companyId)}`);
+      const res = await fetch(
+        `${API_BASE}/api/offers?company_id=${encodeURIComponent(companyId)}`
+      );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const offers = await res.json();
 
       offersState = offers;
-      window.offersIndex = new Map(offers.map(o => [Number(o.id), o]));
+      window.offersIndex = new Map(offers.map((o) => [Number(o.id), o]));
       renderOffers(offers, cont);
     } catch (err) {
       console.error("[CompanyDashboard] loadActiveOffers error:", err);
-      cont.innerHTML = '<div class="error-msg">No se pudieron cargar las ofertas.</div>';
+      cont.innerHTML =
+        '<div class="error-msg">No se pudieron cargar las ofertas.</div>';
     }
   }
 
   // Mapas/parsers
-  const mapModality = (v) => ({ remote: "Remote", hybrid: "Hybrid", "on-site": "On-site", onsite: "On-site" })[String(v||"").toLowerCase()] || null;
-  const revModality = (v) => ({ "remote": "remote", "hybrid": "hybrid", "on-site": "on-site" })[String(v||"").toLowerCase()] || "on-site";
-  const mapLevel    = (v) => ({ junior: "Junior", "mid-level": "Mid-level", senior: "Senior" })[String(v||"").toLowerCase()] || null;
-  const revLevel    = (v) => ({ "junior": "junior", "mid-level": "mid-level", "senior": "senior" }[String(v||"").toLowerCase()] || "junior");
+  const mapModality = (v) =>
+    ({
+      remote: "Remote",
+      hybrid: "Hybrid",
+      "on-site": "On-site",
+      onsite: "On-site",
+    }[String(v || "").toLowerCase()] || null);
+  const revModality = (v) =>
+    ({ remote: "remote", hybrid: "hybrid", "on-site": "on-site" }[
+      String(v || "").toLowerCase()
+    ] || "on-site");
+  const mapLevel = (v) =>
+    ({ junior: "Junior", "mid-level": "Mid-level", senior: "Senior" }[
+      String(v || "").toLowerCase()
+    ] || null);
+  const revLevel = (v) =>
+    ({ junior: "junior", "mid-level": "mid-level", senior: "senior" }[
+      String(v || "").toLowerCase()
+    ] || "junior");
 
   const parseSalaryRange = (s) => {
     if (!s) return { min: null, max: null };
-    const cleaned = String(s).replace(/[^\d,.\-–—]/g, "").replace(/[–—]/g, "-");
-    const parts = cleaned.split("-").map(x => x.trim()).filter(Boolean);
-    const toNum = (x) => { if (!x) return null; const n=Number(x.replace(/,/g,"")); return Number.isFinite(n)?n:null; };
+    const cleaned = String(s)
+      .replace(/[^\d,.\-–—]/g, "")
+      .replace(/[–—]/g, "-");
+    const parts = cleaned
+      .split("-")
+      .map((x) => x.trim())
+      .filter(Boolean);
+    const toNum = (x) => {
+      if (!x) return null;
+      const n = Number(x.replace(/,/g, ""));
+      return Number.isFinite(n) ? n : null;
+    };
     if (parts.length === 1) return { min: toNum(parts[0]), max: null };
-    if (parts.length >= 2) return { min: toNum(parts[0]), max: toNum(parts[1]) };
+    if (parts.length >= 2)
+      return { min: toNum(parts[0]), max: toNum(parts[1]) };
     return { min: null, max: null };
   };
   const buildSalaryRangeText = (min, max) => {
@@ -146,52 +206,95 @@
   // CREATE
   function initCreateOfferModal() {
     const createModal = $("#createOfferModal");
-    const createForm  = $("#createOfferForm");
+    const createForm = $("#createOfferForm");
     if (!createForm) return;
 
-    [".btn-create-offer", "#btnCreateOffer", '[data-open-modal="createOfferModal"]'].forEach((sel) => {
+    [
+      ".btn-create-offer",
+      "#btnCreateOffer",
+      '[data-open-modal="createOfferModal"]',
+    ].forEach((sel) => {
       $$(sel).forEach((btn) => {
-        try { btn.type = "button"; } catch {}
-        btn.addEventListener("click", (ev) => { ev.preventDefault(); openModal(createModal); setTimeout(() => $("#newJobTitle")?.focus(), 0); });
+        try {
+          btn.type = "button";
+        } catch {}
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          openModal(createModal);
+          setTimeout(() => $("#newJobTitle")?.focus(), 0);
+        });
       });
     });
 
-    ["#closeCreateOffer", "#cancelCreateOffer", ".btn-cancel", ".btn-close"].forEach((sel) => {
+    [
+      "#closeCreateOffer",
+      "#cancelCreateOffer",
+      ".btn-cancel",
+      ".btn-close",
+    ].forEach((sel) => {
       $$(sel, createModal || document).forEach((btn) => {
-        btn.addEventListener("click", (ev) => { ev.preventDefault(); closeModal(createModal); });
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          closeModal(createModal);
+        });
       });
     });
 
     createForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const companyId   = getCompanyId();
-      const title       = createForm.newJobTitle?.value?.trim() || "";
-      const salaryRaw   = createForm.newJobSalary?.value?.trim() || "";
+      const companyId = getCompanyId();
+      const title = createForm.newJobTitle?.value?.trim() || "";
+      const location = createForm.newJobLocation?.value.trim() || "";
+      const salaryRaw = createForm.newJobSalary?.value?.trim() || "";
       const modalityRaw = createForm.newJobMode?.value || "";
-      const levelRaw    = createForm.newJobLevel?.value || "";
+      const levelRaw = createForm.newJobLevel?.value || "";
       const description = createForm.newJobDescription?.value?.trim() || "";
 
-      if (!companyId || !title || !modalityRaw || !levelRaw || !description) {
-        (window.Swal && Swal.fire({icon:"error",title:"Campos incompletos",text:"Completa todos los campos requeridos."})) || alert("Completa todos los campos");
+      if (!companyId || !title || !location || !modalityRaw || !levelRaw || !description) {
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Incomplete fields",
+            text: "Please complete all required fields.",
+          })) ||
+          alert("Complete all fields");
         return;
       }
 
       const modality = mapModality(modalityRaw);
-      const level    = mapLevel(levelRaw);
+      const level = mapLevel(levelRaw);
       if (!modality || !level) {
-        (window.Swal && Swal.fire({icon:"error",title:"Valores inválidos",text:"Revisa modality/level."})) || alert("Valores inválidos");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Valores inválidos",
+            text: "Revisa modality/level.",
+          })) ||
+          alert("Valores inválidos");
         return;
       }
 
       const { min: salary_min, max: salary_max } = parseSalaryRange(salaryRaw);
-      const autoLocation = modality === "Remote" ? "Remote" : "Por definir";
+      const autoLocation = location ? location : "Por definir";
 
-      const payload = { company_id: Number(companyId), title, description, location: autoLocation, salary_min, salary_max, modality, level };
+      const payload = {
+        company_id: Number(companyId),
+        title,
+        description,
+        location: autoLocation,
+        salary_min,
+        salary_max,
+        modality,
+        level,
+      };
 
       const submitBtn = createForm.querySelector(".btn-save, [type='submit']");
       const prevTxt = submitBtn ? submitBtn.textContent : null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Saving..."; }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving...";
+      }
 
       try {
         const res = await fetch(`${API_BASE}/api/offers`, {
@@ -202,19 +305,36 @@
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
           const msg = data?.error || "No se pudo crear la oferta.";
-          (window.Swal && Swal.fire({icon:"error",title:"Error",text:msg})) || alert(msg);
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
           return;
         }
 
         createForm.reset();
         closeModal(createModal);
-        (window.Swal && Swal.fire({icon:"success",title:"Offer Created",timer:1200,showConfirmButton:false}));
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer Created",
+            timer: 1200,
+            showConfirmButton: false,
+          });
         await loadActiveOffers();
       } catch (err) {
         console.error("[CreateOffer] Error:", err);
-        (window.Swal && Swal.fire({icon:"error",title:"Error de red",text:"Inténtalo nuevamente."})) || alert("Error de red");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Error de red",
+            text: "Inténtalo nuevamente.",
+          })) ||
+          alert("Error de red");
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = prevTxt; }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = prevTxt;
+        }
       }
     });
   }
@@ -222,12 +342,20 @@
   // EDIT
   function initEditOfferModal() {
     const editModal = $("#editOfferModal");
-    const editForm  = $("#editOfferForm");
+    const editForm = $("#editOfferForm");
     if (!editForm) return;
 
-    ["#closeEditOffer", "#cancelEditOffer", ".btn-cancel", ".btn-close"].forEach((sel) => {
+    [
+      "#closeEditOffer",
+      "#cancelEditOffer",
+      ".btn-cancel",
+      ".btn-close",
+    ].forEach((sel) => {
       $$(sel, editModal || document).forEach((btn) => {
-        btn.addEventListener("click", (ev) => { ev.preventDefault(); closeModal(editModal); });
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          closeModal(editModal);
+        });
       });
     });
 
@@ -245,14 +373,16 @@
 
       const offer = (window.offersIndex && window.offersIndex.get(id)) || {};
       $("#jobTitle").value = String(offer.title || "");
+      $("#jobLocation").value = String(offer.location || "");
       $("#jobSalary").value = (() => {
-        const min = offer.salary_min, max = offer.salary_max;
+        const min = offer.salary_min,
+          max = offer.salary_max;
         if (min == null && max == null) return "";
         if (min != null && max == null) return `${min}`;
         if (min == null && max != null) return `0 - ${max}`;
         return `${min} - ${max}`;
       })();
-      $("#jobMode").value  = (function (v) {
+      $("#jobMode").value = (function (v) {
         const m = String(v || offer.modality || "on-site").toLowerCase();
         if (m.includes("remote")) return "remote";
         if (m.includes("hybrid")) return "hybrid";
@@ -276,49 +406,87 @@
       const id = Number(idStr);
       if (!Number.isFinite(id)) return;
 
-      const title       = $("#jobTitle")?.value?.trim() || "";
-      const salaryRaw   = $("#jobSalary")?.value?.trim() || "";
+      const title = $("#jobTitle")?.value?.trim() || "";
+      const location = $("#jobLocation")?.value?.trim() || "";
+      const salaryRaw = $("#jobSalary")?.value?.trim() || "";
       const modalityRaw = $("#jobMode")?.value || "";
-      const levelRaw    = $("#jobLevel")?.value || "";
+      const levelRaw = $("#jobLevel")?.value || "";
       const description = $("#jobDescription")?.value?.trim() || "";
 
-      if (!title || !modalityRaw || !levelRaw || !description) {
-        (window.Swal && Swal.fire({icon:"error",title:"Campos incompletos",text:"Completa todos los campos requeridos."})) || alert("Completa los campos");
+      if (!title || !location || !modalityRaw || !levelRaw || !description) {
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Campos incompletos",
+            text: "Completa todos los campos requeridos.",
+          })) ||
+          alert("Completa los campos");
         return;
       }
 
       const modality = mapModality(modalityRaw);
-      const level    = mapLevel(levelRaw);
+      const level = mapLevel(levelRaw);
       const { min: salary_min, max: salary_max } = parseSalaryRange(salaryRaw);
-      const autoLocation = modality === "Remote" ? "Remote" : "Por definir";
+      const autoLocation = location ? location : "Por definir";
 
-      const payload = { title, description, location: autoLocation, salary_min, salary_max, modality, level };
+      const payload = {
+        title,
+        description,
+        location: autoLocation,
+        salary_min,
+        salary_max,
+        modality,
+        level,
+      };
 
       const submitBtn = editForm.querySelector(".btn-save, [type='submit']");
       const prevTxt = submitBtn ? submitBtn.textContent : null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Saving..."; }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving...";
+      }
 
       try {
-        const res = await fetch(`${API_BASE}/api/offers/${encodeURIComponent(id)}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+        const res = await fetch(
+          `${API_BASE}/api/offers/${encodeURIComponent(id)}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
           const msg = data?.error || "No se pudo actualizar la oferta.";
-          (window.Swal && Swal.fire({icon:"error",title:"Error",text:msg})) || alert(msg);
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
           return;
         }
 
         closeModal(editModal);
-        (window.Swal && Swal.fire({icon:"success",title:"Offer Updated",timer:1200,showConfirmButton:false}));
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer Updated",
+            timer: 1200,
+            showConfirmButton: false,
+          });
         await loadActiveOffers();
       } catch (err) {
         console.error("[EditOffer] Error:", err);
-        (window.Swal && Swal.fire({icon:"error",title:"Error de red",text:"Inténtalo nuevamente."})) || alert("Error de red");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Error de red",
+            text: "Inténtalo nuevamente.",
+          })) ||
+          alert("Error de red");
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = prevTxt; }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = prevTxt;
+        }
       }
     });
   }
@@ -335,7 +503,8 @@
       const id = Number(card?.dataset?.id);
       if (!Number.isFinite(id)) return;
 
-      const title = card.querySelector(".offer-title")?.textContent?.trim() || "this offer";
+      const title =
+        card.querySelector(".offer-title")?.textContent?.trim() || "this offer";
 
       let confirmed = true;
       if (window.Swal) {
@@ -346,23 +515,30 @@
           showCancelButton: true,
           confirmButtonText: "Yes, delete",
           cancelButtonText: "Cancel",
-          confirmButtonColor: "#c0392b"
+          confirmButtonColor: "#c0392b",
         });
         confirmed = r.isConfirmed;
       } else {
-        confirmed = window.confirm(`Delete "${title}"? This action cannot be undone.`);
+        confirmed = window.confirm(
+          `Delete "${title}"? This action cannot be undone.`
+        );
       }
       if (!confirmed) return;
 
       delBtn.disabled = true;
 
       try {
-        const res = await fetch(`${API_BASE}/api/offers/${encodeURIComponent(id)}`, { method: "DELETE" });
+        const res = await fetch(
+          `${API_BASE}/api/offers/${encodeURIComponent(id)}`,
+          { method: "DELETE" }
+        );
         const data = await res.json().catch(() => ({}));
 
         if (!res.ok) {
           const msg = data?.error || "No se pudo eliminar la oferta.";
-          (window.Swal && Swal.fire({ icon: "error", title: "Error", text: msg })) || alert(msg);
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
           delBtn.disabled = false;
           return;
         }
@@ -371,10 +547,22 @@
         card.remove();
         if (window.offersIndex instanceof Map) window.offersIndex.delete(id);
 
-        (window.Swal && Swal.fire({ icon: "success", title: "Offer deleted", timer: 1000, showConfirmButton: false }));
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer deleted",
+            timer: 1000,
+            showConfirmButton: false,
+          });
       } catch (err) {
         console.error("[DeleteOffer] Error:", err);
-        (window.Swal && Swal.fire({ icon: "error", title: "Network error", text: "Inténtalo nuevamente." })) || alert("Network error");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Network error",
+            text: "Inténtalo nuevamente.",
+          })) ||
+          alert("Network error");
       } finally {
         delBtn.disabled = false;
       }
