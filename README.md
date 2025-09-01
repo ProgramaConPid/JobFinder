@@ -240,5 +240,5 @@ The first version delivers:\
 
 ## Figma
 
-[![Figma](https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg)](Link Figma: https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
+[![Figma](https://www.flaticon.es/iconos-gratis/figma")](Link Figma: https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
 
