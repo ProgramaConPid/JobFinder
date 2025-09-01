@@ -771,7 +771,8 @@ textarea {
 }
 
 .btn-logout,
-.btn-profile {
+.btn-profile,
+.btn-price {
   background: rgba(255, 255, 255, 0.2);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -784,8 +785,15 @@ textarea {
   text-decoration: none;
 }
 
+.btn-price a{
+  color: white !important;
+  text-decoration: none;
+  font-weight: 600;
+}
+
 .btn-logout:hover,
-.btn-profile:hover {
+.btn-profile:hover,
+.btn-price:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
@@ -3366,6 +3374,182 @@ body.dark-theme .offer-location {
   color: var(--green);  
 }
 
+/* plans */
+
+/* Price Cards */
+
+.plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;   /* centrado en la página */
+  padding-top: 80px; /* deja espacio arriba para el botón y el título */
+}
+
+/* Título centrado arriba */
+.price-title {
+  text-align: center;
+  margin: 20px 0;  /* espacio arriba y abajo */
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Botón arriba a la izquierda */
+.back {
+  position: fixed;   /* ahora queda fijo aunque hagas scroll */
+  top: 10px;         
+  left: 10px;        
+  z-index: 1000;     /* siempre por encima de otros elementos */
+}
+
+.back button {
+  background: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.back button a {
+  color: white;
+  text-decoration: none;
+}
+
+
+/* ---- Cards ---- */
+.plan-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.plan-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.plan-name {
+  font-family: var(--font-montserrat);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.plan-description {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+}
+
+.plan-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.price-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.price-period {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--muted-text);
+  font-size: 1.2rem;
+}
+
+.discount-badge {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.plan-features {
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.feature-icon {
+  color: var(--green);
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.feature-text {
+  font-size: 0.95rem;
+}
+
+.plan-button {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: var(--font-montserrat);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+.plan-button:hover {
+  opacity: 0.9;
+}
+
+.popular-badge {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .plans-container {
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .plan-card {
+      width: 100%;
+      max-width: 400px;
+  }
+}
+
 /* ===== Applicant Dashboard — ajustes finos (pegar al FINAL del CSS) ===== */
 
 /* Contenedor general un poco más amplio y con más respiro vertical */
@@ -3558,3 +3742,4 @@ body.dark-theme .card-empty {
 }
 body.dark-theme .card-empty .empty-text h4 { color: var(--primary-color); }
 body.dark-theme .card-empty .empty-text p  { color: var(--dark-muted-text); }
+
