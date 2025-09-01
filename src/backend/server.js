@@ -136,6 +136,168 @@ app.post('/api/auth/company/login', async (req, res) => {
 app.use('/api/companies', companies);
 
 /* ===================================================================
+   APPLICANTS (CODERS)
+   =================================================================== */
+
+/* Login Coder (adaptado a Applicants con first_name / last_name) */
+app.post('/api/auth/coder/login', async (req, res) => {
+  try {
+    let { email, password } = req.body || {};
+    if (!email || !password) {
+      return res.status(400).json({ error: 'email y password son requeridos' });
+    }
+
+    email = String(email).trim().toLowerCase();
+    const [rows] = await pool.query(
+      'SELECT id, first_name, last_name, password FROM Applicants WHERE LOWER(email) = ? LIMIT 1',
+      [email]
+    );
+
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ error: 'No registrado' });
+    }
+
+    const u = rows[0];
+    if (String(u.password) !== String(password)) {
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
+
+    const name = [u.first_name, u.last_name].filter(Boolean).join(' ');
+    return res.json({ applicant_id: u.id, name });
+  } catch (e) {
+    console.error('[POST /api/auth/coder/login] SQL error:', e);
+    res.status(500).json({ error: 'Error en login' });
+  }
+});
+
+/* Registro Coder (adaptado al esquema Applicants) */
+app.post('/api/auth/coder/register', async (req, res) => {
+  try {
+    const b = req.body || {};
+    // Acepta first_name/last_name o full_name (lo separamos)
+    let first_name = b.first_name ?? null;
+    let last_name  = b.last_name ?? null;
+
+    if (!first_name && !last_name && (b.full_name || b.fullName)) {
+      const full = String(b.full_name ?? b.fullName).trim();
+      const parts = full.split(/\s+/);
+      first_name = parts.shift() || '';
+      last_name  = parts.join(' ') || '-';
+    }
+
+    const email    = b.email ? String(b.email).trim().toLowerCase() : null;
+    const password = b.password ?? null;
+
+    // NOT NULL en tu esquema: garantizamos defaults si no vienen
+    const phone      = (b.phone && String(b.phone).trim()) || '0000000000';
+    const address    = (b.address && String(b.address).trim()) || 'Pending';
+    const profession = (b.profession && String(b.profession).trim()) || 'Unspecified';
+
+    // Opcionales
+    const years_experience = Number.isFinite(Number(b.years_experience)) ? Number(b.years_experience) : 0;
+    const education_level  = b.education_level ?? null;
+    const skills           = b.skills ?? null;
+    const resume_url       = b.resume_url ?? b.resumeUrl ?? null;
+    const linkedin         = b.linkedin ?? null;
+    const twitter          = b.twitter ?? null;
+    const facebook         = b.facebook ?? null;
+    const instagram        = b.instagram ?? null;
+
+    if (!first_name || !last_name || !email || !password) {
+      return res.status(400).json({ error: 'first_name/last_name, email y password son requeridos' });
+    }
+
+    // ¿email ya existe?
+    const [ex] = await pool.query('SELECT id FROM Applicants WHERE LOWER(email) = ? LIMIT 1', [email]);
+    if (ex && ex.length > 0) {
+      return res.status(409).json({ error: 'El email ya está registrado' });
+    }
+
+    const sql = `
+      INSERT INTO Applicants (
+        first_name, last_name, email, phone, address, password, profession,
+        years_experience, education_level, skills, resume_url,
+        linkedin, twitter, facebook, instagram
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const params = [
+      first_name, last_name, email, phone, address, String(password), profession,
+      years_experience, education_level, skills, resume_url,
+      linkedin, twitter, facebook, instagram
+    ];
+
+    const [r] = await pool.query(sql, params);
+    return res.status(201).json({ applicant_id: r.insertId });
+  } catch (e) {
+    console.error('[POST /api/auth/coder/register] SQL error:', e);
+    if (e.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ error: 'El email ya está registrado' });
+    }
+    return res.status(500).json({ error: 'Error registrando applicant' });
+  }
+});
+
+/* ===================================================================
+   APPLICATIONS
+   =================================================================== */
+const applications = express.Router();
+
+/* Listar aplicaciones por applicant_id */
+applications.get('/', async (req, res) => {
+  try {
+    const { applicant_id } = req.query;
+    if (!applicant_id) {
+      return res.status(400).json({ error: 'applicant_id requerido' });
+    }
+    const sql = `
+      SELECT a.id, a.applicant_id, a.job_id, a.status, a.applied_at,
+             o.title, o.location, o.modality, o.level, o.company_id, c.name AS company_name
+      FROM Applications a
+      JOIN JobOffers o ON o.id = a.job_id
+      JOIN Companies c ON c.id = o.company_id
+      WHERE a.applicant_id = ?
+      ORDER BY a.applied_at DESC
+    `;
+    const [rows] = await pool.query(sql, [Number(applicant_id)]);
+    res.json(rows);
+  } catch (e) {
+    console.error('[GET /api/applications] SQL error:', e);
+    res.status(500).json({ error: 'Error obteniendo aplicaciones' });
+  }
+});
+
+/* Crear una aplicación (Under Review por defecto) */
+applications.post('/', async (req, res) => {
+  try {
+    const { applicant_id, job_id } = req.body || {};
+    if (!applicant_id || !job_id) {
+      return res.status(400).json({ error: 'applicant_id y job_id son requeridos' });
+    }
+
+    // Evita duplicados (un usuario aplicando 2 veces al mismo job)
+    const [dup] = await pool.query(
+      'SELECT id FROM Applications WHERE applicant_id = ? AND job_id = ? LIMIT 1',
+      [Number(applicant_id), Number(job_id)]
+    );
+    if (dup && dup.length > 0) {
+      return res.status(409).json({ error: 'Ya aplicaste a esta oferta' });
+    }
+
+    const [r] = await pool.query(
+      'INSERT INTO Applications (applicant_id, job_id, status) VALUES (?, ?, ?)',
+      [Number(applicant_id), Number(job_id), 'Under Review']
+    );
+    res.status(201).json({ id: r.insertId, ok: true });
+  } catch (e) {
+    console.error('[POST /api/applications] SQL error:', e);
+    res.status(500).json({ error: 'Error creando aplicación' });
+  }
+});
+
+app.use('/api/applications', applications);
+
+/* ===================================================================
    OFFERS
    =================================================================== */
 const offers = express.Router();
@@ -199,7 +361,7 @@ offers.post('/', async (req, res) => {
   }
 });
 
-/* Editar (tolerante a "sin cambios") */
+/* Editar */
 offers.put('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -250,7 +412,7 @@ offers.put('/:id', async (req, res) => {
   }
 });
 
-/* === DELETE: elimina oferta por id === */
+/* Eliminar */
 offers.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -260,7 +422,6 @@ offers.delete('/:id', async (req, res) => {
     if (r.affectedRows === 0) {
       return res.status(404).json({ error: 'Offer no encontrada' });
     }
-    // Applications / Interviews se eliminan por ON DELETE CASCADE (según tu esquema).
     res.json({ ok: true, deleted: r.affectedRows });
   } catch (e) {
     console.error('[DELETE /api/offers/:id] SQL error:', e);
@@ -279,7 +440,7 @@ app.use((req, res, next) => {
 });
 
 /* ===== Arranque ===== */
-const PORT = Number(process.env.PORT || 3000); // usa 3000 por defecto
+const PORT = Number(process.env.PORT || 3000);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Serving static from: ${publicDir}`);

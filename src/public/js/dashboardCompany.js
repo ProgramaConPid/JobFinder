@@ -20,6 +20,18 @@
     return null;
   };
 
+  // ====== CONTADOR DE OFERTAS (ADICIÓN MÍNIMA) ======
+  function updateActiveOffersCount(n) {
+    const el = document.getElementById("activeOffersCount");
+    if (el) el.textContent = Number(n) || 0;
+  }
+  function recalcActiveOffersCount() {
+    const cont = document.querySelector(".offer-cards");
+    const n = cont ? cont.querySelectorAll(".offer-card").length : 0;
+    updateActiveOffersCount(n);
+  }
+  // ==================================================
+
   // Logout
   window.logout = function () {
     try {
@@ -70,6 +82,8 @@
         `<div class="no-offers">
           <p>Aún no tienes ofertas publicadas.</p>
         </div>`;
+      // === contador cuando no hay ofertas ===
+      updateActiveOffersCount(0);
       return;
     }
     offers.forEach((o) => {
@@ -127,6 +141,8 @@
       `;
       cont.appendChild(card);
     });
+    // === contador con total renderizado ===
+    updateActiveOffersCount(offers.length);
   }
 
   async function loadActiveOffers() {
@@ -136,6 +152,8 @@
     if (!companyId) {
       cont.innerHTML =
         '<div class="warn-msg">No se detectó company_id. Inicia sesión.</div>';
+      // === contador sin sesión ===
+      updateActiveOffersCount(0);
       return;
     }
 
@@ -153,6 +171,8 @@
       console.error("[CompanyDashboard] loadActiveOffers error:", err);
       cont.innerHTML =
         '<div class="error-msg">No se pudieron cargar las ofertas.</div>';
+      // === contador en error ===
+      updateActiveOffersCount(0);
     }
   }
 
@@ -547,6 +567,9 @@
         card.remove();
         if (window.offersIndex instanceof Map) window.offersIndex.delete(id);
 
+        // === actualizar contador tras eliminar ===
+        recalcActiveOffersCount();
+
         window.Swal &&
           Swal.fire({
             icon: "success",
@@ -568,6 +591,10 @@
       }
     });
   }
+
+  
+
+
 
   // INIT
   document.addEventListener("DOMContentLoaded", () => {

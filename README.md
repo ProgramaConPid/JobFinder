@@ -107,7 +107,7 @@ This design ensures integrity, traceability, and efficient queries.
 
 Two main flows exist: **Companies** and **Applicants**.
 
-![Navigation Flow](./docs/Navigation_Diagram.png)
+![Navigation Flow](https://github.com/ProgramaConPid/JobFinder/blob/develop/Diagrams-MER/Navigation-Diagram.jpg?raw=true)
 
 **Flow explanation:**\
 - **Companies**: register/login, manage offers, track applications, view
@@ -119,14 +119,31 @@ and track interviews.\
 ------------------------------------------------------------------------
 
 ## 📂 Project Structure
+The repository is organized as follows:
 
-Current repository structure (from `.rar`):
-
-\`\`\`bash 📦 JobFinder ┣ 📂 backend ┃ ┣ 📂 controllers ┃ ┣ 📂 models ┃
-┣ 📂 routes ┃ ┗ 📂 utils ┣ 📂 frontend ┃ ┣ 📂 components ┃ ┣ 📂 pages ┃
-┣ 📂 services ┃ ┗ 📂 assets ┣ 📂 database ┃ ┣ schema.sql ┃ ┗ seeds.sql ┣
-📂 docs ┃ ┗ JobFinder_Project_Proposal.pdf ┣ 📜 package.json ┣ 📜
-README.md ┗ 📜 LICENSE \`\`\`
+```bash
+JobFinder
+ ┣ 📂 backend
+ ┃ ┣ 📂 controllers
+ ┃ ┣ 📂 models
+ ┃ ┣ 📂 routes
+ ┃ ┗ 📂 utils
+ ┣ 📂 frontend
+ ┃ ┣ 📂 components
+ ┃ ┣ 📂 pages
+ ┃ ┣ 📂 services
+ ┃ ┗ 📂 assets
+ ┣ 📂 database
+ ┃ ┣ schema.sql
+ ┃ ┗ seeds.sql
+ ┣ 📂 docs
+ ┃ ┣ JobFinder_Project_Proposal.pdf
+ ┃ ┣ DB_page-0001.jpg
+ ┃ ┗ Navigation_Diagram.png
+ ┣ 📜 package.json
+ ┣ 📜 README.md
+ ┗ 📜 LICENSE
+```
 
 **Explanation:**\
 - **backend/** → API logic, routes, and controllers.\
@@ -221,7 +238,7 @@ The first version delivers:\
 
 ------------------------------------------------------------------------
 
-## 📜 License
+## Figma
 
-This project is licensed under the **MIT License**.\
-See the [LICENSE](./LICENSE) file for details.
+[![Figma](https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg)](Link Figma: https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
+
