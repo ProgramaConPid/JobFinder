@@ -107,7 +107,7 @@ This design ensures integrity, traceability, and efficient queries.
 
 Two main flows exist: **Companies** and **Applicants**.
 
-![Navigation Flow](./docs/Navigation_Diagram.png)
+![Navigation Flow](https://github.com/ProgramaConPid/JobFinder/blob/develop/Diagrams-MER/Navigation-Diagram.jpg?raw=true)
 
 **Flow explanation:**\
 - **Companies**: register/login, manage offers, track applications, view
