@@ -3400,6 +3400,14 @@ body.dark-theme .offer-location {
   margin: 20px 0;
   font-size: 24px;
   font-weight: 700;
+  color: #1a3c34; 
+  text-align: center;
+  margin: 20px 0;
+}
+
+.body-plan{
+    background: #e6f9f0; /* mismo verde claro */
+    font-family: Arial, sans-serif;
 }
 
 /* Back Button Styles */
