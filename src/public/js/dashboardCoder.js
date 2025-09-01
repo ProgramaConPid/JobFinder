@@ -14,7 +14,10 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const getApplicantId = () => {
   // 1) query param ?applicant_id=, 2) localStorage "applicant_id"
   const p = new URLSearchParams(window.location.search).get("applicant_id");
-  if (p && /^\d+$/.test(p)) return Number(p);
+  if (p && /^\d+$/.test(p)) {
+    try { localStorage.setItem("applicant_id", String(p)); } catch {}
+    return Number(p);
+  }
   const ls = localStorage.getItem("applicant_id");
   if (ls && /^\d+$/.test(ls)) return Number(ls);
   return null;
@@ -22,6 +25,7 @@ const getApplicantId = () => {
 
 let offersIndex = new Map();       // id -> offer
 let appliedJobIds = new Set();     // job_ids ya aplicados del usuario
+let lastApplications = [];         // 🔒 Anti-fantasmas: guardamos la última lista cruda
 
 function isApplied(jobId) { return appliedJobIds.has(Number(jobId)); }
 
@@ -33,6 +37,39 @@ function salaryText(min, max) {
   const b = hasMax ? Number(max) : "";
   return `${a}${hasMin && hasMax ? " - " : ""}${b}`;
 }
+
+// --------------------------
+// NUEVO: Contador de entrevistas agendadas (por coder)
+// --------------------------
+async function fetchAndRenderInterviewsCount() {
+  const applicantId = getApplicantId();
+  const el = $("#scheduledInterviewsCount"); // <span id="scheduledInterviewsCount">0</span>
+  if (!el) {
+    console.warn('[CoderDashboard] Falta #scheduledInterviewsCount en el DOM.');
+    return;
+  }
+  if (!applicantId) {
+    el.textContent = "0";
+    console.warn("[CoderDashboard] applicant_id no disponible (query o localStorage).");
+    return;
+  }
+  try {
+    const r = await fetch(`${API_BASE}/api/applicants/${applicantId}/interviews/count`, {
+      credentials: "include",
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const { total } = await r.json();
+    el.textContent = Number(total) || 0;
+  } catch (err) {
+    console.error("[CoderDashboard] Error obteniendo entrevistas:", err);
+    el.textContent = "0";
+  }
+}
+
+// expone un refresco público opcional
+window.CoderDashboard = Object.assign(window.CoderDashboard || {}, {
+  refreshInterviewsCount: fetchAndRenderInterviewsCount,
+});
 
 // --------------------------
 // Modal "View Details"
@@ -132,15 +169,32 @@ function renderOffers(list, cont) {
   });
 }
 
+// --------------------------
+// 🔒 Anti-fantasmas helpers
+// --------------------------
+function filterValidApplications(apps) {
+  // Válida si el backend ya trajo título o si el job existe en offersIndex
+  return (apps || []).filter(a => {
+    const hasTitle = Boolean(a?.job_title && String(a.job_title).trim());
+    const inIndex = offersIndex.has(Number(a?.job_id));
+    return hasTitle || inIndex;
+  });
+}
+
+function getTitleAndCompany(app) {
+  // Preferimos los datos que vengan del backend; si no, usamos offersIndex
+  const job = offersIndex.get(Number(app.job_id)) || {};
+  return {
+    title: app.job_title || job.title,
+    company: app.company_name || job.company_name
+  };
+}
 
 // --------------------------
 // Render de Postulaciones
 // --------------------------
 function applicationCardTemplate(app) {
-  // app puede traer job_title/company_name; si no, buscamos en offersIndex
-  const job = offersIndex.get(Number(app.job_id)) || {};
-  const title = app.job_title || job.title || "Job";
-  const company = app.company_name || job.company_name || "Company";
+  const { title, company } = getTitleAndCompany(app);
   const appliedDate = app.applied_at
     ? new Date(app.applied_at).toLocaleDateString()
     : "Recently";
@@ -166,17 +220,22 @@ function applicationCardTemplate(app) {
 
 function renderApplications(apps, cont) {
   cont.innerHTML = "";
-  if (!Array.isArray(apps) || apps.length === 0) {
-    // puedes dejar vacío o colocar un mensaje
+
+  // 🔒 Anti-fantasmas: solo las válidas
+  const sane = filterValidApplications(apps);
+
+  if (sane.length === 0) {
+    // puedes dejar vacío o poner un mensaje si quieres
+    const span = $("#applicationsSentCount");
+    if (span) span.textContent = "0";
     return;
   }
-  apps.forEach((a) => {
-    cont.appendChild(applicationCardTemplate(a));
-  });
 
-  // Actualiza contador Applications Sent
+  sane.forEach((a) => cont.appendChild(applicationCardTemplate(a)));
+
+  // Actualiza contador Applications Sent con las válidas
   const span = $("#applicationsSentCount");
-  if (span) span.textContent = String(apps.length);
+  if (span) span.textContent = String(sane.length);
 }
 
 // --------------------------
@@ -206,20 +265,23 @@ async function loadJobOffers() {
       offers = Object.values(offers);
     }
 
-    console.debug("[DashboardCoder] offers count:", Array.isArray(offers) ? offers.length : "N/A", offers);
-
     // Asegura que cada item tenga un id numérico
     offers = (offers || []).map(o => ({ ...o, id: Number(o.id ?? o.job_id ?? o.offer_id) }));
 
     offersIndex = new Map((offers || []).map((o) => [Number(o.id), o]));
     renderOffers(offers, container);
+
+    // 🔒 Anti-fantasmas: cuando ya tenemos offersIndex, re-pintamos aplicaciones
+    const appsCont = $(".application-cards");
+    if (appsCont && lastApplications.length) {
+      renderApplications(lastApplications, appsCont);
+    }
   } catch (err) {
     console.error("[DashboardCoder] loadJobOffers error:", err);
     // Muestra card vacía si falla
     renderOffers([], container);
   }
 }
-
 
 async function loadUserApplications() {
   const container = $(".application-cards");
@@ -240,10 +302,12 @@ async function loadUserApplications() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const apps = await res.json();
 
-    // llena el set para deshabilitar botones "Apply Now"
-    appliedJobIds = new Set((Array.isArray(apps) ? apps : []).map(a => Number(a.job_id)));
+    lastApplications = Array.isArray(apps) ? apps : [];
 
-    renderApplications(apps, container);
+    // llena el set para deshabilitar botones "Apply Now"
+    appliedJobIds = new Set(lastApplications.map(a => Number(a.job_id)));
+
+    renderApplications(lastApplications, container);
 
     // también repintamos las ofertas si ya se cargaron, para reflejar “Already applied”
     const cards = $$(".job-card");
@@ -343,25 +407,25 @@ async function applyJob(jobId) {
       modalApplyBtn.style.background = "#27ae60";
     }
 
-    // Agrega la aplicación a la columna derecha
+    // Agrega la aplicación a la columna derecha (solo si la oferta existe)
     const appList = $(".application-cards");
-    if (appList) {
+    const offer = offersIndex.get(Number(jobId));
+    if (appList && offer) {
       const nowIso = new Date().toISOString();
       const app = {
         job_id: Number(jobId),
         status: "Under Review",
         applied_at: nowIso,
-        job_title: offersIndex.get(Number(jobId))?.title || "Job",
-        company_name: offersIndex.get(Number(jobId))?.company_name || "Company",
+        job_title: offer.title,               // usamos datos reales
+        company_name: offer.company_name,
       };
-      appList.prepend(applicationCardTemplate(app));
-    }
 
-    // Incrementa contador "Applications Sent"
-    const cnt = $("#applicationsSentCount");
-    if (cnt) {
-      const n = Number(cnt.textContent || "0");
-      cnt.textContent = String(n + 1);
+      // actualizamos el estado crudo y re-render con filtro
+      lastApplications = [app, ...lastApplications];
+      renderApplications(lastApplications, appList);
+    } else {
+      // si no hay offer en índice, no añadimos "fantasmas"
+      console.warn("[applyJob] Offer no está en offersIndex: no se agrega tarjeta.");
     }
 
     Swal.fire({
@@ -372,9 +436,6 @@ async function applyJob(jobId) {
       background: "#f5f0fa",
       color: "#2c2c2c",
     });
-
-    // Si estabas en el modal, puedes cerrarlo si quieres:
-    // closeModal();
 
   } catch (err) {
     console.error("[applyJob] error:", err);
@@ -405,6 +466,14 @@ async function applyJob(jobId) {
 document.addEventListener("DOMContentLoaded", function () {
   // Datos usuario
   loadUserData();
+
+  // Contador de entrevistas (nuevo)
+  fetchAndRenderInterviewsCount();
+
+  // Actualiza al volver a primer plano (por si el recruiter agenda una entrevista mientras tanto)
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) fetchAndRenderInterviewsCount();
+  });
 
   // Primero carga aplicaciones (para saber qué jobs deshabilitar)
   loadUserApplications().then(() => {

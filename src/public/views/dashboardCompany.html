@@ -299,7 +299,42 @@
       </main>
     </div>
 
+
+    <!-- View Applicants Modal -->
+<div id="viewApplicantsModal" class="modal" style="display:none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Applicants</h3>
+        <button type="button" class="btn-close" id="closeViewApplicants" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table applicants-table" style="width:100%;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th style="white-space:nowrap;">Interviews</th>
+              <th style="width:1%;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="viewApplicantsTbody">
+            <tr><td colspan="4" style="text-align:center; opacity:.7;">No applicants yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="closeViewApplicantsFooter" class="btn btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Modal Create Offer -->
+
     <!-- Modal for creating a new job offer -->
+
     <div id="createOfferModal" class="modal-offer">
       <div class="modal-offer-content">
         <span class="modal-offer-close" id="closeCreateOffer">&times;</span>

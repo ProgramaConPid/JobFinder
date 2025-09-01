@@ -3743,3 +3743,156 @@ body.dark-theme .card-empty {
 body.dark-theme .card-empty .empty-text h4 { color: var(--primary-color); }
 body.dark-theme .card-empty .empty-text p  { color: var(--dark-muted-text); }
 
+/* ===========================
+   Modal "Applicants" (Company)
+   =========================== */
+.modal {                /* overlay */
+  position: fixed;
+  inset: 0;
+  display: none;        /* .show lo cambia */
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(2px);
+}
+.modal.show { display: flex; }
+
+.modal-dialog {
+  width: min(860px, 95vw);
+  margin: 0 auto;
+  transform: translateY(10px) scale(.98);
+  opacity: 0;
+  animation: applicantsModalIn .18s ease-out forwards;
+}
+@keyframes applicantsModalIn {
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-content {
+  background:#fff;
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+  overflow: hidden;
+  border: 1px solid #eef2f7;
+}
+
+.modal-header,
+.modal-footer {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 20px;
+}
+.modal-header {
+  justify-content: space-between;
+  border-bottom:1px solid #eef2f7;
+}
+.modal-footer {
+  justify-content:flex-end;
+  border-top:1px solid #eef2f7;
+  background:#fafafa;
+}
+
+.modal-title {
+  margin:0;
+  font-size:1.2rem;
+  font-weight:700;
+  color:#1f2937;
+}
+
+/* botón “X” acorde a tu línea visual */
+.modal .btn-close {
+  appearance:none; border:0; cursor:pointer;
+  width:34px; height:34px; border-radius:10px;
+  background:#eef2f7; position:relative;
+}
+.modal .btn-close::before,
+.modal .btn-close::after {
+  content:""; position:absolute; inset:0; margin:auto;
+  width:14px; height:2px; background:#374151; transform-origin:center;
+}
+.modal .btn-close::before { transform: rotate(45deg); }
+.modal .btn-close::after  { transform: rotate(-45deg); }
+.modal .btn-close:hover { background:#e5e7eb; }
+
+.modal-body { padding:14px 20px; max-height:min(65vh,560px); overflow:auto; }
+
+/* === Tabla de applicants === */
+.applicants-table {
+  width:100%; border-collapse:collapse; background:#fff;
+}
+.applicants-table thead th{
+  text-align:left; font-weight:700; font-size:.92rem; color:#111827;
+  padding:10px 12px; background:#f9fafb; border-bottom:1px solid #eef2f7;
+}
+.applicants-table tbody td{
+  padding:10px 12px; font-size:.97rem; color:#1f2937; border-bottom:1px solid #f3f4f6;
+  vertical-align:middle;
+}
+.applicants-table tbody tr:hover{ background:#fbfbfd; }
+.applicants-table a{ color:#2563eb; text-decoration:none; }
+.applicants-table a:hover{ text-decoration:underline; }
+.cell-interviews{ font-variant-numeric: tabular-nums; }
+
+/* Botones del modal (usa tus colores) */
+.modal .btn { 
+  padding:10px 14px; border:none; border-radius:12px; cursor:pointer; 
+  font-weight:600; transition:all .2s ease; 
+}
+.modal .btn-primary{ background: var(--accent-color); color:#fff; }
+.modal .btn-primary:hover{ opacity:.95; }
+.modal .btn-secondary{ background:#eef2f7; color:#111827; }
+.modal .btn-secondary:hover{ background:#e5e7eb; }
+.modal .btn-success{
+  background: var(--green); color:#fff;
+  box-shadow: 0 8px 20px rgba(50,205,50,.18);
+}
+.modal .btn-success:hover{ background: var(--green-dark); }
+
+/* Botón pequeño en la tabla */
+.modal .btn-sm{ padding:8px 10px; border-radius:10px; font-size:.9rem; }
+
+/* ====== Dark mode ====== */
+body.dark-theme .modal-content{
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border: 1px solid var(--dark-card-border);
+  box-shadow: var(--dark-card-shadow);
+}
+body.dark-theme .modal-header,
+body.dark-theme .modal-footer{
+  background: var(--dark-card-bg);
+  border-color: var(--dark-card-border);
+}
+body.dark-theme .modal-title{ color: var(--primary-color); }
+body.dark-theme.dashboard-company-page .modal-title{ color: var(--green); }
+
+body.dark-theme .applicants-table{
+  background: var(--dark-card-bg);
+}
+body.dark-theme .applicants-table thead th{
+  background: #0e1524; border-color: var(--dark-card-border); color: var(--dark-text-color);
+}
+body.dark-theme .applicants-table tbody td{
+  border-color: var(--dark-card-border); color: var(--dark-text-color);
+}
+body.dark-theme .applicants-table tbody tr:hover{ background:#0f1722; }
+
+body.dark-theme .modal .btn-secondary{
+  background: var(--dark-btn-secondary-bg);
+  color: var(--dark-btn-secondary-text);
+  border: 1px solid var(--dark-btn-secondary-border);
+}
+body.dark-theme .modal .btn-primary{
+  background: var(--primary-color); color:#fff;
+}
+body.dark-theme.dashboard-company-page .modal .btn-primary{
+  background: var(--green);
+}
+
+/* Asegurar que SweetAlert2 siempre quede por encima del modal */
+.swal2-container {
+  z-index: 2000 !important;   /* mayor que .modal (1100) */
+}
+.swal2-popup {
+  z-index: 2001 !important;   /* por si algún stacking context raro aparece */
+}
