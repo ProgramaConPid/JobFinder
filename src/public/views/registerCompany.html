@@ -1,110 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Montserrat from Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Montserrat font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <!-- Font Roboto from Google Fonts -->
+    <!-- Import Roboto font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <!-- CSS File link -->
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Website Icon -->
-    <link rel="shortcut icon" href="../assets/img/jobfinderlogo.png" type="image/x-icon">
-    <!-- Box Icons CDN -->
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <title data-i18n="registerCompany.title">JobFinder - Company Registration</title>
-</head>
-<body class="dark-theme register-company-page">
+    <!-- Link to main CSS file -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Website favicon -->
+    <link
+      rel="shortcut icon"
+      href="../assets/img/jobfinderlogo.png"
+      type="image/x-icon"
+    />
+    <!-- Box Icons CDN for icon fonts -->
+    <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Page title with i18n support -->
+    <title data-i18n="registerCompany.title">
+      JobFinder - Company Registration
+    </title>
+  </head>
+  <body class="dark-theme register-company-page">
     <div class="register-container">
-        <!-- Page Header -->
-        <header class="register-header">
-            <h1 data-i18n="registerCompany.header">Company Registration</h1>
-            <p data-i18n="registerCompany.subtitle">Create your account to get started</p>
-        </header>
-        
-        <!-- Registration Form -->
-        <main class="register-form">
-            <form id="companyRegisterForm">
-                <div class="form-group-register-company">
-                    <label for="companyName" data-i18n="registerCompany.companyName">Company Name</label>
-                    <div class="input-with-icon">
-                        <img src="../assets/img/builds.png" alt="company" class="input-icon-left">
-                        <input type="text" id="companyName" 
-                               data-i18n-placeholder="registerCompany.companyNamePlaceholder"
-                               placeholder="My Company Inc." required>
-                    </div>
-                </div>
-                
-                <div class="form-group-register-company">
-                    <label for="companyEmail" data-i18n="registerCompany.email">Email Address</label>
-                    <div class="input-with-icon">
-                        <img src="../assets/img/email_green.png" alt="email" class="input-icon-left">
-                        <input type="email" id="companyEmail" 
-                               data-i18n-placeholder="registerCompany.emailPlaceholder"
-                               placeholder="your@email.com" required>
-                    </div>
-                </div>
-                
-                <div class="form-group-register-company">
-                    <label for="companyPassword" data-i18n="registerCompany.password">Password</label>
-                    <div class="input-with-icon">
-                        <img src="../assets/img/lock_green.png" alt="password" class="input-icon-left">
-                        <input type="password" id="companyPassword" 
-                               data-i18n-placeholder="registerCompany.passwordPlaceholder"
-                               placeholder="••••••••••" required>
-                    </div>
-                </div>
-                
-                <div class="form-group-register-company">
-                    <label for="companyConfirmPassword" data-i18n="registerCompany.confirmPassword">Confirm Password</label>
-                    <div class="input-with-icon">
-                        <img src="../assets/img/lock_green.png" alt="password" class="input-icon-left">
-                        <input type="password" id="companyConfirmPassword" 
-                               data-i18n-placeholder="registerCompany.confirmPasswordPlaceholder"
-                               placeholder="••••••••••" required>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn-register company-btn" data-i18n="registerCompany.button">
-                    Create Account
-                </button>
-            </form>
-            
-            <!-- Footer with login redirect -->
-            <div class="register-footer">
-                <p>
-                    <span data-i18n="registerCompany.haveAccount">Already have an account?</span>
-                    <a href="loginCompany.html" data-i18n="registerCompany.loginLink">Log in</a>
-                </p>
+      <!-- Header section with title and subtitle -->
+      <header class="register-header">
+        <h1 data-i18n="registerCompany.header">Company Registration</h1>
+        <p data-i18n="registerCompany.subtitle">
+          Create your account to get started
+        </p>
+      </header>
+
+      <!-- Main registration form -->
+      <main class="register-form">
+        <form id="companyRegisterForm">
+          <!-- Company Name input field -->
+          <div class="form-group-register-company">
+            <label for="companyName" data-i18n="registerCompany.companyName"
+              >Company Name</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/builds.png"
+                alt="company"
+                class="input-icon-left"
+              />
+              <input
+                type="text"
+                id="companyName"
+                data-i18n-placeholder="registerCompany.companyNamePlaceholder"
+                placeholder="My Company Inc."
+                required
+              />
             </div>
-        </main>
-        
-        <!-- Back button -->
-        <div class="back-button">
-            <a href="../index.html" class="back-home">
-                <i class='bxr  bx-arrow-left-stroke-square'></i>
-                <span data-i18n="registerCompany.backHome">Back to Home</span>
-            </a>
+          </div>
+
+          <!-- Email input field -->
+          <div class="form-group-register-company">
+            <label for="companyEmail" data-i18n="registerCompany.email"
+              >Email Address</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/email_green.png"
+                alt="email"
+                class="input-icon-left"
+              />
+              <input
+                type="email"
+                id="companyEmail"
+                data-i18n-placeholder="registerCompany.emailPlaceholder"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password input field -->
+          <div class="form-group-register-company">
+            <label for="companyPassword" data-i18n="registerCompany.password"
+              >Password</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/lock_green.png"
+                alt="password"
+                class="input-icon-left"
+              />
+              <input
+                type="password"
+                id="companyPassword"
+                data-i18n-placeholder="registerCompany.passwordPlaceholder"
+                placeholder="••••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Confirm Password input field -->
+          <div class="form-group-register-company">
+            <label
+              for="companyConfirmPassword"
+              data-i18n="registerCompany.confirmPassword"
+              >Confirm Password</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/lock_green.png"
+                alt="password"
+                class="input-icon-left"
+              />
+              <input
+                type="password"
+                id="companyConfirmPassword"
+                data-i18n-placeholder="registerCompany.confirmPasswordPlaceholder"
+                placeholder="••••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Submit button for registration -->
+          <button
+            type="submit"
+            class="btn-register company-btn"
+            data-i18n="registerCompany.button"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <!-- Footer with link to login page -->
+        <div class="register-footer">
+          <p>
+            <span data-i18n="registerCompany.haveAccount"
+              >Already have an account?</span
+            >
+            <a href="loginCompany.html" data-i18n="registerCompany.loginLink"
+              >Log in</a
+            >
+          </p>
         </div>
+      </main>
+
+      <!-- Back to home button -->
+      <div class="back-button">
+        <a href="../index.html" class="back-home">
+          <i class="bxr bx-arrow-left-stroke-square"></i>
+          <span data-i18n="registerCompany.backHome">Back to Home</span>
+        </a>
+      </div>
     </div>
 
-    <!-- External JS -->
+    <!-- External JavaScript files for registration, theme, and language -->
     <script src="../js/registerCompany.js"></script>
     <script src="../js/theme.js"></script>
     <script src="../js/language.js"></script>
 
-    <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
-    
-</body>
+    <!-- Button to toggle dark/light theme -->
+    <button
+      id="toggle-theme"
+      class="btn-toggle-theme"
+      aria-label="Toggle dark mode"
+    >
+      🌙
+    </button>
+  </body>
 </html>
