@@ -1,21 +1,27 @@
 // src/public/js/dashboardCoder.js
-const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+// Detect if running on localhost or production
+const isLocalhost = ["localhost", "127.0.0.1"].includes(
+  window.location.hostname
+);
 
 const API_BASE = isLocalhost
   ? "http://localhost:5173" // Local Backend Host
-  : "https://jobfinder-jdp5.onrender.com"; // Backend on production (Render)
+  : "https://jobfinder-jdp5.onrender.com"; // Production Backend
 
 // --------------------------
-// Helpers y estado
+// Helpers and state
 // --------------------------
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+// Get applicant_id from query param or localStorage
 const getApplicantId = () => {
-  // 1) query param ?applicant_id=, 2) localStorage "applicant_id"
   const p = new URLSearchParams(window.location.search).get("applicant_id");
   if (p && /^\d+$/.test(p)) {
-    try { localStorage.setItem("applicant_id", String(p)); } catch {}
+    try {
+      localStorage.setItem("applicant_id", String(p));
+    } catch {}
     return Number(p);
   }
   const ls = localStorage.getItem("applicant_id");
@@ -23,50 +29,58 @@ const getApplicantId = () => {
   return null;
 };
 
-let offersIndex = new Map();       // id -> offer
-let appliedJobIds = new Set();     // job_ids ya aplicados del usuario
-let lastApplications = [];         // 🔒 Anti-fantasmas: guardamos la última lista cruda
+let offersIndex = new Map(); // id -> offer
+let appliedJobIds = new Set(); // job_ids already applied by user
+let lastApplications = []; // Anti-ghost: store last raw applications list
 
-function isApplied(jobId) { return appliedJobIds.has(Number(jobId)); }
+function isApplied(jobId) {
+  return appliedJobIds.has(Number(jobId));
+}
 
+// Format salary range text
 function salaryText(min, max) {
   const hasMin = min !== null && min !== undefined && String(min) !== "";
   const hasMax = max !== null && max !== undefined && String(max) !== "";
-  if (!hasMin && !hasMax) return "A convenir";
+  if (!hasMin && !hasMax) return "Negotiable";
   const a = hasMin ? Number(min) : "";
   const b = hasMax ? Number(max) : "";
   return `${a}${hasMin && hasMax ? " - " : ""}${b}`;
 }
 
 // --------------------------
-// NUEVO: Contador de entrevistas agendadas (por coder)
+// NEW: Scheduled interviews counter (per coder)
 // --------------------------
 async function fetchAndRenderInterviewsCount() {
   const applicantId = getApplicantId();
-  const el = $("#scheduledInterviewsCount"); // <span id="scheduledInterviewsCount">0</span>
+  const el = $("#scheduledInterviewsCount");
   if (!el) {
-    console.warn('[CoderDashboard] Falta #scheduledInterviewsCount en el DOM.');
+    console.warn("[CoderDashboard] Missing #scheduledInterviewsCount in DOM.");
     return;
   }
   if (!applicantId) {
     el.textContent = "0";
-    console.warn("[CoderDashboard] applicant_id no disponible (query o localStorage).");
+    console.warn(
+      "[CoderDashboard] applicant_id not available (query or localStorage)."
+    );
     return;
   }
   try {
-    const r = await fetch(`${API_BASE}/api/applicants/${applicantId}/interviews/count`, {
-      credentials: "include",
-    });
+    const r = await fetch(
+      `${API_BASE}/api/applicants/${applicantId}/interviews/count`,
+      {
+        credentials: "include",
+      }
+    );
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const { total } = await r.json();
     el.textContent = Number(total) || 0;
   } catch (err) {
-    console.error("[CoderDashboard] Error obteniendo entrevistas:", err);
+    console.error("[CoderDashboard] Error getting interviews:", err);
     el.textContent = "0";
   }
 }
 
-// expone un refresco público opcional
+// Expose a public refresh function
 window.CoderDashboard = Object.assign(window.CoderDashboard || {}, {
   refreshInterviewsCount: fetchAndRenderInterviewsCount,
 });
@@ -91,22 +105,22 @@ function closeModal() {
 }
 
 // --------------------------
-// Carga de usuario (placeholder)
+// Load user data (placeholder)
 // --------------------------
 function loadUserData() {
-  // Si ya tienes datos reales, reemplaza esto
+  // Replace with real user data if available
   const name = "John Smith";
   const ui = $(".user-info");
   if (ui) ui.textContent = `Hello, ${name}`;
 }
 
 // --------------------------
-// Render de Ofertas
+// Render job offers
 // --------------------------
 function renderOffers(list, cont) {
   cont.innerHTML = "";
 
-  // ✅ contador siempre reflejado
+  // Always update the offers counter
   const span = $("#availableOffersCount");
   if (span) span.textContent = String(Array.isArray(list) ? list.length : 0);
 
@@ -116,8 +130,8 @@ function renderOffers(list, cont) {
     empty.innerHTML = `
       <div class="empty-icon">🔎</div>
       <div class="empty-text">
-        <h4>No hay ofertas disponibles por ahora</h4>
-        <p>Vuelve más tarde o ajusta los filtros.</p>
+        <h4>No offers available at the moment</h4>
+        <p>Check back later or adjust your filters.</p>
       </div>
     `;
     cont.appendChild(empty);
@@ -141,7 +155,9 @@ function renderOffers(list, cont) {
       </div>
 
       <div class="job-details">
-        <div class="job-detail"><span class="detail-icon">📍</span><span class="job-location">${o.location}</span></div>
+        <div class="job-detail"><span class="detail-icon">📍</span><span class="job-location">${
+          o.location
+        }</span></div>
         <div class="job-detail"><span class="detail-icon">💰</span><span class="job-salary">${minMaxText}</span></div>
         <div class="job-detail"><span class="detail-icon">🕒</span><span class="job-posted">${posted}</span></div>
       </div>
@@ -170,11 +186,11 @@ function renderOffers(list, cont) {
 }
 
 // --------------------------
-// 🔒 Anti-fantasmas helpers
+// Anti-ghost helpers
 // --------------------------
 function filterValidApplications(apps) {
-  // Válida si el backend ya trajo título o si el job existe en offersIndex
-  return (apps || []).filter(a => {
+  // Valid if backend already brought title or if job exists in offersIndex
+  return (apps || []).filter((a) => {
     const hasTitle = Boolean(a?.job_title && String(a.job_title).trim());
     const inIndex = offersIndex.has(Number(a?.job_id));
     return hasTitle || inIndex;
@@ -182,16 +198,16 @@ function filterValidApplications(apps) {
 }
 
 function getTitleAndCompany(app) {
-  // Preferimos los datos que vengan del backend; si no, usamos offersIndex
+  // Prefer backend data; fallback to offersIndex
   const job = offersIndex.get(Number(app.job_id)) || {};
   return {
     title: app.job_title || job.title,
-    company: app.company_name || job.company_name
+    company: app.company_name || job.company_name,
   };
 }
 
 // --------------------------
-// Render de Postulaciones
+// Render applications
 // --------------------------
 function applicationCardTemplate(app) {
   const { title, company } = getTitleAndCompany(app);
@@ -221,11 +237,11 @@ function applicationCardTemplate(app) {
 function renderApplications(apps, cont) {
   cont.innerHTML = "";
 
-  // 🔒 Anti-fantasmas: solo las válidas
+  // Anti-ghost: only valid applications
   const sane = filterValidApplications(apps);
 
   if (sane.length === 0) {
-    // puedes dejar vacío o poner un mensaje si quieres
+    // You can leave empty or show a message if you want
     const span = $("#applicationsSentCount");
     if (span) span.textContent = "0";
     return;
@@ -233,25 +249,27 @@ function renderApplications(apps, cont) {
 
   sane.forEach((a) => cont.appendChild(applicationCardTemplate(a)));
 
-  // Actualiza contador Applications Sent con las válidas
+  // Update Applications Sent counter with valid applications
   const span = $("#applicationsSentCount");
   if (span) span.textContent = String(sane.length);
 }
 
 // --------------------------
-// Cargas desde el backend
+// Load from backend
 // --------------------------
 async function loadJobOffers() {
   const container = $(".job-cards");
   if (!container) return;
 
   try {
-    const res = await fetch(`${API_BASE}/api/offers`, { headers: { "Accept": "application/json" } });
+    const res = await fetch(`${API_BASE}/api/offers`, {
+      headers: { Accept: "application/json" },
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const payload = await res.json();
 
-    // 🔧 Normaliza: array directo o dentro de .data / .offers / .results / .rows
+    // Normalize: direct array or inside .data / .offers / .results / .rows
     let offers =
       (Array.isArray(payload) && payload) ||
       payload?.offers ||
@@ -260,25 +278,28 @@ async function loadJobOffers() {
       payload?.rows ||
       [];
 
-    // Por si viene como objeto-index (id => offer)
+    // If comes as object-index (id => offer)
     if (!Array.isArray(offers) && typeof offers === "object") {
       offers = Object.values(offers);
     }
 
-    // Asegura que cada item tenga un id numérico
-    offers = (offers || []).map(o => ({ ...o, id: Number(o.id ?? o.job_id ?? o.offer_id) }));
+    // Ensure each item has a numeric id
+    offers = (offers || []).map((o) => ({
+      ...o,
+      id: Number(o.id ?? o.job_id ?? o.offer_id),
+    }));
 
     offersIndex = new Map((offers || []).map((o) => [Number(o.id), o]));
     renderOffers(offers, container);
 
-    // 🔒 Anti-fantasmas: cuando ya tenemos offersIndex, re-pintamos aplicaciones
+    // Anti-ghost: when offersIndex is ready, re-render applications
     const appsCont = $(".application-cards");
     if (appsCont && lastApplications.length) {
       renderApplications(lastApplications, appsCont);
     }
   } catch (err) {
     console.error("[DashboardCoder] loadJobOffers error:", err);
-    // Muestra card vacía si falla
+    // Show empty card if failed
     renderOffers([], container);
   }
 }
@@ -289,7 +310,7 @@ async function loadUserApplications() {
 
   const applicantId = getApplicantId();
   if (!applicantId) {
-    // Si no hay applicant_id aún, deja contador en 0
+    // If no applicant_id, set counter to 0
     const span = $("#applicationsSentCount");
     if (span) span.textContent = "0";
     return;
@@ -297,19 +318,21 @@ async function loadUserApplications() {
 
   try {
     const res = await fetch(
-      `${API_BASE}/api/applications?applicant_id=${encodeURIComponent(applicantId)}`
+      `${API_BASE}/api/applications?applicant_id=${encodeURIComponent(
+        applicantId
+      )}`
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const apps = await res.json();
 
     lastApplications = Array.isArray(apps) ? apps : [];
 
-    // llena el set para deshabilitar botones "Apply Now"
-    appliedJobIds = new Set(lastApplications.map(a => Number(a.job_id)));
+    // Fill set to disable "Apply Now" buttons
+    appliedJobIds = new Set(lastApplications.map((a) => Number(a.job_id)));
 
     renderApplications(lastApplications, container);
 
-    // también repintamos las ofertas si ya se cargaron, para reflejar “Already applied”
+    // Also repaint offers if already loaded, to reflect “Already applied”
     const cards = $$(".job-card");
     cards.forEach((card) => {
       const id = Number(card.dataset.id);
@@ -326,24 +349,24 @@ async function loadUserApplications() {
 }
 
 // --------------------------
-// Aplicar a una oferta
+// Apply to a job offer
 // --------------------------
 async function applyJob(jobId) {
   const applicantId = getApplicantId();
   if (!applicantId) {
     Swal.fire({
       icon: "warning",
-      title: "No estás registrado",
-      text: "Inicia sesión o regístrate para postularte.",
+      title: "You are not registered",
+      text: "Log in or register to apply.",
       confirmButtonColor: "#6A0DAD",
       background: "#f5f0fa",
       color: "#2c2c2c",
     });
     return;
   }
-  if (isApplied(jobId)) return; // ya aplicado
+  if (isApplied(jobId)) return; // already applied
 
-  // deshabilita botón de la card si existe
+  // Disable button on the card if exists
   const card = $(`.job-card[data-id="${jobId}"]`);
   const btnCard = card?.querySelector(".btn-apply");
   const prevTxt = btnCard?.textContent;
@@ -351,7 +374,7 @@ async function applyJob(jobId) {
     btnCard.disabled = true;
     btnCard.textContent = "Applying...";
   }
-  // deshabilita botón del modal si abierto
+  // Disable button in modal if open
   if (modalApplyBtn && jobModal?.classList.contains("active")) {
     modalApplyBtn.disabled = true;
     modalApplyBtn.textContent = "Applying...";
@@ -369,12 +392,12 @@ async function applyJob(jobId) {
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
-      // 409 si ya existía; otros códigos muestran error
+      // 409 if already exists; other codes show error
       if (res.status === 409) {
         Swal.fire({
           icon: "info",
-          title: "Ya aplicaste",
-          text: "Esta oferta ya está en tus aplicaciones.",
+          title: "Already applied",
+          text: "This offer is already in your applications.",
           confirmButtonColor: "#6A0DAD",
           background: "#f5f0fa",
           color: "#2c2c2c",
@@ -383,7 +406,7 @@ async function applyJob(jobId) {
         Swal.fire({
           icon: "error",
           title: "Network error",
-          text: "Inténtalo nuevamente.",
+          text: "Please try again.",
           confirmButtonColor: "#6A0DAD",
           background: "#f5f0fa",
           color: "#2c2c2c",
@@ -392,10 +415,10 @@ async function applyJob(jobId) {
       return;
     }
 
-    // éxito
+    // Success
     appliedJobIds.add(Number(jobId));
 
-    // Marca botones como "Already applied"
+    // Mark buttons as "Already applied"
     if (btnCard) {
       btnCard.textContent = "Already applied";
       btnCard.disabled = true;
@@ -407,7 +430,7 @@ async function applyJob(jobId) {
       modalApplyBtn.style.background = "#27ae60";
     }
 
-    // Agrega la aplicación a la columna derecha (solo si la oferta existe)
+    // Add application to right column (only if offer exists)
     const appList = $(".application-cards");
     const offer = offersIndex.get(Number(jobId));
     if (appList && offer) {
@@ -416,38 +439,37 @@ async function applyJob(jobId) {
         job_id: Number(jobId),
         status: "Under Review",
         applied_at: nowIso,
-        job_title: offer.title,               // usamos datos reales
+        job_title: offer.title,
         company_name: offer.company_name,
       };
 
-      // actualizamos el estado crudo y re-render con filtro
+      // Update raw state and re-render with filter
       lastApplications = [app, ...lastApplications];
       renderApplications(lastApplications, appList);
     } else {
-      // si no hay offer en índice, no añadimos "fantasmas"
-      console.warn("[applyJob] Offer no está en offersIndex: no se agrega tarjeta.");
+      // If no offer in index, do not add "ghost" cards
+      console.warn("[applyJob] Offer not in offersIndex: not adding card.");
     }
 
     Swal.fire({
       icon: "success",
       title: "Application Sent!",
-      text: "Tu postulación fue enviada con éxito.",
+      text: "Your application was sent successfully.",
       confirmButtonColor: "#6A0DAD",
       background: "#f5f0fa",
       color: "#2c2c2c",
     });
-
   } catch (err) {
     console.error("[applyJob] error:", err);
     Swal.fire({
       icon: "error",
       title: "Network error",
-      text: "Inténtalo nuevamente.",
+      text: "Please try again.",
       confirmButtonColor: "#6A0DAD",
       background: "#f5f0fa",
       color: "#2c2c2c",
     });
-    // Rehabilita botón de la card si falló
+    // Re-enable button on card if failed
     if (btnCard) {
       btnCard.disabled = false;
       btnCard.textContent = prevTxt || "Apply Now";
@@ -461,27 +483,27 @@ async function applyJob(jobId) {
 }
 
 // --------------------------
-// Eventos y wiring
+// Events and wiring
 // --------------------------
 document.addEventListener("DOMContentLoaded", function () {
-  // Datos usuario
+  // Load user data
   loadUserData();
 
-  // Contador de entrevistas (nuevo)
+  // Scheduled interviews counter (new)
   fetchAndRenderInterviewsCount();
 
-  // Actualiza al volver a primer plano (por si el recruiter agenda una entrevista mientras tanto)
+  // Update when returning to foreground (in case recruiter schedules an interview meanwhile)
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) fetchAndRenderInterviewsCount();
   });
 
-  // Primero carga aplicaciones (para saber qué jobs deshabilitar)
+  // First load applications (to know which jobs to disable)
   loadUserApplications().then(() => {
-    // Luego carga ofertas (para pintar botones en estado correcto)
+    // Then load offers (to paint buttons in correct state)
     loadJobOffers();
   });
 
-  // Delegación: clicks en cards de ofertas
+  // Delegation: clicks on job cards
   const offersContainer = $(".job-cards");
   if (offersContainer) {
     offersContainer.addEventListener("click", (e) => {
@@ -493,14 +515,28 @@ document.addEventListener("DOMContentLoaded", function () {
       const o = offersIndex.get(jobId) || {};
 
       if (btnView) {
-        // Llenar modal
-        $("#modalJobTitle").textContent = card.querySelector(".job-title")?.innerText || o.title || "Job";
-        $("#modalCompanyName").textContent = card.querySelector(".company-name")?.innerText || o.company_name || "Company";
-        $("#modalLocation").textContent = card.querySelector(".job-location")?.innerText || o.location || "";
-        $("#modalSalary").textContent = card.querySelector(".job-salary")?.innerText || salaryText(o.salary_min, o.salary_max);
-        $("#modalPosted").textContent = card.querySelector(".job-posted")?.innerText || (o.created_at ? new Date(o.created_at).toLocaleDateString() : "Recently");
-        $("#modalDescription").textContent = card.querySelector(".job-description p")?.innerText || o.description || "";
-        // Clonar tags
+        // Fill modal
+        $("#modalJobTitle").textContent =
+          card.querySelector(".job-title")?.innerText || o.title || "Job";
+        $("#modalCompanyName").textContent =
+          card.querySelector(".company-name")?.innerText ||
+          o.company_name ||
+          "Company";
+        $("#modalLocation").textContent =
+          card.querySelector(".job-location")?.innerText || o.location || "";
+        $("#modalSalary").textContent =
+          card.querySelector(".job-salary")?.innerText ||
+          salaryText(o.salary_min, o.salary_max);
+        $("#modalPosted").textContent =
+          card.querySelector(".job-posted")?.innerText ||
+          (o.created_at
+            ? new Date(o.created_at).toLocaleDateString()
+            : "Recently");
+        $("#modalDescription").textContent =
+          card.querySelector(".job-description p")?.innerText ||
+          o.description ||
+          "";
+        // Clone tags
         const tagsContainer = $("#modalTags");
         if (tagsContainer) {
           tagsContainer.innerHTML = "";
@@ -511,7 +547,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tagsContainer.appendChild(span);
           });
         }
-        // Guardar jobId en el modal y setear estado del botón
+        // Save jobId in modal and set button state
         jobModal.dataset.jobId = String(jobId);
         if (modalApplyBtn) {
           const already = isApplied(jobId);
@@ -528,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Botón Apply del modal
+  // Apply button in modal
   if (modalApplyBtn) {
     modalApplyBtn.addEventListener("click", () => {
       const id = Number(jobModal?.dataset?.jobId);
@@ -536,7 +572,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Cerrar modal
+  // Close modal
   if (closeJobModal) closeJobModal.addEventListener("click", closeModal);
   window.addEventListener("click", (e) => {
     if (e.target === jobModal) closeModal();
@@ -544,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // --------------------------
-// Logout (mantiene tu diseño)
+// Logout (keeps your design)
 // --------------------------
 function logout() {
   Swal.fire({
@@ -573,7 +609,7 @@ function logout() {
   });
 }
 
-// Atajos de teclado (sin cambios)
+// Keyboard shortcuts (unchanged)
 document.addEventListener("keydown", function (e) {
   if (e.ctrlKey) {
     switch (e.key) {

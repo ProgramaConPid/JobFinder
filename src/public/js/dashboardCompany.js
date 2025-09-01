@@ -1,12 +1,18 @@
 // src/public/js/dashboardCompany.js
 (function () {
-  // API base
-  const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-  const API_BASE = isLocalhost ? "http://localhost:5173" : "https://jobfinder-jdp5.onrender.com";
+  // API base URL selection (local or production)
+  const isLocalhost = ["localhost", "127.0.0.1"].includes(
+    window.location.hostname
+  );
+  const API_BASE = isLocalhost
+    ? "http://localhost:5173"
+    : "https://jobfinder-jdp5.onrender.com";
 
-  const $  = (sel, root = document) => root.querySelector(sel);
+  // Helper functions for DOM selection
+  const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  // Get company_id from URL or localStorage
   const getCompanyId = () => {
     const p = new URLSearchParams(window.location.search).get("company_id");
     if (p && /^\d+$/.test(p)) return p;
@@ -15,7 +21,7 @@
     return null;
   };
 
-  // ===== Contadores en tarjetas =====
+  // ===== Card Counters =====
   function updateActiveOffersCount(n) {
     const el = $("#activeOffersCount");
     if (el) el.textContent = Number(n) || 0;
@@ -30,7 +36,10 @@
     if (!companyId) return;
     const el = $("#newApplicantsCount");
     try {
-      const r = await fetch(`${API_BASE}/api/companies/${companyId}/new-applicants`, { credentials: "include" });
+      const r = await fetch(
+        `${API_BASE}/api/companies/${companyId}/new-applicants`,
+        { credentials: "include" }
+      );
       if (!r.ok) throw new Error("fetch error");
       const { total } = await r.json();
       if (el) el.textContent = Number(total) || 0;
@@ -40,13 +49,15 @@
     }
   }
 
-  // ===== Logout =====
+  // ===== Logout Function =====
   window.logout = function () {
-    try { localStorage.removeItem("company_id"); } catch {}
+    try {
+      localStorage.removeItem("company_id");
+    } catch {}
     window.location.href = "./loginCompany.html";
   };
 
-  // ===== Modales básicos =====
+  // ===== Basic Modal Functions =====
   function openModal(modalEl) {
     if (!modalEl) return;
     modalEl.classList.add("show");
@@ -67,36 +78,45 @@
     document.body.classList.remove("modal-open");
   }
 
-  // ===== Estado =====
+  // ===== State =====
   let offersState = [];
   window.offersIndex = new Map();
 
   // ===== Helpers =====
+  // Format salary range text
   const salaryText = (min, max) => {
     const hasMin = min !== null && min !== undefined && String(min) !== "";
     const hasMax = max !== null && max !== undefined && String(max) !== "";
-    if (!hasMin && !hasMax) return "A convenir";
+    if (!hasMin && !hasMax) return "Negotiable";
     const a = hasMin ? Number(min) : "";
     const b = hasMax ? Number(max) : "";
     return `${a}${hasMin && hasMax ? " - " : ""}${b}`;
   };
 
-  // ===== Render de ofertas =====
+  // ===== Render Offers =====
   function renderOffers(offers, cont) {
     cont.innerHTML = "";
     if (!Array.isArray(offers) || offers.length === 0) {
-      cont.innerHTML = `<div class="no-offers"><p>Aún no tienes ofertas publicadas.</p></div>`;
+      cont.innerHTML = `<div class="no-offers"><p>You have no published offers yet.</p></div>`;
       updateActiveOffersCount(0);
       return;
     }
     offers.forEach((o) => {
-      const modalityClass = String(o.modality || "").toLowerCase().includes("remote")
+      const modalityClass = String(o.modality || "")
+        .toLowerCase()
+        .includes("remote")
         ? "remote"
-        : String(o.modality || "").toLowerCase().includes("hybrid")
+        : String(o.modality || "")
+            .toLowerCase()
+            .includes("hybrid")
         ? "hybrid"
         : "onsite";
-      const created = o.created_at ? new Date(o.created_at).toLocaleDateString() : "-";
-      const updated = o.updated_at ? new Date(o.updated_at).toLocaleDateString() : "-";
+      const created = o.created_at
+        ? new Date(o.created_at).toLocaleDateString()
+        : "-";
+      const updated = o.updated_at
+        ? new Date(o.updated_at).toLocaleDateString()
+        : "-";
 
       const card = document.createElement("div");
       card.className = "offer-card";
@@ -115,9 +135,14 @@
             <span class="offer-job-location">${o.location}</span>
           </div>
           <div class="offer-salary"><strong>Salary:</strong>
-            <span class="offer-salary-value">${salaryText(o.salary_min, o.salary_max)}</span>
+            <span class="offer-salary-value">${salaryText(
+              o.salary_min,
+              o.salary_max
+            )}</span>
           </div>
-          <div class="description-offer"><p class="offer-description">${o.description}</p></div>
+          <div class="description-offer"><p class="offer-description">${
+            o.description
+          }</p></div>
           <div class="offer-stats">
             <span class="stat-item-offer"><strong>Date posted:</strong> ${created}</span>
             <span class="stat-item-offer"><strong>Last update:</strong> ${updated}</span>
@@ -134,17 +159,21 @@
     updateActiveOffersCount(offers.length);
   }
 
+  // Load active offers from backend and render them
   async function loadActiveOffers() {
     const cont = $(".offer-cards");
     if (!cont) return;
     const companyId = getCompanyId();
     if (!companyId) {
-      cont.innerHTML = '<div class="warn-msg">No se detectó company_id. Inicia sesión.</div>';
+      cont.innerHTML =
+        '<div class="warn-msg">No company_id detected. Please log in.</div>';
       updateActiveOffersCount(0);
       return;
     }
     try {
-      const res = await fetch(`${API_BASE}/api/offers?company_id=${encodeURIComponent(companyId)}`);
+      const res = await fetch(
+        `${API_BASE}/api/offers?company_id=${encodeURIComponent(companyId)}`
+      );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const offers = await res.json();
       offersState = offers;
@@ -152,98 +181,206 @@
       renderOffers(offers, cont);
     } catch (err) {
       console.error("[CompanyDashboard] loadActiveOffers error:", err);
-      cont.innerHTML = '<div class="error-msg">No se pudieron cargar las ofertas.</div>';
+      cont.innerHTML = '<div class="error-msg">Could not load offers.</div>';
       updateActiveOffersCount(0);
     }
   }
 
-  // ===== Mapas/parsers =====
+  // ===== Mappers/Parsers =====
+  // Map modality and level values to display text
   const mapModality = (v) =>
-    ({ remote: "Remote", hybrid: "Hybrid", "on-site": "On-site", onsite: "On-site" }[String(v || "").toLowerCase()] || null);
+    ({
+      remote: "Remote",
+      hybrid: "Hybrid",
+      "on-site": "On-site",
+      onsite: "On-site",
+    }[String(v || "").toLowerCase()] || null);
   const mapLevel = (v) =>
-    ({ junior: "Junior", "mid-level": "Mid-level", senior: "Senior" }[String(v || "").toLowerCase()] || null);
+    ({ junior: "Junior", "mid-level": "Mid-level", senior: "Senior" }[
+      String(v || "").toLowerCase()
+    ] || null);
+  // Parse salary range string to min/max numbers
   const parseSalaryRange = (s) => {
     if (!s) return { min: null, max: null };
-    const cleaned = String(s).replace(/[^\d,.\-–—]/g, "").replace(/[–—]/g, "-");
-    const parts = cleaned.split("-").map((x) => x.trim()).filter(Boolean);
-    const toNum = (x) => { if (!x) return null; const n = Number(x.replace(/,/g, "")); return Number.isFinite(n) ? n : null; };
+    const cleaned = String(s)
+      .replace(/[^\d,.\-–—]/g, "")
+      .replace(/[–—]/g, "-");
+    const parts = cleaned
+      .split("-")
+      .map((x) => x.trim())
+      .filter(Boolean);
+    const toNum = (x) => {
+      if (!x) return null;
+      const n = Number(x.replace(/,/g, ""));
+      return Number.isFinite(n) ? n : null;
+    };
     if (parts.length === 1) return { min: toNum(parts[0]), max: null };
-    if (parts.length >= 2) return { min: toNum(parts[0]), max: toNum(parts[1]) };
+    if (parts.length >= 2)
+      return { min: toNum(parts[0]), max: toNum(parts[1]) };
     return { min: null, max: null };
   };
 
-  // ===== CREATE =====
+  // ===== CREATE OFFER =====
+  // Initialize modal for creating a new offer
   function initCreateOfferModal() {
     const createModal = $("#createOfferModal");
-    const createForm  = $("#createOfferForm");
+    const createForm = $("#createOfferForm");
     if (!createForm) return;
 
-    [".btn-create-offer", "#btnCreateOffer", '[data-open-modal="createOfferModal"]'].forEach((sel) => {
+    [
+      ".btn-create-offer",
+      "#btnCreateOffer",
+      '[data-open-modal="createOfferModal"]',
+    ].forEach((sel) => {
       $$(sel).forEach((btn) => {
-        try { btn.type = "button"; } catch {}
-        btn.addEventListener("click", (ev) => { ev.preventDefault(); openModal(createModal); setTimeout(() => $("#newJobTitle")?.focus(), 0); });
+        try {
+          btn.type = "button";
+        } catch {}
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          openModal(createModal);
+          setTimeout(() => $("#newJobTitle")?.focus(), 0);
+        });
       });
     });
 
-    ["#closeCreateOffer","#cancelCreateOffer",".btn-cancel",".btn-close"].forEach((sel) => {
-      $$(sel, createModal || document).forEach((btn) => btn.addEventListener("click", (ev) => { ev.preventDefault(); closeModal(createModal); }));
-
+    [
+      "#closeCreateOffer",
+      "#cancelCreateOffer",
+      ".btn-cancel",
+      ".btn-close",
+    ].forEach((sel) => {
+      $$(sel, createModal || document).forEach((btn) =>
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          closeModal(createModal);
+        })
+      );
     });
 
+    // Handle offer creation form submission
     createForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const companyId   = getCompanyId();
-      const title       = createForm.newJobTitle?.value?.trim() || "";
-      const location    = createForm.newJobLocation?.value.trim() || "";
-      const salaryRaw   = createForm.newJobSalary?.value?.trim() || "";
+      const companyId = getCompanyId();
+      const title = createForm.newJobTitle?.value?.trim() || "";
+      const location = createForm.newJobLocation?.value.trim() || "";
+      const salaryRaw = createForm.newJobSalary?.value?.trim() || "";
       const modalityRaw = createForm.newJobMode?.value || "";
-      const levelRaw    = createForm.newJobLevel?.value || "";
+      const levelRaw = createForm.newJobLevel?.value || "";
       const description = createForm.newJobDescription?.value?.trim() || "";
 
-      if (!companyId || !title || !location || !modalityRaw || !levelRaw || !description) {
-        (window.Swal && Swal.fire({ icon: "error", title: "Incomplete fields", text: "Please complete all required fields." })) || alert("Complete all fields");
+      if (
+        !companyId ||
+        !title ||
+        !location ||
+        !modalityRaw ||
+        !levelRaw ||
+        !description
+      ) {
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Incomplete fields",
+            text: "Please complete all required fields.",
+          })) ||
+          alert("Complete all fields");
         return;
       }
 
       const modality = mapModality(modalityRaw);
-      const level    = mapLevel(levelRaw);
+      const level = mapLevel(levelRaw);
       if (!modality || !level) {
-        (window.Swal && Swal.fire({ icon: "error", title: "Valores inválidos", text: "Revisa modality/level." })) || alert("Valores inválidos");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Invalid values",
+            text: "Check modality/level.",
+          })) ||
+          alert("Invalid values");
         return;
       }
 
       const { min: salary_min, max: salary_max } = parseSalaryRange(salaryRaw);
-      const payload = { company_id: Number(companyId), title, description, location: location || "Por definir", salary_min, salary_max, modality, level };
+      const payload = {
+        company_id: Number(companyId),
+        title,
+        description,
+        location: location || "To be defined",
+        salary_min,
+        salary_max,
+        modality,
+        level,
+      };
 
       const submitBtn = createForm.querySelector(".btn-save, [type='submit']");
-      const prevTxt   = submitBtn ? submitBtn.textContent : null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Saving..."; }
+      const prevTxt = submitBtn ? submitBtn.textContent : null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving...";
+      }
 
       try {
-        const res = await fetch(`${API_BASE}/api/offers`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const res = await fetch(`${API_BASE}/api/offers`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok) { const msg = data?.error || "No se pudo crear la oferta."; (window.Swal && Swal.fire({ icon: "error", title: "Error", text: msg })) || alert(msg); return; }
-        createForm.reset(); closeModal(createModal);
-        window.Swal && Swal.fire({ icon: "success", title: "Offer Created", timer: 1200, showConfirmButton: false });
+        if (!res.ok) {
+          const msg = data?.error || "Could not create offer.";
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
+          return;
+        }
+        createForm.reset();
+        closeModal(createModal);
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer Created",
+            timer: 1200,
+            showConfirmButton: false,
+          });
         await loadActiveOffers();
       } catch (err) {
         console.error("[CreateOffer] Error:", err);
-        (window.Swal && Swal.fire({ icon: "error", title: "Error de red", text: "Inténtalo nuevamente." })) || alert("Error de red");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Network error",
+            text: "Please try again.",
+          })) ||
+          alert("Network error");
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = prevTxt; }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = prevTxt;
+        }
       }
     });
   }
 
-  // ===== EDIT =====
+  // ===== EDIT OFFER =====
+  // Initialize modal for editing an existing offer
   function initEditOfferModal() {
     const editModal = $("#editOfferModal");
-    const editForm  = $("#editOfferForm");
+    const editForm = $("#editOfferForm");
     if (!editForm) return;
 
-    ["#closeEditOffer","#cancelEditOffer",".btn-cancel",".btn-close"].forEach((sel) => {
-      $$(sel, editModal || document).forEach((btn) => btn.addEventListener("click", (ev) => { ev.preventDefault(); closeModal(editModal); }));
+    [
+      "#closeEditOffer",
+      "#cancelEditOffer",
+      ".btn-cancel",
+      ".btn-close",
+    ].forEach((sel) => {
+      $$(sel, editModal || document).forEach((btn) =>
+        btn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          closeModal(editModal);
+        })
+      );
     });
 
     const container = $(".offer-cards") || document;
@@ -252,68 +389,137 @@
       if (!btn) return;
 
       const card = btn.closest(".offer-card");
-      const id   = Number(card?.dataset?.id);
+      const id = Number(card?.dataset?.id);
       if (!Number.isFinite(id)) return;
 
       editForm.dataset.offerId = String(id);
 
       const offer = (window.offersIndex && window.offersIndex.get(id)) || {};
-      $("#jobTitle").value       = String(offer.title || "");
-      $("#jobLocation").value    = String(offer.location || "");
-      $("#jobSalary").value      = (() => { const {salary_min:min, salary_max:max} = offer; if (min==null && max==null) return ""; if (min!=null && max==null) return `${min}`; if (min==null && max!=null) return `0 - ${max}`; return `${min} - ${max}`; })();
-      $("#jobMode").value        = (String(offer.modality || "on-site").toLowerCase().includes("remote") ? "remote" : (String(offer.modality || "").toLowerCase().includes("hybrid") ? "hybrid" : "on-site"));
-      $("#jobLevel").value       = (String(offer.level || "junior").toLowerCase().includes("mid") ? "mid-level" : (String(offer.level || "").toLowerCase().includes("senior") ? "senior" : "junior"));
+      $("#jobTitle").value = String(offer.title || "");
+      $("#jobLocation").value = String(offer.location || "");
+      $("#jobSalary").value = (() => {
+        const { salary_min: min, salary_max: max } = offer;
+        if (min == null && max == null) return "";
+        if (min != null && max == null) return `${min}`;
+        if (min == null && max != null) return `0 - ${max}`;
+        return `${min} - ${max}`;
+      })();
+      $("#jobMode").value = String(offer.modality || "on-site")
+        .toLowerCase()
+        .includes("remote")
+        ? "remote"
+        : String(offer.modality || "")
+            .toLowerCase()
+            .includes("hybrid")
+        ? "hybrid"
+        : "on-site";
+      $("#jobLevel").value = String(offer.level || "junior")
+        .toLowerCase()
+        .includes("mid")
+        ? "mid-level"
+        : String(offer.level || "")
+            .toLowerCase()
+            .includes("senior")
+        ? "senior"
+        : "junior";
       $("#jobDescription").value = String(offer.description || "");
 
       openModal(editModal);
     });
 
+    // Handle offer edit form submission
     editForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const idStr = editForm.dataset.offerId;
-      const id    = Number(idStr);
+      const id = Number(idStr);
       if (!Number.isFinite(id)) return;
 
-      const title       = $("#jobTitle")?.value?.trim() || "";
-      const location    = $("#jobLocation")?.value?.trim() || "";
-      const salaryRaw   = $("#jobSalary")?.value?.trim() || "";
+      const title = $("#jobTitle")?.value?.trim() || "";
+      const location = $("#jobLocation")?.value?.trim() || "";
+      const salaryRaw = $("#jobSalary")?.value?.trim() || "";
       const modalityRaw = $("#jobMode")?.value || "";
-      const levelRaw    = $("#jobLevel")?.value || "";
+      const levelRaw = $("#jobLevel")?.value || "";
       const description = $("#jobDescription")?.value?.trim() || "";
 
       if (!title || !location || !modalityRaw || !levelRaw || !description) {
-        (window.Swal && Swal.fire({ icon: "error", title: "Campos incompletos", text: "Completa todos los campos requeridos." })) || alert("Completa los campos");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Incomplete fields",
+            text: "Please complete all required fields.",
+          })) ||
+          alert("Complete all fields");
         return;
       }
 
       const modality = mapModality(modalityRaw);
-      const level    = mapLevel(levelRaw);
+      const level = mapLevel(levelRaw);
       const { min: salary_min, max: salary_max } = parseSalaryRange(salaryRaw);
-      const payload = { title, description, location: location || "Por definir", salary_min, salary_max, modality, level };
+      const payload = {
+        title,
+        description,
+        location: location || "To be defined",
+        salary_min,
+        salary_max,
+        modality,
+        level,
+      };
 
       const submitBtn = editForm.querySelector(".btn-save, [type='submit']");
-      const prevTxt   = submitBtn ? submitBtn.textContent : null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Saving..."; }
+      const prevTxt = submitBtn ? submitBtn.textContent : null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving...";
+      }
 
       try {
-        const res = await fetch(`${API_BASE}/api/offers/${encodeURIComponent(id)}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const res = await fetch(
+          `${API_BASE}/api/offers/${encodeURIComponent(id)}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
         const data = await res.json().catch(() => ({}));
-        if (!res.ok) { const msg = data?.error || "No se pudo actualizar la oferta."; (window.Swal && Swal.fire({ icon: "error", title: "Error", text: msg })) || alert(msg); return; }
+        if (!res.ok) {
+          const msg = data?.error || "Could not update offer.";
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
+          return;
+        }
 
         closeModal(editModal);
-        window.Swal && Swal.fire({ icon: "success", title: "Offer Updated", timer: 1200, showConfirmButton: false });
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer Updated",
+            timer: 1200,
+            showConfirmButton: false,
+          });
         await loadActiveOffers();
       } catch (err) {
         console.error("[EditOffer] Error:", err);
-        (window.Swal && Swal.fire({ icon: "error", title: "Error de red", text: "Inténtalo nuevamente." })) || alert("Error de red");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Network error",
+            text: "Please try again.",
+          })) ||
+          alert("Network error");
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = prevTxt; }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = prevTxt;
+        }
       }
     });
   }
 
-  // ===== DELETE =====
+  // ===== DELETE OFFER =====
+  // Initialize delete offer action
   function initDeleteOffer() {
     const container = $(".offer-cards") || document;
 
@@ -322,29 +528,45 @@
       if (!delBtn) return;
 
       const card = delBtn.closest(".offer-card");
-      const id   = Number(card?.dataset?.id);
+      const id = Number(card?.dataset?.id);
       if (!Number.isFinite(id)) return;
 
-      const title = card.querySelector(".offer-title")?.textContent?.trim() || "this offer";
+      const title =
+        card.querySelector(".offer-title")?.textContent?.trim() || "this offer";
 
       let confirmed = true;
       if (window.Swal) {
-        const r = await Swal.fire({ icon: "warning", title: "Delete offer?", html: `You are about to delete <b>${title}</b>.<br/>This action cannot be undone.`, showCancelButton: true, confirmButtonText: "Yes, delete", cancelButtonText: "Cancel", confirmButtonColor: "#c0392b" });
+        const r = await Swal.fire({
+          icon: "warning",
+          title: "Delete offer?",
+          html: `You are about to delete <b>${title}</b>.<br/>This action cannot be undone.`,
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete",
+          cancelButtonText: "Cancel",
+          confirmButtonColor: "#c0392b",
+        });
         confirmed = r.isConfirmed;
       } else {
-        confirmed = window.confirm(`Delete "${title}"? This action cannot be undone.`);
+        confirmed = window.confirm(
+          `Delete "${title}"? This action cannot be undone.`
+        );
       }
       if (!confirmed) return;
 
       delBtn.disabled = true;
 
       try {
-        const res = await fetch(`${API_BASE}/api/offers/${encodeURIComponent(id)}`, { method: "DELETE" });
+        const res = await fetch(
+          `${API_BASE}/api/offers/${encodeURIComponent(id)}`,
+          { method: "DELETE" }
+        );
         const data = await res.json().catch(() => ({}));
 
         if (!res.ok) {
-          const msg = data?.error || "No se pudo eliminar la oferta.";
-          (window.Swal && Swal.fire({ icon: "error", title: "Error", text: msg })) || alert(msg);
+          const msg = data?.error || "Could not delete offer.";
+          (window.Swal &&
+            Swal.fire({ icon: "error", title: "Error", text: msg })) ||
+            alert(msg);
           delBtn.disabled = false;
           return;
         }
@@ -354,17 +576,30 @@
 
         recalcActiveOffersCount();
         await fetchAndRenderNewApplicants();
-        window.Swal && Swal.fire({ icon: "success", title: "Offer deleted", timer: 1000, showConfirmButton: false });
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Offer deleted",
+            timer: 1000,
+            showConfirmButton: false,
+          });
       } catch (err) {
         console.error("[DeleteOffer] Error:", err);
-        (window.Swal && Swal.fire({ icon: "error", title: "Network error", text: "Inténtalo nuevamente." })) || alert("Network error");
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Network error",
+            text: "Please try again.",
+          })) ||
+          alert("Network error");
       } finally {
         delBtn.disabled = false;
       }
     });
   }
 
-  // ===== VIEW APPLICANTS (MODAL, con botón que pasa a "Agendada") =====
+  // ===== VIEW APPLICANTS (MODAL, with button to schedule interview) =====
+  // Render applicants rows in the modal table
   function renderApplicantsRows(list) {
     const tbody = $("#viewApplicantsTbody");
     if (!tbody) return;
@@ -381,10 +616,14 @@
       tr.innerHTML = `
         <td>${a.name ? a.name : "-"}</td>
         <td><a href="mailto:${a.email}">${a.email}</a></td>
-        <td class="cell-interviews" data-application-id="${a.application_id}">${a.interviews_count ?? 0}</td>
+        <td class="cell-interviews" data-application-id="${a.application_id}">${
+        a.interviews_count ?? 0
+      }</td>
         <td>
-          <button class="btn btn-sm btn-primary btn-schedule" data-application-id="${a.application_id}">
-            Agendar entrevista
+          <button class="btn btn-sm btn-primary btn-schedule" data-application-id="${
+            a.application_id
+          }">
+            Schedule interview
           </button>
         </td>
       `;
@@ -393,6 +632,7 @@
     tbody.appendChild(frag);
   }
 
+  // Open applicants modal and load applicants for an offer
   async function openViewApplicantsModal(offerId) {
     const modal = $("#viewApplicantsModal");
     const tbody = $("#viewApplicantsTbody");
@@ -400,7 +640,10 @@
 
     tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; opacity:.7;">Loading...</td></tr>`;
     try {
-      const r = await fetch(`${API_BASE}/api/offers/${encodeURIComponent(offerId)}/applicants`, { credentials: "include" });
+      const r = await fetch(
+        `${API_BASE}/api/offers/${encodeURIComponent(offerId)}/applicants`,
+        { credentials: "include" }
+      );
       const data = await r.json().catch(() => []);
       if (!r.ok) throw new Error(data?.error || "Error loading applicants");
       renderApplicantsRows(data);
@@ -412,14 +655,23 @@
     openModal(modal);
   }
 
+  // Initialize applicants modal actions
   function initViewApplicantsModal() {
     const modal = $("#viewApplicantsModal");
     if (!modal) return;
 
-    const closeEls = [ $("#closeViewApplicants"), $("#closeViewApplicantsFooter") ].filter(Boolean);
-    closeEls.forEach(btn => btn.addEventListener("click", (ev) => { ev.preventDefault(); closeModal(modal); }));
+    const closeEls = [
+      $("#closeViewApplicants"),
+      $("#closeViewApplicantsFooter"),
+    ].filter(Boolean);
+    closeEls.forEach((btn) =>
+      btn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        closeModal(modal);
+      })
+    );
 
-    // Delegación: Agendar entrevista (cambia a "Agendada" y deshabilita)
+    // Delegation: Schedule interview (changes to "Scheduled" and disables button)
     modal.addEventListener("click", async (e) => {
       const btn = e.target.closest(".btn-schedule");
       if (!btn) return;
@@ -431,15 +683,15 @@
       if (window.Swal) {
         const r = await Swal.fire({
           icon: "question",
-          title: "Agendar entrevista",
-          text: "¿Deseas agendar la entrevista para este postulante?",
+          title: "Schedule interview",
+          text: "Do you want to schedule the interview for this applicant?",
           showCancelButton: true,
-          confirmButtonText: "Sí, agendar",
-          cancelButtonText: "Cancelar"
+          confirmButtonText: "Yes, schedule",
+          cancelButtonText: "Cancel",
         });
         confirmed = r.isConfirmed;
       } else {
-        confirmed = window.confirm("¿Agendar entrevista?");
+        confirmed = window.confirm("Schedule interview?");
       }
       if (!confirmed) return;
 
@@ -450,13 +702,15 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ application_id: applicationId })
+          body: JSON.stringify({ application_id: applicationId }),
         });
         const data = await r.json().catch(() => ({}));
-        if (!r.ok) throw new Error(data?.error || "No se pudo agendar");
+        if (!r.ok) throw new Error(data?.error || "Could not schedule");
 
-        // Actualiza solo esa celda con el total devuelto
-        const cell = $(`.cell-interviews[data-application-id="${applicationId}"]`);
+        // Update only that cell with the returned total
+        const cell = $(
+          `.cell-interviews[data-application-id="${applicationId}"]`
+        );
         if (cell && typeof data.interviews_total === "number") {
           cell.textContent = data.interviews_total;
         } else if (cell) {
@@ -464,28 +718,41 @@
           cell.textContent = prev + 1;
         }
 
-        // Cambia estado del botón
-        btn.textContent = "Agendada";
+        // Change button state
+        btn.textContent = "Scheduled";
         btn.classList.remove("btn-primary");
         btn.classList.add("btn-success");
         btn.disabled = true;
 
-        window.Swal && Swal.fire({ icon: "success", title: "Entrevista agendada", timer: 1000, showConfirmButton: false });
+        window.Swal &&
+          Swal.fire({
+            icon: "success",
+            title: "Interview scheduled",
+            timer: 1000,
+            showConfirmButton: false,
+          });
       } catch (err) {
         console.error("[ScheduleInterview] error:", err);
-        (window.Swal && Swal.fire({ icon: "error", title: "Error", text: err.message || "No se pudo agendar" })) || alert("No se pudo agendar");
-        btn.disabled = false; // volver a habilitar en caso de error
+        (window.Swal &&
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: err.message || "Could not schedule",
+          })) ||
+          alert("Could not schedule");
+        btn.disabled = false; // re-enable in case of error
       }
     });
   }
 
+  // Initialize action to open applicants modal from offer card
   function initViewApplicantsAction() {
     const container = $(".offer-cards") || document;
     container.addEventListener("click", (e) => {
       const btn = e.target.closest(".btn-view-applicants");
       if (!btn) return;
       const card = btn.closest(".offer-card");
-      const id   = Number(card?.dataset?.id);
+      const id = Number(card?.dataset?.id);
       if (!Number.isFinite(id)) return;
       openViewApplicantsModal(id);
     });
@@ -498,8 +765,7 @@
     initEditOfferModal();
     initDeleteOffer();
 
-    fetchAndRenderNewApplicants(); // total de postulaciones (tarjeta)
-
+    fetchAndRenderNewApplicants(); // total applications (dashboard card)
     initViewApplicantsModal();
     initViewApplicantsAction();
   });

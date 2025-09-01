@@ -80,7 +80,8 @@ h4,
 h5,
 h6,
 label,
-strong {
+strong,
+th {
   font-family: var(--font-montserrat);
   font-weight: 700;
 }
@@ -89,7 +90,8 @@ p,
 span,
 a,
 button,
-input {
+input,
+td {
   font-family: var(--font-roboto);
   font-weight: 400;
   font-size: 16px;
@@ -724,7 +726,7 @@ textarea {
 /* ------------------------------- */
 .dashboard-page {
   background-color: #f8fafc;
-  min-height: 100vh;
+  display: block;
 }
 
 .dashboard-container {
@@ -785,7 +787,7 @@ textarea {
   text-decoration: none;
 }
 
-.btn-price a{
+.btn-price a {
   color: white !important;
   text-decoration: none;
   font-weight: 600;
@@ -883,7 +885,8 @@ textarea {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.job-header, .job-title {
+.job-header,
+.job-title {
   margin-bottom: 20px;
 }
 
@@ -2109,7 +2112,7 @@ textarea {
 /* General Styles for profile button */
 .btn-profile {
   color: white !important;
-  padding: 8px 15px;
+  padding: 9px 15px;
   border-radius: 8px;
   transition: all 0.3s ease;
   display: flex;
@@ -2361,7 +2364,6 @@ form-section-company {
 }
 
 /* side navigation bar*/
-
 .profile-selection {
   display: flex;
   justify-content: center;
@@ -2407,7 +2409,7 @@ button {
   transition: background 0.3s;
 }
 
-/* Estilos para el botón flotante de contacto */
+/* Styles for the floating contact button */
 .contact-floating-btn {
   position: fixed;
   bottom: 30px;
@@ -2431,7 +2433,7 @@ button {
 }
 
 .contact-floating-btn {
-  width: 100px; /* o el tamaño que desees */
+  width: 100px;
   height: 100px;
   overflow: hidden;
 }
@@ -2446,7 +2448,7 @@ button {
   font-size: 1.5rem;
 }
 
-/* Estilos para el menú de contacto */
+/* Styles for the contact menu */
 .contact-menu {
   position: fixed;
   bottom: 90px;
@@ -2542,8 +2544,6 @@ button {
   visibility: visible;
 }
 
-/* style="text-align:center; padding: 1em; ; ; background-color: #f9f9f9;" */
-
 .contact-menu footer {
   color: #666;
   background: white;
@@ -2552,7 +2552,6 @@ button {
   font-size: 0.7em;
   padding: 1em;
   text-align: center;
-  /* width: 60px; */
 }
 
 .contact-menu footer::before {
@@ -2565,7 +2564,9 @@ button {
   background: linear-gradient(135deg, #7a3cff 40%, #32cd32 60%);
 }
 
-/* Responsive */
+/* ------------------------------------------ */
+/* Responsive for floating button and content */
+/* ------------------------------------------ */
 @media (max-width: 768px) {
   .profile-selection {
     flex-direction: column;
@@ -2603,6 +2604,7 @@ button {
   }
 }
 
+/* Messages Styles */
 .form-msg {
   font-size: 0.9rem;
   margin-top: 6px;
@@ -2627,7 +2629,7 @@ button {
 /* Dark mode */
 /* -------------------------------------------------- */
 
-
+/* Variables for dark mode */
 :root {
   --dark-page-bg: linear-gradient(135deg, #071027 0%, #0b1530 100%);
   --dark-text-color: #e6eef6;
@@ -2655,23 +2657,21 @@ button {
   --dark-floating-btn-border: #23263a;
   --dark-floating-btn-text: #e6eef6;
 
-  --dark-link-color: #64ffda; 
-  --dark-highlight-purple: #7a3cff; 
+  --dark-link-color: #64ffda;
+  --dark-highlight-purple: #7a3cff;
   --dark-highlight-green: #35d298;
-  
- 
-  --company-green: #35D298;      /* Verde principal */
-  --company-green-hover: #28a97b; 
+
+  --company-green: #35d298;
+  --company-green-hover: #28a97b;
 }
 
-
-/* 🌙 Estilos cuando el body tiene la clase dark-theme */
+/* 🌙 Styles when the body has the class dark-theme */
 body.dark-theme {
   background: var(--dark-page-bg) !important;
   color: var(--dark-text-color);
 }
 
-/* Aseguramos que los bloques principales cambien */
+/* We ensure that the main blocks change */
 body.dark-theme .option-card,
 body.dark-theme .login-container,
 body.dark-theme .register-container,
@@ -2682,7 +2682,7 @@ body.dark-theme .contact-menu {
   box-shadow: var(--dark-card-shadow);
 }
 
-/* Textos secundarios */
+/* Secondary Texts */
 body.dark-theme .header__subtitle,
 body.dark-theme .option-card p,
 body.dark-theme p,
@@ -2696,24 +2696,23 @@ body.dark-theme.login-company-page p {
   color: var(--white) !important;
 }
 
-/* Botones primarios */
+/* Promary Button */
 body.dark-theme .btn-primary {
   color: var(--dark-btn-primary-text);
 }
 
-/* Botones secundarios */
+/* Secondary Buttons */
 body.dark-theme .btn-secondary {
   background: var(--dark-btn-secondary-bg);
   color: var(--dark-btn-secondary-text);
   border: 1px solid var(--dark-btn-secondary-border);
 }
 
-/* Botón Dark Mode (icono arriba a la derecha) */
+/* Dark Mode button (icon top right) */
 .btn-toggle-theme,
 .btn-toggle-language {
   position: fixed;
   top: 18px;
-  /* .btn-toggle-theme a la derecha, .btn-toggle-language a la izquierda de ella */
   z-index: 2000;
   background: transparent;
   border: none;
@@ -2734,15 +2733,18 @@ body.dark-theme .btn-secondary {
 }
 
 .btn-toggle-language {
-  right: 62px; /* separadas por ~44px */
+  right: 62px;
 }
 
 .btn-toggle-theme:hover,
 .btn-toggle-language:hover {
   transform: scale(1.15);
-  background: rgba(0,0,0,0.07);
+  background: rgba(0, 0, 0, 0.07);
 }
 
+/* ---------------------------------------------- */
+/* Responsive for both buttons theme and language */
+/* ---------------------------------------------- */
 @media (max-width: 500px) {
   .btn-toggle-theme,
   .btn-toggle-language {
@@ -2760,9 +2762,7 @@ body.dark-theme .btn-secondary {
   }
 }
 
-
-
-/* Dark Mode títulos con colores específicos */
+/* Dark Mode titles with specific colors */
 body.dark-theme .option-card.applicant h2 {
   color: var(--dark-highlight-purple);
 }
@@ -2795,7 +2795,7 @@ body.dark-theme .contact-option h4 a {
   color: var(--dark-highlight-purple);
 }
 
-/* Links generales */
+/* General Links */
 body.dark-theme a {
   color: var(--primary-color);
   transition: all 0.3s ease;
@@ -2808,7 +2808,7 @@ body.dark-theme.login-company-page a {
 }
 
 body.dark-theme a:hover {
-  color: var(--dark-link-color); 
+  color: var(--dark-link-color);
 }
 
 /* Navbar */
@@ -2835,7 +2835,7 @@ body.dark-theme input::placeholder {
 body.dark-theme input,
 body.dark-theme textarea {
   background: var(--dark-input-bg);
-  color: var(--primary-color); 
+  color: var(--primary-color);
   border: 1px solid var(--dark-input-border);
 }
 body.dark-theme input:focus,
@@ -2853,10 +2853,12 @@ body.dark-theme.register-page .register-footer {
 }
 
 :root.register-company-page {
-  --primary-color: #32cd32; /* verde */
+  --primary-color: #32cd32;
 }
 
-/* 🎯 Inputs en la vista Register Company con verde */
+/* ------------------------------------------------- */
+/* 🎯 Inputs in the Register Company view with green */
+/* ------------------------------------------------- */
 body.dark-theme.register-company-page input,
 body.dark-theme.register-company-page textarea {
   border: 1px solid var(--green) !important;
@@ -2876,18 +2878,17 @@ body.dark-theme.register-company-page input::placeholder,
 body.dark-theme.login-company-page textarea::placeholder,
 body.dark-theme.register-company-page textarea::placeholder {
   color: var(--green) !important;
-  opacity: 0.8; 
+  opacity: 0.8;
 }
 
-
 body.dark-theme.login-company-page a.back-home,
-body.dark-theme.register-company-page a.back-home{
-  color: var(--green); 
+body.dark-theme.register-company-page a.back-home {
+  color: var(--green);
 }
 
 body.dark-theme.login-company-page a.back-home:hover,
 body.dark-theme.register-company-page a.back-home:hover {
-  color: var(--green-dark); 
+  color: var(--green-dark);
 }
 
 body.dark-theme.login-company-page .login-footer,
@@ -2913,7 +2914,7 @@ body.dark-theme.login-company-page textarea {
 body.dark-theme.register-company-page input:focus,
 body.dark-theme.register-company-page textarea:focus {
   border: 1.5px solid var(--green) !important;
-  box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25) !important; /* verde con opacidad */
+  box-shadow: 0 0 0 4px rgba(50, 205, 50, 0.25) !important;
   outline: none !important;
   color: var(--green) !important;
 }
@@ -2922,7 +2923,7 @@ body.dark-theme.register-company-page input,
 body.dark-theme.register-company-page textarea {
   border: 1px solid var(--green) !important;
   background: var(--dark-input-bg) !important;
-  color: var(--green) !important; /* <-- Cambia aquí */
+  color: var(--green) !important;
 }
 
 body.dark-theme .stat-card,
@@ -2941,7 +2942,7 @@ body.dark-theme .stat-number-company {
   background-clip: initial !important;
 }
 
-/* Dark mode para job-card y application-card */
+/* Dark mode for job-card and application-card */
 body.dark-theme .job-card,
 body.dark-theme .application-card {
   background: var(--dark-card-bg);
@@ -2950,7 +2951,7 @@ body.dark-theme .application-card {
   box-shadow: var(--dark-card-shadow);
 }
 
-/* Números destacados en las cards */
+/* Highlighted numbers on the cards */
 body.dark-theme .job-card .stat-number,
 body.dark-theme .application-card .stat-number {
   color: var(--primary-color) !important;
@@ -2960,21 +2961,21 @@ body.dark-theme .application-card .stat-number {
   background-clip: initial !important;
 }
 
-/* Títulos h2 en dashboard coder */
+/* H2 titles in dashboard coder */
 body.dark-theme.dashboard-page .job-offers-section h2,
 body.dark-theme.dashboard-page .applications-section h2 {
   color: var(--primary-color);
   border-left: 4px solid var(--primary-color);
 }
 
-/* Títulos h2 en dashboard company */
+/* H2 titles in a company dashboard */
 body.dark-theme.dashboard-company-page .job-offers-section h2,
 body.dark-theme.dashboard-company-page .applications-section h2 {
   color: var(--green);
   border-left: 4px solid var(--green);
 }
 
-/* Borde izquierdo en job-card y application-card en dashboard company */
+/* Left edge on job card and application card in company dashboard */
 body.dark-theme.dashboard-company-page .job-card,
 body.dark-theme.dashboard-company-page .application-card {
   border-left: 4px solid var(--green);
@@ -2999,11 +3000,14 @@ body.dark-theme.dashboard-company-page .btn-view {
   border: 2px solid var(--green) !important;
 }
 
-/* Company name blanco en dark mode */
+/* Company name white in dark mode */
 body.dark-theme .company-name {
   color: var(--dark-btn-secondary-text) !important;
 }
 
+/* --------------------------------- */
+/* change colors in dark theme modal */
+/* --------------------------------- */
 body.dark-theme .job-modal-content,
 body.dark-theme .modal-offer-content {
   background: var(--dark-card-bg) !important;
@@ -3045,8 +3049,7 @@ body.dark-theme .job-modal-details span {
   color: var(--dark-btn-secondary-text) !important;
 }
 
-
-/* DASHBOARD COMPANY dark mode: igual que coder pero con verde */
+/* DASHBOARD COMPANY dark mode: same as coder but with green */
 body.dark-theme.dashboard-company-page .stat-card,
 body.dark-theme.dashboard-company-page .stat-card-company,
 body.dark-theme.dashboard-company-page .job-card,
@@ -3057,7 +3060,7 @@ body.dark-theme.dashboard-company-page .application-card {
   box-shadow: var(--dark-card-shadow);
 }
 
-/* Números destacados en las cards */
+/* Highlighted numbers on the cards */
 body.dark-theme.dashboard-company-page .stat-number,
 body.dark-theme.dashboard-company-page .stat-number-company,
 body.dark-theme.dashboard-company-page .job-card .stat-number,
@@ -3069,7 +3072,7 @@ body.dark-theme.dashboard-company-page .application-card .stat-number {
   background-clip: initial !important;
 }
 
-/* Títulos h2, h3, h4 en dashboard company */
+/* H2, H3, H4 titles in company dashboard */
 body.dark-theme.dashboard-company-page .job-offers-section h2,
 body.dark-theme.dashboard-company-page .applications-section h2,
 body.dark-theme.dashboard-company-page .stat-card h3,
@@ -3078,22 +3081,23 @@ body.dark-theme.dashboard-company-page .application-card h3,
 body.dark-theme.dashboard-company-page .job-card h4,
 body.dark-theme.dashboard-company-page .application-card h4 {
   color: var(--green) !important;
-
 }
 
-/* Botón View Details verde en dark mode */
+/* Green View Details button in dark mode */
 body.dark-theme.dashboard-company-page .btn-view {
   background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%) !important;
   color: var(--green) !important;
   border: 2px solid var(--green) !important;
 }
 
-/* Company name verde en dark mode */
+/* Company name green in dark mode */
 body.dark-theme.dashboard-company-page .company-name {
   color: var(--green) !important;
 }
 
-/* Modal en dashboard company */
+/* -------------------------- */
+/* Modal in company dashboard */
+/* -------------------------- */
 body.dark-theme.dashboard-company-page .job-modal-content,
 body.dark-theme.dashboard-company-page .modal-offer-content {
   background: var(--dark-card-bg) !important;
@@ -3127,13 +3131,17 @@ body.dark-theme.dashboard-company-page .modal-offer-content textarea {
   color: var(--green) !important;
 }
 
-body.dark-theme.dashboard-company-page .modal-offer-content label{
-  color: var(--green) !important
+body.dark-theme.dashboard-company-page .modal-offer-content label {
+  color: var(--green) !important;
 }
 
 body.dark-theme.dashboard-company-page .modal-offer-content input::placeholder,
-body.dark-theme.dashboard-company-page .modal-offer-content textarea::placeholder,
-body.dark-theme.dashboard-company-page .modal-offer-content select::placeholder {
+body.dark-theme.dashboard-company-page
+  .modal-offer-content
+  textarea::placeholder,
+body.dark-theme.dashboard-company-page
+  .modal-offer-content
+  select::placeholder {
   color: var(--green) !important;
   opacity: 0.8;
 }
@@ -3259,17 +3267,16 @@ body.dark-theme .profile-sidebar {
   box-shadow: var(--dark-card-shadow) !important;
 }
 
-
 body.dark-theme .profile-sidebar,
 body.dark-theme .form-section {
   border-bottom: 8px solid var(--primary-color);
 }
 
-body.dark-theme .form-section h3{
-  border-bottom :3px solid var(--primary-color)
+body.dark-theme .form-section h3 {
+  border-bottom: 3px solid var(--primary-color);
 }
 
-body.dark-theme .profile-header p{
+body.dark-theme .profile-header p {
   color: var(--dark-btn-secondary-text);
 }
 
@@ -3284,7 +3291,7 @@ body.dark-theme .stat-item {
   border-bottom: 1.5px solid var(--primary-color) !important;
 }
 
-body.dark-theme .profile-stats h3{
+body.dark-theme .profile-stats h3 {
   color: var(--primary-color) !important;
 }
 
@@ -3301,7 +3308,7 @@ body.dark-theme .form-group-company select#education {
   border: 1.5px solid var(--primary-color) !important;
 }
 
-body.dark-theme .profile-stats h3{
+body.dark-theme .profile-stats h3 {
   border-bottom: 2px solid var(--primary-color);
 }
 
@@ -3338,7 +3345,6 @@ body.dark-theme .form-section-company select::placeholder {
   opacity: 0.8;
 }
 
-
 body.dark-theme.dashboard-company-page .profile-sidebar {
   border-bottom: 8px solid var(--green) !important;
 }
@@ -3371,31 +3377,29 @@ body.dark-theme .btn-cancel:hover {
 }
 
 body.dark-theme .offer-location {
-  color: var(--green);  
+  color: var(--green);
 }
 
-/* plans */
+/* -------------------- */
+/* STYLES PLANS SECTION */
+/* -------------------- */
 
 /* Price Cards */
-
 .plans-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
   max-width: 1200px;
-  margin: 0 auto;   /* centrado en la página */
-  padding-top: 80px; /* deja espacio arriba para el botón y el título */
+  margin: 0 auto;
+  padding-top: 80px;
 }
 
-/* Título centrado arriba */
 .price-title {
   text-align: center;
-  margin: 20px 0;  
+  margin: 20px 0;
   font-size: 24px;
   font-weight: 700;
-  font-size: 2rem;
-  font-weight: bold;
   color: #1a3c34; 
   text-align: center;
   margin: 20px 0;
@@ -3406,16 +3410,16 @@ body.dark-theme .offer-location {
     font-family: Arial, sans-serif;
 }
 
-/* Botón arriba a la izquierda */
+/* Back Button Styles */
 .back {
-  position: fixed;   /* ahora queda fijo aunque hagas scroll */
-  top: 10px;         
-  left: 10px;        
-  z-index: 1000;     /* siempre por encima de otros elementos */
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
 }
 
 .back button {
-  background: #4CAF50;
+  background: #4caf50;
   border: none;
   border-radius: 8px;
   padding: 8px 14px;
@@ -3427,8 +3431,9 @@ body.dark-theme .offer-location {
   text-decoration: none;
 }
 
-
+/* --------------- */
 /* ---- Cards ---- */
+/* --------------- */
 .plan-card {
   background: var(--white);
   border-radius: 12px;
@@ -3548,171 +3553,185 @@ body.dark-theme .offer-location {
   margin-top: 1rem;
 }
 
+/* ---------------------------------------- */
+/* Responsive plans-container and plan card */
+/* ---------------------------------------- */
 @media (max-width: 768px) {
   .plans-container {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .plan-card {
-      width: 100%;
-      max-width: 400px;
+    width: 100%;
+    max-width: 400px;
   }
 }
 
-/* ===== Applicant Dashboard — ajustes finos (pegar al FINAL del CSS) ===== */
-
-/* Contenedor general un poco más amplio y con más respiro vertical */
-.dashboard-container{
+/* General container a little wider and with more vertical breathing space */
+.dashboard-container {
   max-width: 1180px;
   padding: 28px 22px;
 }
 
-/* Header/banda superior */
-.dashboard-header{
+/* Header/top band */
+.dashboard-header {
   padding: 32px 36px;
   border-radius: 18px;
   gap: 18px;
 }
 
-/* Tarjetas de KPIs */
-.stats-cards{
+/* KPIs cards */
+.stats-cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px,1fr));
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
   gap: 28px;
   margin: 28px 0 8px;
 }
 
-.stat-card{
+.stat-card {
   padding: 26px 20px;
   border-radius: 14px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 }
-.stat-card h3{
+.stat-card h3 {
   font-size: 1.08rem;
   margin-bottom: 14px;
 }
-.stat-number{
+.stat-number {
   font-size: 2.2rem;
   line-height: 1;
 }
 
-/* Dos columnas principales (ofertas / aplicaciones) */
-.dashboard-sections{
+/* Two main columns (offers/applications) */
+.dashboard-sections {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;   /* izquierda más ancha */
+  grid-template-columns: 1.6fr 1fr;
   gap: 36px;
   align-items: start;
   margin-top: 18px;
 }
 
-/* Títulos de sección con barra izquierda */
+/* Section titles with left bar */
 .job-offers-section h2,
-.applications-section h2{
+.applications-section h2 {
   font-size: 1.9rem;
   margin: 10px 0 18px;
   padding-left: 14px;
   border-left: 4px solid #4b0082;
 }
 
-/* Listas de cards */
+/* Cards List */
 .job-cards,
-.application-cards{
+.application-cards {
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
 
-/* Job card (ofertas) */
-.job-card{
+/* Job card (offers) */
+.job-card {
   padding: 28px;
   border-radius: 16px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
   border-left: 4px solid #4b0082;
 }
-.job-header{ margin-bottom: 16px; }
-.job-title{ font-size: 1.35rem; }
-.company-name{ font-weight: 700; }
+.job-header {
+  margin-bottom: 16px;
+}
+.job-title {
+  font-size: 1.35rem;
+}
+.company-name {
+  font-weight: 700;
+}
 
-/* Detalles en rejilla compacta */
-.job-details{
+/* Details in compact grid */
+.job-details {
   display: grid;
-  grid-template-columns: repeat(3, minmax(160px,1fr));
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
   gap: 14px 18px;
   margin-bottom: 14px;
 }
 
-/* Descripción + tags */
-.job-description{ margin-bottom: 12px; }
-.job-tags{ gap: 10px; }
+/* Description + tags */
+.job-description {
+  margin-bottom: 12px;
+}
+.job-tags {
+  gap: 10px;
+}
 
-/* Botones de acción (más grandes) */
-.job-actions{ gap: 14px; }
+/* Action buttons (larger) */
+.job-actions {
+  gap: 14px;
+}
 .btn-apply,
-.btn-view{
+.btn-view {
   padding: 12px 22px;
   font-size: 1rem;
   border-radius: 10px;
 }
 
-/* Application cards (columna derecha) */
-.application-card{
+/* Application cards (right column) */
+.application-card {
   padding: 24px;
   border-radius: 14px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
   border-left: 4px solid #4b0082;
 }
 
-/* Modal: ancho y tipografía consistentes */
-.job-modal-content{
+.job-modal-content {
   max-width: 720px;
   border-radius: 16px;
 }
 
-/* ---------- Responsivo ---------- */
-@media (max-width: 1100px){
-  .stats-cards{
-    grid-template-columns: repeat(3, minmax(240px,1fr));
+/* ------------------------------------------------------------- */
+/* Responsive for dashboard section (stats card, job-details...) */
+/* ------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .stats-cards {
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
     gap: 22px;
   }
-  .dashboard-sections{
+  .dashboard-sections {
     grid-template-columns: 1fr;
     gap: 28px;
   }
 }
 
-@media (max-width: 700px){
-  .stats-cards{
-    grid-template-columns: repeat(2, minmax(220px,1fr));
+@media (max-width: 700px) {
+  .stats-cards {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
   }
-  .job-details{
+  .job-details {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 480px){
-  .stats-cards{
+@media (max-width: 480px) {
+  .stats-cards {
     grid-template-columns: 1fr;
   }
-  .dashboard-header{
+  .dashboard-header {
     padding: 24px;
   }
 }
 
-/* Mantener alto en columnas aunque estén vacías */
+/* Keep high in columns even if they are empty */
 .job-cards {
-  min-height: 380px;           /* ajusta si quieres más/menos */
+  min-height: 380px;
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Card vacía con el mismo lenguaje visual que las job-cards */
+/* Empty card with the same visual language as job cards */
 .card-empty {
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid #4b0082;        /* morado coder */
+  border-left: 4px solid #4b0082;
   padding: 30px 24px;
   display: flex;
   align-items: center;
@@ -3735,7 +3754,6 @@ body.dark-theme .offer-location {
   color: #718096;
 }
 
-/* Opcional: mantener alto también del panel de aplicaciones */
 .application-cards {
   min-height: 320px;
   display: flex;
@@ -3743,166 +3761,250 @@ body.dark-theme .offer-location {
   gap: 20px;
 }
 
-/* Dark mode */
 body.dark-theme .card-empty {
   background: var(--dark-card-bg);
   color: var(--dark-text-color);
   border-left: 4px solid var(--primary-color);
   box-shadow: var(--dark-card-shadow);
 }
-body.dark-theme .card-empty .empty-text h4 { color: var(--primary-color); }
-body.dark-theme .card-empty .empty-text p  { color: var(--dark-muted-text); }
+body.dark-theme .card-empty .empty-text h4 {
+  color: var(--primary-color);
+}
+body.dark-theme .card-empty .empty-text p {
+  color: var(--dark-muted-text);
+}
 
-/* ===========================
-   Modal "Applicants" (Company)
-   =========================== */
-.modal {                /* overlay */
+/* ---------------------------- */
+/* Modal "Applicants" (Company) */
+/* ---------------------------- */
+.modal {
   position: fixed;
   inset: 0;
-  display: none;        /* .show lo cambia */
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 1100;
-  background: rgba(0,0,0,.55);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(2px);
 }
-.modal.show { display: flex; }
+.modal.show {
+  display: flex;
+}
 
 .modal-dialog {
   width: min(860px, 95vw);
   margin: 0 auto;
-  transform: translateY(10px) scale(.98);
+  transform: translateY(10px) scale(0.98);
   opacity: 0;
-  animation: applicantsModalIn .18s ease-out forwards;
+  animation: applicantsModalIn 0.18s ease-out forwards;
 }
+
 @keyframes applicantsModalIn {
-  to { transform: translateY(0) scale(1); opacity: 1; }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-content {
-  background:#fff;
+  background: #fff;
   border-radius: 16px;
-  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   border: 1px solid #eef2f7;
 }
 
 .modal-header,
 .modal-footer {
-  display:flex; align-items:center; gap:12px;
-  padding:16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
 }
 .modal-header {
   justify-content: space-between;
-  border-bottom:1px solid #eef2f7;
+  border-bottom: 1px solid #eef2f7;
 }
 .modal-footer {
-  justify-content:flex-end;
-  border-top:1px solid #eef2f7;
-  background:#fafafa;
+  justify-content: flex-end;
+  border-top: 1px solid #eef2f7;
+  background: #fafafa;
 }
 
 .modal-title {
-  margin:0;
-  font-size:1.2rem;
-  font-weight:700;
-  color:#1f2937;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
 }
 
-/* botón “X” acorde a tu línea visual */
+/* Close Button Styles */
 .modal .btn-close {
-  appearance:none; border:0; cursor:pointer;
-  width:34px; height:34px; border-radius:10px;
-  background:#eef2f7; position:relative;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #eef2f7;
+  position: relative;
 }
 .modal .btn-close::before,
 .modal .btn-close::after {
-  content:""; position:absolute; inset:0; margin:auto;
-  width:14px; height:2px; background:#374151; transform-origin:center;
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 14px;
+  height: 2px;
+  background: #374151;
+  transform-origin: center;
 }
-.modal .btn-close::before { transform: rotate(45deg); }
-.modal .btn-close::after  { transform: rotate(-45deg); }
-.modal .btn-close:hover { background:#e5e7eb; }
+.modal .btn-close::before {
+  transform: rotate(45deg);
+}
+.modal .btn-close::after {
+  transform: rotate(-45deg);
+}
+.modal .btn-close:hover {
+  background: #e5e7eb;
+}
 
-.modal-body { padding:14px 20px; max-height:min(65vh,560px); overflow:auto; }
+.modal-body {
+  padding: 14px 20px;
+  max-height: min(65vh, 560px);
+  overflow: auto;
+}
 
-/* === Tabla de applicants === */
+/* ---------------- */
+/* Applicants Table */
+/* ---------------- */
 .applicants-table {
-  width:100%; border-collapse:collapse; background:#fff;
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
 }
-.applicants-table thead th{
-  text-align:left; font-weight:700; font-size:.92rem; color:#111827;
-  padding:10px 12px; background:#f9fafb; border-bottom:1px solid #eef2f7;
+.applicants-table thead th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #111827;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-bottom: 1px solid #eef2f7;
 }
-.applicants-table tbody td{
-  padding:10px 12px; font-size:.97rem; color:#1f2937; border-bottom:1px solid #f3f4f6;
-  vertical-align:middle;
+.applicants-table tbody td {
+  padding: 10px 12px;
+  font-size: 0.97rem;
+  color: #1f2937;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
 }
-.applicants-table tbody tr:hover{ background:#fbfbfd; }
-.applicants-table a{ color:#2563eb; text-decoration:none; }
-.applicants-table a:hover{ text-decoration:underline; }
-.cell-interviews{ font-variant-numeric: tabular-nums; }
+.applicants-table tbody tr:hover {
+  background: #fbfbfd;
+}
+.applicants-table a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.applicants-table a:hover {
+  text-decoration: underline;
+}
+.cell-interviews {
+  font-variant-numeric: tabular-nums;
+}
 
-/* Botones del modal (usa tus colores) */
-.modal .btn { 
-  padding:10px 14px; border:none; border-radius:12px; cursor:pointer; 
-  font-weight:600; transition:all .2s ease; 
+/* Modal Buttons Styles */
+.modal .btn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
-.modal .btn-primary{ background: var(--accent-color); color:#fff; }
-.modal .btn-primary:hover{ opacity:.95; }
-.modal .btn-secondary{ background:#eef2f7; color:#111827; }
-.modal .btn-secondary:hover{ background:#e5e7eb; }
-.modal .btn-success{
-  background: var(--green); color:#fff;
-  box-shadow: 0 8px 20px rgba(50,205,50,.18);
+.modal .btn-primary {
+  background: var(--accent-color);
+  color: #fff;
 }
-.modal .btn-success:hover{ background: var(--green-dark); }
+.modal .btn-primary:hover {
+  opacity: 0.95;
+}
+.modal .btn-secondary {
+  background: #eef2f7;
+  color: #111827;
+}
+.modal .btn-secondary:hover {
+  background: #e5e7eb;
+}
+.modal .btn-success {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(50, 205, 50, 0.18);
+}
+.modal .btn-success:hover {
+  background: var(--green-dark);
+}
 
-/* Botón pequeño en la tabla */
-.modal .btn-sm{ padding:8px 10px; border-radius:10px; font-size:.9rem; }
+/* Small button on the table */
+.modal .btn-sm {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
 
 /* ====== Dark mode ====== */
-body.dark-theme .modal-content{
+body.dark-theme .modal-content {
   background: var(--dark-card-bg);
   color: var(--dark-text-color);
   border: 1px solid var(--dark-card-border);
   box-shadow: var(--dark-card-shadow);
 }
 body.dark-theme .modal-header,
-body.dark-theme .modal-footer{
+body.dark-theme .modal-footer {
   background: var(--dark-card-bg);
   border-color: var(--dark-card-border);
 }
-body.dark-theme .modal-title{ color: var(--primary-color); }
-body.dark-theme.dashboard-company-page .modal-title{ color: var(--green); }
+body.dark-theme .modal-title {
+  color: var(--primary-color);
+}
+body.dark-theme.dashboard-company-page .modal-title {
+  color: var(--green);
+}
 
-body.dark-theme .applicants-table{
+body.dark-theme .applicants-table {
   background: var(--dark-card-bg);
 }
-body.dark-theme .applicants-table thead th{
-  background: #0e1524; border-color: var(--dark-card-border); color: var(--dark-text-color);
+body.dark-theme .applicants-table thead th {
+  background: #0e1524;
+  border-color: var(--dark-card-border);
+  color: var(--dark-text-color);
 }
-body.dark-theme .applicants-table tbody td{
-  border-color: var(--dark-card-border); color: var(--dark-text-color);
+body.dark-theme .applicants-table tbody td {
+  border-color: var(--dark-card-border);
+  color: var(--dark-text-color);
 }
-body.dark-theme .applicants-table tbody tr:hover{ background:#0f1722; }
+body.dark-theme .applicants-table tbody tr:hover {
+  background: #0f1722;
+}
 
-body.dark-theme .modal .btn-secondary{
+body.dark-theme .modal .btn-secondary {
   background: var(--dark-btn-secondary-bg);
   color: var(--dark-btn-secondary-text);
   border: 1px solid var(--dark-btn-secondary-border);
 }
-body.dark-theme .modal .btn-primary{
-  background: var(--primary-color); color:#fff;
+body.dark-theme .modal .btn-primary {
+  background: var(--primary-color);
+  color: #fff;
 }
-body.dark-theme.dashboard-company-page .modal .btn-primary{
+body.dark-theme.dashboard-company-page .modal .btn-primary {
   background: var(--green);
 }
 
-/* Asegurar que SweetAlert2 siempre quede por encima del modal */
+/* ensure sweetalert is displayed on top of everything. */
 .swal2-container {
-  z-index: 2000 !important;   /* mayor que .modal (1100) */
+  z-index: 2000 !important;
 }
 .swal2-popup {
-  z-index: 2001 !important;   /* por si algún stacking context raro aparece */
+  z-index: 2001 !important;
 }

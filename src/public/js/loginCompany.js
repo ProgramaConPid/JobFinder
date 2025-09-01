@@ -1,17 +1,18 @@
 // src/public/js/loginCompany.js
-// Login de Company con bloqueo si el email no existe o la password es incorrecta.
-// Guarda company_id en localStorage SOLO cuando el backend responde 200.
+// Company login with blocking if the email does not exist or the password is incorrect.
+// Saves company_id in localStorage ONLY when the backend responds with 200 OK.
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Detect if running on localhost or production
   const isLocalhost = ["localhost", "127.0.0.1"].includes(
     window.location.hostname
   );
 
   const API_BASE = isLocalhost
     ? "http://localhost:5173" // Local Backend Host
-    : "https://jobfinder-jdp5.onrender.com"; // Backend on production (Render)
+    : "https://jobfinder-jdp5.onrender.com"; // Production Backend (Render)
 
-  // Evita entrar “por accidente” con un company_id previo
+  // Prevent accidental login with a previous company_id
   localStorage.removeItem("company_id");
 
   const form = document.getElementById("companyLoginForm");
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     '#companyPassword, [name="companyPassword"], input[type="password"]'
   );
 
-  // Zona de mensajes (usa Swal si está disponible; fallback a texto)
+  // Message area (uses Swal if available; fallback to text)
   let msg = document.getElementById("loginCompanyMsg");
   if (!msg) {
     msg = document.createElement("div");
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = (emailEl?.value || "").trim();
     const password = passEl?.value || "";
     if (!email || !password) {
-      showMsg("Por favor ingresa email y contraseña.");
+      showMsg("Please enter email and password.");
       return;
     }
 
@@ -64,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        // Backend: 'El correo no está registrado' o 'Contraseña incorrecta'
-        showMsg(data.error || "Credenciales inválidas");
-        return; // ⛔ no redirigir
+        // Backend: 'Email not registered' or 'Incorrect password'
+        showMsg(data.error || "Invalid credentials");
+        return; // ⛔ do not redirect
       }
 
       // ✅ OK
@@ -74,11 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "/views/dashboardCompany.html";
     } catch (err) {
       console.error("[loginCompany] Error:", err);
-      showMsg("Error de red. Intenta nuevamente.");
+      showMsg("Network error. Please try again.");
     }
   });
 
-  // Enviar con Enter SOLO si el foco está dentro del form
+  // Submit with Enter ONLY if the focus is inside the form
   document.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && document.activeElement.tagName !== "TEXTAREA") {
       if (form.contains(document.activeElement)) {
