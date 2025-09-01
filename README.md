@@ -143,6 +143,7 @@ JobFinder
  ┣ 📜 package.json
  ┣ 📜 README.md
  ┗ 📜 LICENSE
+```
 
 **Explanation:**\
 - **backend/** → API logic, routes, and controllers.\
