@@ -89,7 +89,7 @@ Main phases:\
 The database is designed to reflect relationships between **companies,
 applicants, job offers, applications, and interviews**.
 
-![Database Model](./docs/DB_page-0001.jpg)
+![Database Model](https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/DB_image.png?raw=true)
 
 **Explanation:**\
 - **Applicants**: candidate information (CV, skills, experience, social
@@ -107,7 +107,7 @@ This design ensures integrity, traceability, and efficient queries.
 
 Two main flows exist: **Companies** and **Applicants**.
 
-![Navigation Flow](https://github.com/ProgramaConPid/JobFinder/blob/develop/Diagrams-MER/Navigation-Diagram.jpg?raw=true)
+![Navigation Flow](https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/Navigation-Diagram.jpg?raw=true)
 
 **Flow explanation:**\
 - **Companies**: register/login, manage offers, track applications, view
