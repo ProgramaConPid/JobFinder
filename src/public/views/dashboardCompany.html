@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Montserrat and Roboto fonts from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,20 +16,24 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <!-- Link to main CSS file -->
     <link rel="stylesheet" href="../css/style.css" />
+    <!-- Website favicon -->
     <link
       rel="shortcut icon"
       href="../assets/img/jobfinderlogo.png"
       type="image/x-icon"
     />
+    <!-- SweetAlert2 library for alerts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Page title with i18n support -->
     <title data-i18n="dashboardCompany.title">
       JobFinder - Company Dashboard
     </title>
   </head>
   <body class="dashboard-company-page">
     <div class="dashboard-container">
-      <!-- Header -->
+      <!-- Header with dashboard title, subtitle, user info, and navigation buttons -->
       <header class="dashboard-header">
         <div class="header-content">
           <h1 data-i18n="dashboardCompany.header">Company Dashboard</h1>
@@ -43,7 +48,6 @@
           <button class="btn-price">
             <a href="../views/price.html">Plans</a>
           </button>
-
           <a
             class="btn-profile"
             href="./profileCompany.html"
@@ -60,9 +64,9 @@
         </div>
       </header>
 
-      <!-- Main Content -->
+      <!-- Main dashboard content -->
       <main class="dashboard-content">
-        <!-- Stats Cards -->
+        <!-- Stats cards showing offers, applications, and profile completion -->
         <div class="stats-cards">
           <div class="stat-card">
             <h3 data-i18n="dashboardCompany.activeOffers">Active Offers</h3>
@@ -89,9 +93,9 @@
           </div>
         </div>
 
-        <!-- Sections -->
+        <!-- Sections for offers and sidebar -->
         <div class="dashboard-sections">
-          <!-- Active Offers -->
+          <!-- Active Offers section with offer cards -->
           <section class="active-offers-section">
             <div class="section-header">
               <h2 data-i18n="dashboardCompany.activeOffersSection">
@@ -107,7 +111,7 @@
             </div>
 
             <div class="offer-cards">
-              <!-- Offer 1 -->
+              <!-- Example Offer Card 1 -->
               <div class="offer-card" data-id="1">
                 <div class="offer-header">
                   <h3 class="offer-title">Backend Developer Node.js</h3>
@@ -167,7 +171,7 @@
                 </div>
               </div>
 
-              <!-- Offer 2 -->
+              <!-- Example Offer Card 2 -->
               <div class="offer-card" data-id="2">
                 <div class="offer-header">
                   <h3 class="offer-title">Product Manager</h3>
@@ -229,9 +233,9 @@
             </div>
           </section>
 
-          <!-- Sidebar -->
+          <!-- Sidebar with recommendations and quick stats -->
           <aside class="sidebar">
-            <!-- Recommendations -->
+            <!-- Recommendations section -->
             <div class="sidebar-section">
               <h3 data-i18n="dashboardCompany.recommendations">
                 Recommendations
@@ -262,7 +266,7 @@
               </div>
             </div>
 
-            <!-- Quick Stats -->
+            <!-- Quick Stats section -->
             <div class="sidebar-section">
               <h3 data-i18n="dashboardCompany.quickStats">Quick Stats</h3>
               <div class="quick-stats">
@@ -294,6 +298,7 @@
         </div>
       </main>
     </div>
+
 
     <!-- View Applicants Modal -->
 <div id="viewApplicantsModal" class="modal" style="display:none;">
@@ -327,11 +332,13 @@
 
 
     <!-- Modal Create Offer -->
+
+    <!-- Modal for creating a new job offer -->
+
     <div id="createOfferModal" class="modal-offer">
       <div class="modal-offer-content">
         <span class="modal-offer-close" id="closeCreateOffer">&times;</span>
         <h2 data-i18n="dashboardCompany.newOffer">New Job Offer</h2>
-
         <form id="createOfferForm">
           <div class="form-row">
             <div class="form-group form-group-company half">
@@ -347,7 +354,6 @@
                 required
               />
             </div>
-
             <div class="form-group form-group-company half">
               <label
                 for="newJobLocation"
@@ -363,7 +369,6 @@
                 required
               />
             </div>
-
             <div class="form-group form-group-company half">
               <label for="newJobSalary" data-i18n="dashboardCompany.salaryRange"
                 >Salary Range</label
@@ -378,7 +383,6 @@
               />
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group form-group-company half">
               <label for="newJobMode" data-i18n="dashboardCompany.workMode"
@@ -390,7 +394,6 @@
                 <option value="onsite">On-site</option>
               </select>
             </div>
-
             <div class="form-group form-group-company half">
               <label
                 for="newJobLevel"
@@ -404,7 +407,6 @@
               </select>
             </div>
           </div>
-
           <div class="form-group form-group-company">
             <label
               for="newJobDescription"
@@ -420,7 +422,6 @@
               required
             ></textarea>
           </div>
-
           <div class="modal-offer-actions center">
             <button
               type="submit"
@@ -442,12 +443,11 @@
       </div>
     </div>
 
-    <!-- Modal Edit Offer -->
+    <!-- Modal for editing an existing job offer -->
     <div id="editOfferModal" class="modal-offer">
       <div class="modal-offer-content">
         <span class="modal-offer-close" id="closeEditOffer">&times;</span>
         <h2 data-i18n="dashboardCompany.editOffer">Edit Job Offer</h2>
-
         <form id="editOfferForm">
           <div class="form-group form-group-company">
             <label for="jobTitle" data-i18n="dashboardCompany.jobTitle"
@@ -455,8 +455,7 @@
             >
             <input type="text" id="jobTitle" name="jobTitle" required />
           </div>
-
-          <div class="form-group form-group-company half">  
+          <div class="form-group form-group-company half">
             <label for="jobLocation" data-i18n="dashboardCompany.jobLocation"
               >Job Location</label
             >
@@ -469,7 +468,6 @@
               required
             />
           </div>
-
           <div class="form-group form-group-company">
             <label for="jobMode" data-i18n="dashboardCompany.workMode"
               >Work Mode</label
@@ -480,7 +478,6 @@
               <option value="onsite">On-site</option>
             </select>
           </div>
-
           <div class="form-group form-group-company">
             <label for="jobLevel" data-i18n="dashboardCompany.seniorityLevel"
               >Seniority Level</label
@@ -491,14 +488,12 @@
               <option value="senior">Senior</option>
             </select>
           </div>
-
           <div class="form-group form-group-company">
             <label for="jobSalary" data-i18n="dashboardCompany.salaryRange"
               >Salary Range</label
             >
             <input type="text" id="jobSalary" name="jobSalary" required />
           </div>
-
           <div class="form-group form-group-company">
             <label for="jobDescription" data-i18n="dashboardCompany.description"
               >Description</label
@@ -510,7 +505,6 @@
               required
             ></textarea>
           </div>
-
           <div class="modal-offer-actions">
             <button
               type="submit"
@@ -532,11 +526,12 @@
       </div>
     </div>
 
-    <!-- External JS -->
+    <!-- External JS files for dashboard logic, theme, and language -->
     <script src="../js/dashboardCompany.js"></script>
     <script src="../js/theme.js"></script>
     <script src="../js/language.js"></script>
 
+    <!-- Button to toggle dark/light theme -->
     <button
       id="toggle-theme"
       class="btn-toggle-theme"

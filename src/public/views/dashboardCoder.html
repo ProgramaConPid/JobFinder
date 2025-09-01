@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Website favicon -->
     <link
       rel="shortcut icon"
       href="../assets/img/jobfinderlogo.png"
       type="image/x-icon"
     />
+    <!-- Main CSS file -->
     <link rel="stylesheet" href="../css/style.css" />
+    <!-- Import Montserrat and Roboto fonts from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,57 +24,81 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <!-- SweetAlert2 library for alerts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <title data-i18n="dashboardCoder.title">JobFinder - Applicant Dashboard</title>
+    <!-- Page title with i18n support -->
+    <title data-i18n="dashboardCoder.title">
+      JobFinder - Applicant Dashboard
+    </title>
   </head>
 
   <body class="dashboard-page">
     <div class="dashboard-container">
-      <!-- Header -->
+      <!-- Header with dashboard title, subtitle, user info, and navigation buttons -->
       <header class="dashboard-header">
         <div class="header-content">
           <h1 data-i18n="dashboardCoder.header">Applicant Dashboard</h1>
-          <p data-i18n="dashboardCoder.subtitle">Explore job offers and manage your applications</p>
+          <p data-i18n="dashboardCoder.subtitle">
+            Explore job offers and manage your applications
+          </p>
         </div>
 
         <div class="header-actions">
-          <span class="user-info" data-i18n="dashboardCoder.userInfo">Hello, John Smith</span>
+          <span class="user-info" data-i18n="dashboardCoder.userInfo"
+            >Hello, John Smith</span
+          >
           <a
             href="../views/profileCoder.html"
             class="btn-profile"
             id="profileLink"
             data-i18n="dashboardCoder.myProfile"
+            >My Profile</a
           >
-            My Profile
-          </a>
-          <button class="btn-logout" onclick="logout()" data-i18n="dashboardCoder.logout">Log Out</button>
+          <button
+            class="btn-logout"
+            onclick="logout()"
+            data-i18n="dashboardCoder.logout"
+          >
+            Log Out
+          </button>
         </div>
       </header>
 
-      <!-- Main Content -->
+      <!-- Main dashboard content -->
       <main class="dashboard-content">
-        <!-- Stats Cards -->
+        <!-- Stats cards showing available offers, applications sent, and scheduled interviews -->
         <div class="stats-cards">
           <div class="stat-card">
             <h3 data-i18n="dashboardCoder.availableOffers">Available Offers</h3>
             <span class="stat-number" id="availableOffersCount">0</span>
           </div>
           <div class="stat-card">
-            <h3 data-i18n="dashboardCoder.applicationsSent">Applications Sent</h3>
+            <h3 data-i18n="dashboardCoder.applicationsSent">
+              Applications Sent
+            </h3>
             <span class="stat-number" id="applicationsSentCount">0</span>
           </div>
           <div class="stat-card">
+
             <h3 data-i18n="dashboardCoder.scheduledInterviews">Scheduled Interviews</h3>
             <span class="stat-number"  id="scheduledInterviewsCount">0</span>
+
+            <h3 data-i18n="dashboardCoder.scheduledInterviews">
+              Scheduled Interviews
+            </h3>
+            <span class="stat-number">0</span>
+
           </div>
         </div>
 
         <div class="dashboard-sections">
-          <!-- Job Offers -->
+          <!-- Job Offers section with job cards -->
           <section class="job-offers-section">
-            <h2 data-i18n="dashboardCoder.availableOffersSection">Available Offers</h2>
+            <h2 data-i18n="dashboardCoder.availableOffersSection">
+              Available Offers
+            </h2>
             <div class="job-cards">
+              <!-- Example Job Card 1 -->
               <div class="job-card" data-id="1">
                 <div class="job-header">
                   <h3 class="job-title">Frontend Developer React</h3>
@@ -102,13 +129,23 @@
                   <span class="job-tag">Mid-level</span>
                 </div>
                 <div class="job-actions">
-                  <button class="btn-apply" onclick="applyJob(1)" data-i18n="dashboardCoder.applyNow">
+                  <button
+                    class="btn-apply"
+                    onclick="applyJob(1)"
+                    data-i18n="dashboardCoder.applyNow"
+                  >
                     Apply Now
                   </button>
-                  <button class="btn-view" data-i18n="dashboardCoder.viewDetails">View Details</button>
+                  <button
+                    class="btn-view"
+                    data-i18n="dashboardCoder.viewDetails"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
 
+              <!-- Example Job Card 2 -->
               <div class="job-card" data-id="2">
                 <div class="job-header">
                   <h3 class="job-title">Backend Developer Node.js</h3>
@@ -139,46 +176,65 @@
                   <span class="job-tag">Junior</span>
                 </div>
                 <div class="job-actions">
-                  <button class="btn-apply" onclick="applyJob(2)" data-i18n="dashboardCoder.applyNow">
+                  <button
+                    class="btn-apply"
+                    onclick="applyJob(2)"
+                    data-i18n="dashboardCoder.applyNow"
+                  >
                     Apply Now
                   </button>
-                  <button class="btn-view" data-i18n="dashboardCoder.viewDetails">View Details</button>
+                  <button
+                    class="btn-view"
+                    data-i18n="dashboardCoder.viewDetails"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- Applications -->
+          <!-- Applications section with application cards -->
           <section class="applications-section">
             <h2 data-i18n="dashboardCoder.myApplications">My Applications</h2>
             <div class="application-cards">
-              <!-- Application 1 -->
+              <!-- Application Card 1 -->
               <div class="application-card">
                 <div class="app-job-info">
                   <h4>Backend Developer Node.js</h4>
                   <span class="company-name">DataTech Solutions</span>
                 </div>
                 <div class="app-status">
-                  <span class="status-badge status-pending" data-i18n="dashboardCoder.underReview">Under Review</span>
+                  <span
+                    class="status-badge status-pending"
+                    data-i18n="dashboardCoder.underReview"
+                    >Under Review</span
+                  >
                 </div>
                 <div class="app-date">
-                  <span data-i18n="dashboardCoder.applied">Applied: Nov 15, 2023</span>
+                  <span data-i18n="dashboardCoder.applied"
+                    >Applied: Nov 15, 2023</span
+                  >
                 </div>
               </div>
 
-              <!-- Application 2 -->
+              <!-- Application Card 2 -->
               <div class="application-card">
                 <div class="app-job-info">
                   <h4>Fullstack Developer</h4>
                   <span class="company-name">InnovateLab</span>
                 </div>
                 <div class="app-status">
-                  <span class="status-badge status-interview" data-i18n="dashboardCoder.interviewScheduled">
-                    Interview Scheduled
-                  </span>
+                  <span
+                    class="status-badge status-interview"
+                    data-i18n="dashboardCoder.interviewScheduled"
+                    >Interview Scheduled</span
+                  >
                 </div>
                 <div class="app-date">
-                  <span data-i18n="dashboardCoder.applied">Applied: Nov 12, 2023</span>
+                  <span data-i18n="dashboardCoder.applied"
+                    >Applied: Nov 12, 2023</span
+                  >
                 </div>
               </div>
             </div>
@@ -187,7 +243,7 @@
       </main>
     </div>
 
-    <!-- Modal Job Details -->
+    <!-- Modal for job details -->
     <div id="jobModal" class="job-modal">
       <div class="job-modal-content">
         <span id="closeJobModal" class="job-modal-close">&times;</span>
@@ -197,15 +253,15 @@
         </div>
         <div class="job-modal-details">
           <div>
-            <strong data-i18n="dashboardCoder.location">📍 Location:</strong> 
+            <strong data-i18n="dashboardCoder.location">📍 Location:</strong>
             <span id="modalLocation"></span>
           </div>
           <div>
-            <strong data-i18n="dashboardCoder.salary">💰 Salary:</strong> 
+            <strong data-i18n="dashboardCoder.salary">💰 Salary:</strong>
             <span id="modalSalary"></span>
           </div>
           <div>
-            <strong data-i18n="dashboardCoder.posted">🕒 Posted:</strong> 
+            <strong data-i18n="dashboardCoder.posted">🕒 Posted:</strong>
             <span id="modalPosted"></span>
           </div>
         </div>
@@ -214,17 +270,25 @@
         </div>
         <div id="modalTags" class="job-tags"></div>
         <div class="job-modal-actions">
-          <button class="btn-apply" data-i18n="dashboardCoder.applyNow">Apply Now</button>
+          <button class="btn-apply" data-i18n="dashboardCoder.applyNow">
+            Apply Now
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- External JS -->
-     
+    <!-- External JS files for dashboard logic, theme, and language -->
     <script src="../js/dashboardCoder.js"></script>
     <script src="../js/theme.js"></script>
     <script src="../js/language.js"></script>
 
-    <button id="toggle-theme" class="btn-toggle-theme" aria-label="Toggle dark mode">🌙</button>
+    <!-- Button to toggle dark/light theme -->
+    <button
+      id="toggle-theme"
+      class="btn-toggle-theme"
+      aria-label="Toggle dark mode"
+    >
+      🌙
+    </button>
   </body>
 </html>
