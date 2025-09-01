@@ -23,7 +23,7 @@ ecosystem.
 10. [MVP (Minimum Viable Product)](#-mvp-minimum-viable-product)
 11. [Expected Results](#-expected-results)
 12. [Team](#-team)
-13. [License](#-license)
+13. [Figma](#-Figma)
 
 ------------------------------------------------------------------------
 
