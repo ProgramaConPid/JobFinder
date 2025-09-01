@@ -166,12 +166,11 @@ JobFinder
 ### 📥 Download the Project
 
 Clone the repository from GitHub:
-```bash git clone https://github.com/your-username/jobfinder.git cdjobfinder```
+```bash git clone https://github.com/your-username/jobfinder.git cdjobfinder ```
 
 ### 🔧 Backend Setup
 
-```bash cd backend npm install # or for Python dependencies pip
-install -r requirements.txt ```
+```bash cd backend npm install # or for Python dependencies pipinstall -r requirements.txt ```
 
 ### 💻 Frontend Setup
 
@@ -181,11 +180,9 @@ install -r requirements.txt ```
 
 1.  Create a MySQL database.
 2.  Import the schema:
-    ```bash mysql -u your_user -p your_database <
-    database/schema.sql ```
+    ```bash mysql -u your_user -p your_database < database/schema.sql ```
 3.  (Optional) Seed the database:
-    ```bash mysql -u your_user -p your_database < database/seeds.sql
-    ```
+    ```bash mysql -u your_user -p your_database < database/seeds.sql ```
 
 ### 🚀 Run the Project
 
@@ -237,7 +234,7 @@ The first version delivers:
 
 ## Figma
 
-Below you can see the figma that was developed to give us the bases of what was going to be the background of the project
+Below you can see the figma that was developed to give us the bases of what was going to be the background of the project.
 
 <a href="https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1">
   <img src="https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true" alt="Figma" width="80"/>
