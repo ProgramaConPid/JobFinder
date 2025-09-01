@@ -119,14 +119,30 @@ and track interviews.\
 ------------------------------------------------------------------------
 
 ## 📂 Project Structure
+The repository is organized as follows:
 
-Current repository structure (from `.rar`):
-
-\`\`\`bash 📦 JobFinder ┣ 📂 backend ┃ ┣ 📂 controllers ┃ ┣ 📂 models ┃
-┣ 📂 routes ┃ ┗ 📂 utils ┣ 📂 frontend ┃ ┣ 📂 components ┃ ┣ 📂 pages ┃
-┣ 📂 services ┃ ┗ 📂 assets ┣ 📂 database ┃ ┣ schema.sql ┃ ┗ seeds.sql ┣
-📂 docs ┃ ┗ JobFinder_Project_Proposal.pdf ┣ 📜 package.json ┣ 📜
-README.md ┗ 📜 LICENSE \`\`\`
+```bash
+JobFinder
+ ┣ 📂 backend
+ ┃ ┣ 📂 controllers
+ ┃ ┣ 📂 models
+ ┃ ┣ 📂 routes
+ ┃ ┗ 📂 utils
+ ┣ 📂 frontend
+ ┃ ┣ 📂 components
+ ┃ ┣ 📂 pages
+ ┃ ┣ 📂 services
+ ┃ ┗ 📂 assets
+ ┣ 📂 database
+ ┃ ┣ schema.sql
+ ┃ ┗ seeds.sql
+ ┣ 📂 docs
+ ┃ ┣ JobFinder_Project_Proposal.pdf
+ ┃ ┣ DB_page-0001.jpg
+ ┃ ┗ Navigation_Diagram.png
+ ┣ 📜 package.json
+ ┣ 📜 README.md
+ ┗ 📜 LICENSE
 
 **Explanation:**\
 - **backend/** → API logic, routes, and controllers.\
