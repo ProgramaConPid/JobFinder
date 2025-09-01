@@ -130,12 +130,12 @@ JobFinder
  ┃ ┃ ┃ ┗ 📜database.sql 
  ┃ ┃ ┗ 📜 server.js
  ┃ ┗ 📂 public
- ┃ ┃ ┣ 📂 assets
- ┃ ┃ ┣ 📂 css
- ┃ ┃ ┣ 📂 js
- ┃ ┃ ┣ 📂 views
- ┃ ┃ ┣ 📜 app.js
- ┃ ┃ ┗ 📜 index.html
+ ┃   ┣ 📂 assets
+ ┃   ┣ 📂 css
+ ┃   ┣ 📂 js
+ ┃   ┣ 📂 views
+ ┃   ┣ 📜 app.js
+ ┃   ┗ 📜 index.html
  ┣ 📜 .gitnore
  ┣ 📜 netlify.toml
  ┣ 📜 package-lock.json
