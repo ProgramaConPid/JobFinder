@@ -219,7 +219,7 @@ The first version delivers:
 
 ------------------------------------------------------------------------
 
-## 👨‍💻 Team
+## 👨‍💻 Team  
 
 **Team Name:** 🚀 *Breakpoint*
 
@@ -232,7 +232,7 @@ The first version delivers:
 
 ------------------------------------------------------------------------
 
-## Figma
+## Figma  
 
 Below you can see the figma that was developed to give us the bases of what was going to be the background of the project.
 
