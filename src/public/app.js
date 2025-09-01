@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* Floating Button */
-
 document.addEventListener('DOMContentLoaded', function() {
   const contactFloatingBtn = document.getElementById('contactFloatingBtn');
   const contactMenu = document.getElementById('contactMenu');
