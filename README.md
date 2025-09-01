@@ -238,7 +238,7 @@ The first version delivers:\
 
 ------------------------------------------------------------------------
 
-## 📜 License
+## Figma
 
-This project is licensed under the **MIT License**.\
-See the [LICENSE](./LICENSE) file for details.
+[![Figma](https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg)](Link Figma: https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
+
