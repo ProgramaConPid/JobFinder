@@ -123,26 +123,24 @@ The repository is organized as follows:
 
 ```bash
 JobFinder
- ┣ 📂 backend
- ┃ ┣ 📂 controllers
- ┃ ┣ 📂 models
- ┃ ┣ 📂 routes
- ┃ ┗ 📂 utils
- ┣ 📂 frontend
- ┃ ┣ 📂 components
- ┃ ┣ 📂 pages
- ┃ ┣ 📂 services
- ┃ ┗ 📂 assets
- ┣ 📂 database
- ┃ ┣ schema.sql
- ┃ ┗ seeds.sql
- ┣ 📂 docs
- ┃ ┣ JobFinder_Project_Proposal.pdf
- ┃ ┣ DB_page-0001.jpg
- ┃ ┗ Navigation_Diagram.png
+ ┣ 📂 Docs
+ ┣ 📂 src
+ ┃ ┣ 📂 backend
+ ┃ ┃ ┣ 📂 database
+ ┃ ┃ ┃ ┗ 📜database.sql 
+ ┃ ┃ ┗ 📜 server.js
+ ┃ ┗ 📂 public
+ ┃ ┃ ┣ 📂 assets
+ ┃ ┃ ┣ 📂 css
+ ┃ ┃ ┣ 📂 js
+ ┃ ┃ ┣ 📂 views
+ ┃ ┃ ┣ 📜 app.js
+ ┃ ┃ ┗ 📜 index.html
+ ┣ 📜 .gitnore
+ ┣ 📜 netlify.toml
+ ┣ 📜 package-lock.json
  ┣ 📜 package.json
- ┣ 📜 README.md
- ┗ 📜 LICENSE
+ ┗ 📜 README.md
 ```
 
 **Explanation:**
@@ -156,7 +154,7 @@ JobFinder
 ## 🛠 Technologies
 
 -   **Frontend**: HTML5, CSS3
--   **Backend**: JavaScript, Python
+-   **Backend**: JavaScript
 -   **Database**: MySQL
 -   **Version Control**: Git & GitHub
 -   **Methodology**: Agile (Scrum)
@@ -168,8 +166,7 @@ JobFinder
 ### 📥 Download the Project
 
 Clone the repository from GitHub:
-```bash git clone https://github.com/your-username/jobfinder.git cd
-jobfinder ```
+```bash git clone https://github.com/your-username/jobfinder.git cdjobfinder```
 
 ### 🔧 Backend Setup
 
