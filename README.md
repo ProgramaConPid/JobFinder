@@ -243,7 +243,7 @@ The first version delivers:\
 [![Figma](https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true)](https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
 
 <a href="https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1">
-  <img src="[https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg](https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true)" alt="Figma" width="80"/>
+  <img src="https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true" alt="Figma" width="80"/>
 </a>
 
 
