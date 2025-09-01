@@ -240,7 +240,7 @@ The first version delivers:\
 
 ## Figma
 
-[![Figma](https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true)](https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1)
+Below you can see the figma that was developed to give us the bases of what was going to be the background of the project
 
 <a href="https://www.figma.com/design/Ots72SBiH994eJT2WIZnl1/JobFinder-Final-Design?m=auto&t=d3ZB0Nre7DoG41L4-1">
   <img src="https://github.com/ProgramaConPid/JobFinder/blob/develop/Docs/figma.png?raw=true" alt="Figma" width="80"/>
