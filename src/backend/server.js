@@ -439,6 +439,145 @@ app.use((req, res, next) => {
   next();
 });
 
+/* ===== New Applicants (total) por empresa ===== */
+app.get('/api/companies/:id/new-applicants', async (req, res) => {
+  try {
+    const companyId = Number(req.params.id);
+    if (!Number.isFinite(companyId) || companyId <= 0) {
+      return res.status(400).json({ error: 'Parámetro id inválido' });
+    }
+
+    const [[{ total }]] = await pool.query(
+      `SELECT COUNT(*) AS total
+         FROM Applications A
+         JOIN JobOffers J ON J.id = A.job_id
+        WHERE J.company_id = ?`,
+      [companyId]
+    );
+
+    res.json({ total: Number(total || 0) });
+  } catch (err) {
+    console.error('GET /api/companies/:id/new-applicants error', err);
+    res.status(500).json({ error: 'Error interno' });
+  }
+});
+
+/* =========================================
+   APPLICANTS POR OFERTA (con contador por aplicante)
+   GET /api/offers/:id/applicants
+   -> [{ application_id, applicant_id, name, email, interviews_count }]
+========================================= */
+app.get('/api/offers/:id/applicants', async (req, res) => {
+  try {
+    const offerId = Number(req.params.id);
+    if (!Number.isFinite(offerId) || offerId <= 0) {
+      return res.status(400).json({ error: 'Parámetro id inválido' });
+    }
+
+    const [rows] = await pool.query(
+      `SELECT 
+         A.id     AS application_id,
+         AP.id    AS applicant_id,
+         CONCAT(COALESCE(AP.first_name,''),' ',COALESCE(AP.last_name,'')) AS name,
+         AP.email AS email,
+         (SELECT COUNT(*) FROM Interviews I WHERE I.application_id = A.id) AS interviews_count
+       FROM Applications A
+       JOIN Applicants  AP ON AP.id = A.applicant_id
+      WHERE A.job_id = ?
+      ORDER BY A.id DESC`,
+      [offerId]
+    );
+
+    res.json(rows.map(r => ({
+      application_id: r.application_id,
+      applicant_id:   r.applicant_id,
+      name:           (r.name || '').trim(),
+      email:          r.email,
+      interviews_count: Number(r.interviews_count || 0)
+    })));
+  } catch (err) {
+    console.error('GET /api/offers/:id/applicants error', err);
+    res.status(500).json({ error: 'Error interno' });
+  }
+});
+
+
+/* =========================================
+   AGENDAR ENTREVISTA (simple y devuelve totales)
+   POST /api/interviews
+   body: { application_id }
+   -> { id, application_id, applicant_id, status, interviews_total }
+========================================= */
+app.post('/api/interviews', express.json(), async (req, res) => {
+  try {
+    const { application_id } = req.body || {};
+    const appId = Number(application_id);
+    if (!Number.isFinite(appId) || appId <= 0) {
+      return res.status(400).json({ error: 'application_id inválido' });
+    }
+
+    // trae applicant_id de la aplicación
+    const [[appRow]] = await pool.query(
+      `SELECT id, applicant_id FROM Applications WHERE id = ? LIMIT 1`,
+      [appId]
+    );
+    if (!appRow) return res.status(404).json({ error: 'Application no encontrada' });
+
+    // crea entrevista
+    const [r] = await pool.query(
+      `INSERT INTO Interviews (application_id, interview_date, status, notes)
+       VALUES (?, NOW(), 'Scheduled', NULL)`,
+      [appId]
+    );
+
+    // total actualizado para esa aplicación
+    const [[{ total }]] = await pool.query(
+      `SELECT COUNT(*) AS total FROM Interviews WHERE application_id = ?`,
+      [appId]
+    );
+
+    res.status(201).json({
+      id: r.insertId,
+      application_id: appId,
+      applicant_id: appRow.applicant_id,
+      status: 'Scheduled',
+      interviews_total: Number(total || 0)
+    });
+  } catch (err) {
+    console.error('POST /api/interviews error', err);
+    res.status(500).json({ error: 'Error interno' });
+  }
+});
+
+
+/* =========================================
+   CONTADOR DE ENTREVISTAS POR APPLICANT
+   GET /api/applicants/:id/interviews/count
+   -> { total }
+========================================= */
+app.get('/api/applicants/:id/interviews/count', async (req, res) => {
+  try {
+    const applicantId = Number(req.params.id);
+    if (!Number.isFinite(applicantId) || applicantId <= 0) {
+      return res.status(400).json({ error: 'Parámetro id inválido' });
+    }
+
+    const [[{ total }]] = await pool.query(
+      `SELECT COUNT(*) AS total
+         FROM Interviews I
+         JOIN Applications A ON A.id = I.application_id
+        WHERE A.applicant_id = ?`,
+      [applicantId]
+    );
+
+    res.json({ total: Number(total || 0) });
+  } catch (err) {
+    console.error('GET /api/applicants/:id/interviews/count error', err);
+    res.status(500).json({ error: 'Error interno' });
+  }
+});
+
+
 /* ===== Arranque ===== */
 const PORT = Number(process.env.PORT || 3000);
 app.listen(PORT, () => {
