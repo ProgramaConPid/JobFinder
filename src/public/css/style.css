@@ -3391,9 +3391,19 @@ body.dark-theme .offer-location {
 /* Título centrado arriba */
 .price-title {
   text-align: center;
-  margin: 20px 0;  /* espacio arriba y abajo */
+  margin: 20px 0;  
   font-size: 24px;
   font-weight: 700;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a3c34; 
+  text-align: center;
+  margin: 20px 0;
+}
+
+.body-plan{
+    background: #e6f9f0; /* mismo verde claro */
+    font-family: Arial, sans-serif;
 }
 
 /* Botón arriba a la izquierda */
