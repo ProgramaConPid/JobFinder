@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Montserrat and Roboto fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display="
+      rel="stylesheet"
+    />
+    <!-- Website favicon -->
+    <link
+      rel="shortcut icon"
+      href="../assets/img/jobfinderlogo.png"
+      type="image/x-icon"
+    />
+    <!-- Link to main CSS file -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Page title with i18n support -->
+    <title data-i18n="pricing.title">Subscription Plans</title>
+  </head>
+  <body>
+    <!-- Back button to dashboard -->
+    <div class="back">
+      <button>
+        <a href="./dashboardCompany.html" data-i18n="pricing.back">← Back</a>
+      </button>
+    </div>
+
+    <!-- Pricing section with all subscription plans -->
+    <section class="pricing-section">
+      <!-- Section title -->
+      <h3 class="price-title" data-i18n="pricing.pageTitle">
+        Subscription Plans
+      </h3>
+
+      <div class="plans-container">
+        <!-- Basic Plan card -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h2 class="plan-name" data-i18n="pricing.basicPlan">Basic Plan</h2>
+            <p class="plan-description" data-i18n="pricing.basicDescription">
+              Ideal for small businesses just starting out
+            </p>
+          </div>
+          <div class="plan-price">
+            <span class="price-amount" data-i18n="pricing.basicPrice">$99</span>
+            <span class="price-period" data-i18n="pricing.perMonth"
+              >/month</span
+            >
+          </div>
+          <!-- List of features for Basic Plan -->
+          <div class="plan-features">
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.accessCandidates"
+                >Access to 500,000+ candidates</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.basicATS"
+                >Basic ATS software</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.jobVacancies"
+                >3 job postings</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.emailSupport"
+                >Email support</span
+              >
+            </div>
+          </div>
+          <!-- Button to select Basic Plan -->
+          <a href="#" class="plan-button" data-i18n="pricing.selectPlan"
+            >Select Plan</a
+          >
+        </div>
+
+        <!-- Growth Plan card (most popular) -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h2 class="plan-name" data-i18n="pricing.growthPlan">
+              Growth + Superpower AI
+            </h2>
+            <p class="plan-description" data-i18n="pricing.growthDescription">
+              Perfect for scalable recruitment
+            </p>
+          </div>
+          <!-- Badge for most popular plan -->
+          <div class="popular-badge" data-i18n="pricing.popular">
+            MOST POPULAR
+          </div>
+          <div class="plan-price">
+            <span class="original-price" data-i18n="pricing.originalPrice"
+              >$250</span
+            >
+            <span class="price-amount" data-i18n="pricing.growthPrice"
+              >$200</span
+            >
+            <span class="price-period" data-i18n="pricing.perMonth"
+              >/month</span
+            >
+            <span class="discount-badge" data-i18n="pricing.discount"
+              >20% OFF</span
+            >
+          </div>
+          <!-- List of features for Growth Plan -->
+          <div class="plan-features">
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span
+                class="feature-text"
+                data-i18n="pricing.accessMillionCandidates"
+                >Access to 1,300,000+ candidates</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.advancedATS"
+                >Cutting-edge ATS software</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.smartFilters"
+                >Smart filters and summaries</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.aiMatching"
+                >5 AI-matched job postings</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.prioritySupport"
+                >24/7 priority support</span
+              >
+            </div>
+          </div>
+          <!-- Button to select Growth Plan -->
+          <a href="#" class="plan-button" data-i18n="pricing.selectPlan"
+            >Select Plan</a
+          >
+        </div>
+
+        <!-- Enterprise Plan card -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h2 class="plan-name" data-i18n="pricing.enterprisePlan">
+              Enterprise Plan
+            </h2>
+            <p
+              class="plan-description"
+              data-i18n="pricing.enterpriseDescription"
+            >
+              For large corporations
+            </p>
+          </div>
+          <div class="plan-price">
+            <span class="price-amount" data-i18n="pricing.enterprisePrice"
+              >$499</span
+            >
+            <span class="price-period" data-i18n="pricing.perMonth"
+              >/month</span
+            >
+          </div>
+          <!-- List of features for Enterprise Plan -->
+          <div class="plan-features">
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.fullAccess"
+                >Full database access</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.premiumATS"
+                >Premium ATS with advanced features</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.unlimitedVacancies"
+                >Unlimited job postings</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.advancedAIMatching"
+                >Advanced AI matching</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.dedicatedSupport"
+                >Dedicated and personalized support</span
+              >
+            </div>
+            <div class="feature">
+              <span class="feature-icon">✓</span
+              ><span class="feature-text" data-i18n="pricing.apiIntegrations"
+                >API integrations</span
+              >
+            </div>
+          </div>
+          <!-- Button to select Enterprise Plan -->
+          <a href="#" class="plan-button" data-i18n="pricing.selectPlan"
+            >Select Plan</a
+          >
+        </div>
+      </div>
+      <!-- /plans-container -->
+    </section>
+
+    <!-- Load language.js for i18n translations -->
+    <script src="../js/language.js"></script>
+  </body>
+</html>

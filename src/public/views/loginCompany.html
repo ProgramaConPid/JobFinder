@@ -3,12 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JobFinder - Company Login</title>
+    <!-- Import Montserrat and Roboto fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display="
+      rel="stylesheet"
+    />
+    <!-- Link to main CSS file -->
     <link rel="stylesheet" href="../css/style.css" />
+    <!-- Box Icons CDN for icon fonts -->
+    <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Website favicon -->
+    <link
+      rel="shortcut icon"
+      href="../assets/img/jobfinderlogo.png"
+      type="image/x-icon"
+    />
+    <!-- SweetAlert2 library for alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Page title with i18n support -->
+    <title data-i18n="title">JobFinder - Company Login</title>
   </head>
   <body class="login-company-page">
     <div class="login-container">
-      <!-- Page Header -->
+      <!-- Page Header with icon, title, and subtitle -->
       <header class="login-header">
         <figure class="login__icon--company login__icon--container">
           <img
@@ -17,51 +43,100 @@
             alt="Buildings Icon"
           />
         </figure>
-        <h2 class="login__title login__title--companies">Companies</h2>
-        <p>Log in to access your account</p>
+        <h2
+          class="login__title login__title--companies"
+          data-i18n="companyTitle"
+        >
+          Companies
+        </h2>
+        <p data-i18n="loginSubtitle">Log in to access your account</p>
       </header>
 
       <!-- Login Form -->
       <main class="login-form">
         <form id="companyLoginForm">
-          <div class="form-group">
-            <label for="companyEmail">Email Address</label>
-            <input
-              type="email"
-              id="companyEmail"
-              placeholder="your@email.com"
-              required
-            />
+          <!-- Email input field -->
+          <div class="form-group-login-company">
+            <label for="companyEmail" data-i18n="emailLabel"
+              >Email Address</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/email_green.png"
+                alt="email icon"
+                class="input-icon-left"
+              />
+              <input
+                type="email"
+                id="companyEmail"
+                data-i18n-placeholder="emailPlaceholder"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="companyPassword">Password</label>
-            <input
-              type="password"
-              id="companyPassword"
-              placeholder="••••••••••"
-              required
-            />
+          <!-- Password input field -->
+          <div class="form-group-login-company">
+            <label for="companyPassword" data-i18n="passwordLabel"
+              >Password</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/lock_green.png"
+                alt="lock icon"
+                class="input-icon-left"
+              />
+              <input
+                type="password"
+                id="companyPassword"
+                data-i18n-placeholder="passwordPlaceholder"
+                placeholder="••••••••••"
+                required
+              />
+            </div>
           </div>
 
-          <button type="submit" class="btn-login company-btn">Log In</button>
+          <!-- Submit button for login -->
+          <button
+            type="submit"
+            class="btn-login company-btn"
+            data-i18n="loginButton"
+          >
+            Log In
+          </button>
         </form>
 
-        <!-- Footer with register redirect -->
+        <!-- Footer with link to registration page -->
         <div class="login-footer">
           <p>
-            Don't have an account? <a href="registerCompany.html">Sign Up</a>
+            <span data-i18n="noAccount">Don't have an account?</span>
+            <a href="registerCompany.html" data-i18n="signUp">Sign Up</a>
           </p>
         </div>
       </main>
 
-      <!-- Back button -->
+      <!-- Back button to home page -->
       <div class="back-button">
-        <a href="../index.html">&larr; Back to Home</a>
+        <a href="../index.html">
+          <i class="bxr bx-arrow-left-stroke-square"></i>
+          <span data-i18n="backHome">Back to Home</span>
+        </a>
       </div>
     </div>
 
-    <!-- External JS -->
+    <!-- External JS files for login logic, theme, and language -->
     <script src="../js/loginCompany.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
+    <!-- Button to toggle dark/light theme -->
+    <button
+      id="toggle-theme"
+      class="btn-toggle-theme"
+      aria-label="Toggle dark mode"
+    >
+      🌙
+    </button>
   </body>
 </html>

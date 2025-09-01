@@ -1,55 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>JobFinder - Applicant Login</title>
-</head>
-<body class="login-page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Montserrat and Roboto fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Link to main CSS file -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Box Icons CDN for icon fonts -->
+    <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Website favicon -->
+    <link
+      rel="shortcut icon"
+      href="../assets/img/jobfinderlogo.png"
+      type="image/x-icon"
+    />
+    <!-- SweetAlert2 library for alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Page title with i18n support -->
+    <title data-i18n="login.title">JobFinder - Applicant Login</title>
+  </head>
+  <body class="login-page">
     <div class="login-container">
-        <!-- Page Header -->
-        <header class="login-header">
-            <figure class="login__icon--applicant login__icon--container">
-                <img
-                  class="login__icon"
-                  src="../assets/img/user.png"
-                  alt="Buildings Icon"
-                />
-              </figure>
-            <h2 class="login__title login__title--applicants">Applicants</h2>
-            <p>Log in to access your account</p>
-        </header>
-        
-        <!-- Login Form -->
-        <main class="login-form">
-            <form id="coderLoginForm">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••••" required>
-                </div>
-                
-                <button type="submit" class="btn-login">Log In</button>
-            </form>
-            
-            <!-- Footer with register redirect -->
-            <div class="login-footer">
-                <p>Don't have an account? <a href="./registerCoder.html">Sign Up</a></p>
+      <!-- Page Header with icon, title, and subtitle -->
+      <header class="login-header">
+        <figure class="login__icon--applicant login__icon--container">
+          <img
+            class="login__icon"
+            src="../assets/img/user.png"
+            alt="User Icon"
+          />
+        </figure>
+        <!-- Header title and subtitle (translatable) -->
+        <h2
+          class="login__title login__title--applicants"
+          data-i18n="login.header"
+        >
+          Applicants
+        </h2>
+        <p data-i18n="login.subtitle">Log in to access your account</p>
+      </header>
+
+      <!-- Login Form -->
+      <main class="login-form">
+        <form id="coderLoginForm">
+          <!-- Email input field -->
+          <div class="form-group-login">
+            <label for="email" data-i18n="login.emailLabel"
+              >Email Address</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/email_violet.png"
+                alt="email icon"
+                class="input-icon-left"
+              />
+              <!-- placeholder traducible via data-i18n + data-i18n-attr="placeholder" -->
+              <input
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                data-i18n="login.emailPlaceholder"
+                data-i18n-attr="placeholder"
+                required
+              />
             </div>
-        </main>
-        
-        <!-- Back button -->
-        <div class="back-button">
-            <a href="../index.html">&larr; Back to Home</a>
+          </div>
+
+          <!-- Password input field -->
+          <div class="form-group-login">
+            <label for="password" data-i18n="login.passwordLabel"
+              >Password</label
+            >
+            <div class="input-with-icon">
+              <img
+                src="../assets/img/lock_violet.png"
+                alt="lock icon"
+                class="input-icon-left"
+              />
+              <input
+                type="password"
+                id="password"
+                placeholder="••••••••••"
+                data-i18n="login.passwordPlaceholder"
+                data-i18n-attr="placeholder"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Submit button for login -->
+          <button type="submit" class="btn-login" data-i18n="login.button">
+            Log In
+          </button>
+        </form>
+
+        <!-- Footer with link to registration page -->
+        <div class="login-footer">
+          <p>
+            <span data-i18n="login.noAccount">Don't have an account?</span>
+            <a href="./registerCoder.html" data-i18n="login.signUp">Sign Up</a>
+          </p>
         </div>
+      </main>
+
+      <!-- Back button to home page -->
+      <div class="back-button">
+        <a href="../index.html">
+          <i class="bxr bx-arrow-left-stroke-square"></i>
+          <span data-i18n="login.back">Back to Home</span>
+        </a>
+      </div>
     </div>
 
-    <!-- External JS -->
+    <!-- External JS files for login logic, theme, and language -->
     <script src="../js/loginCoder.js"></script>
-</body>
+    <script src="../js/theme.js"></script>
+    <script src="../js/language.js"></script>
+
+    <!-- Button to toggle dark/light theme -->
+    <button
+      id="toggle-theme"
+      class="btn-toggle-theme"
+      aria-label="Toggle dark mode"
+    >
+      🌙
+    </button>
+  </body>
 </html>
