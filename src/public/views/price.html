@@ -14,6 +14,10 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display="
         rel="stylesheet"
         />
+        <link
+        href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+        rel="stylesheet"
+        />
         <!-- Website favicon -->
         <link
         rel="shortcut icon"
@@ -27,12 +31,9 @@
     </head>
     <body class="body-plan">
         <!-- Back button to dashboard -->
-        <div class="back">
-        <button>
-            <a href="./dashboardCompany.html" data-i18n="pricing.back">← Back</a>
-        </button>
-        </div>
-
+        <a href="./dashboardCompany.html"  class="back-button-price">
+        <i class="bx bx-arrow-left-stroke-square"></i> Go Back
+        </a>
         <!-- Pricing section with all subscription plans -->
         <section class="pricing-section">
         <!-- Section title -->
@@ -226,6 +227,15 @@
         <!-- /plans-container -->
         </section>
 
+    <!-- Dark Mode toggle button -->
+    <button
+      id="toggle-theme"
+      class="btn-toggle-theme"
+      aria-label="Toggle dark mode">
+      🌙
+    </button>
+
+        <script src="../js/theme.js"></script>
         <!-- Load language.js for i18n translations -->
         <script src="../js/language.js"></script>
     </body>
