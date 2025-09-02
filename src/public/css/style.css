@@ -3402,7 +3402,13 @@ body.dark-theme .offer-location {
   font-weight: 700;
   color: #1a3c34; 
   text-align: center;
-  margin: 20px 0;
+}
+
+@media (max-width: 600px) {
+  .price-title {
+    margin-top: 40px;  
+    font-size: 20px;    
+  }
 }
 
 .body-plan{
@@ -4007,4 +4013,123 @@ body.dark-theme.dashboard-company-page .modal .btn-primary {
 }
 .swal2-popup {
   z-index: 2001 !important;
+}
+
+/*  Dark Mode styles for Pricing view */
+body.dark-theme.body-plan{
+  background: var(--dark-page-bg);
+  color: var(--dark-text-color);
+}
+
+/* Section title */
+body.dark-theme.body-plan .price-title{ color: var(--green); }
+
+body.dark-theme.body-plan .plans-container{ gap: 1.5rem; }
+
+/* Plan cards */
+body.dark-theme.body-plan .plan-card{
+  background: var(--dark-card-bg);
+  color: var(--dark-text-color);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  box-shadow: var(--dark-card-shadow);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+body.dark-theme.body-plan .plan-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  border-color: var(--green-dark);
+}
+
+/* Plan text & price */
+body.dark-theme.body-plan .plan-name{ color: var(--green); }
+body.dark-theme.body-plan .plan-description{ color: var(--dark-muted-text); }
+body.dark-theme.body-plan .plan-price .price-amount{ color: var(--green); }
+body.dark-theme.body-plan .price-period{ color: var(--dark-muted-text); }
+
+/* Badges */
+body.dark-theme.body-plan .popular-badge{
+  background: var(--primary-color);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+body.dark-theme.body-plan .discount-badge{
+  background: var(--primary-color);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 2px 8px;
+}
+
+/* button */
+body.dark-theme.body-plan .plan-button{
+  background: var(--green);
+  color: var(--black);
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 10px 20px;
+  display: inline-block;
+  margin-top: 14px;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+body.dark-theme.body-plan .plan-button:hover{
+  background: var(--green-dark);
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  transform: translateY(-1px);
+}
+
+/* Back link */
+body.dark-theme.body-plan .back a{
+  color: var(--green);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color .2s ease;
+}
+
+body.dark-theme.body-plan .back a:hover{ 
+  color: var(--green-dark); 
+}
+
+/* Back button - light mode */
+.back-button-price {
+  position: fixed;        
+  top: 1rem;                
+  left: 1rem;               
+  background: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;                 
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+  z-index: 1000;            
+}
+
+.back-button-price:hover {
+  background: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+
+/* Back button - dark mode */
+body.dark-theme .back-button-price {
+  background: var(--green);
+  color: var(--white);
+}
+
+body.dark-theme .back-button-price:hover {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+@media (max-width: 600px) {
+  .back-button-price {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
 }
