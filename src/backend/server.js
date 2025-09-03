@@ -620,78 +620,88 @@ app.put('/api/coders/:id', async (req, res) => {
 
 // Obtener perfil de una company por id
 app.get('/api/companies/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    if (!Number.isFinite(id) || id <= 0) {
-      return res.status(400).json({ error: 'id inválido' });
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isFinite(id) || id <= 0) {
+            return res.status(400).json({ error: 'id inválido' });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT id, name, industry, company_size,
+                    contact_person, contact_position,
+                    email, phone, address, description,
+                    website, linkedin, twitter, facebook, instagram
+             FROM Companies
+             WHERE id = ? LIMIT 1`,
+            [id]
+        );
+
+        if (!rows || rows.length === 0) {
+            return res.status(404).json({ error: 'Perfil no encontrado' });
+        }
+
+        res.json(rows[0]);
+    } catch (e) {
+        console.error('[GET /api/companies/:id] SQL error:', e.message);
+        res.status(500).json({ error: 'Error obteniendo perfil' });
     }
-
-    const [rows] = await pool.query(
-      `SELECT id, name, email, phone, address, description,
-              website, linkedin, twitter, facebook, instagram
-       FROM Companies
-       WHERE id = ? LIMIT 1`,
-      [id]
-    );
-
-    if (!rows || rows.length === 0) {
-      return res.status(404).json({ error: 'Perfil no encontrado' });
-    }
-
-    res.json(rows[0]);
-  } catch (e) {
-    console.error('[GET /api/companies/:id] SQL error:', e.message);
-    res.status(500).json({ error: 'Error obteniendo perfil' });
-  }
 });
+
 
 // Actualizar perfil de una company
 app.put('/api/companies/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    if (!Number.isFinite(id) || id <= 0) {
-      return res.status(400).json({ error: 'id inválido' });
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isFinite(id) || id <= 0) {
+            return res.status(400).json({ error: 'id inválido' });
+        }
+
+        const {
+            name, industry, website, company_size, description,
+            contact_person, contact_position,
+            email, phone, address,
+            linkedin, twitter, facebook, instagram
+        } = req.body || {};
+
+        const sql = `
+            UPDATE Companies
+            SET name=?, industry=?, website=?, company_size=?, description=?,
+                contact_person=?, contact_position=?, email=?, phone=?, address=?,
+                linkedin=?, twitter=?, facebook=?, instagram=?,
+                updated_at = NOW()
+            WHERE id=?
+        `;
+
+        const params = [
+            name, industry, website, company_size, description,
+            contact_person, contact_position, email, phone, address,
+            linkedin, twitter, facebook, instagram,
+            id
+        ];
+
+        const [r] = await pool.query(sql, params);
+
+        if (r.affectedRows === 0) {
+            return res.status(404).json({ error: 'Perfil no encontrado' });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT id, name, industry, website, company_size, description,
+                    contact_person, contact_position, email, phone, address,
+                    linkedin, twitter, facebook, instagram
+             FROM Companies
+             WHERE id = ? LIMIT 1`,
+            [id]
+        );
+
+        res.json(rows[0]);
+    } catch (e) {
+        console.error('[PUT /api/companies/:id] SQL error:', e.message);
+        res.status(500).json({ error: 'Error actualizando perfil' });
     }
-
-    const {
-      name, phone, address, description,
-      website, linkedin, twitter, facebook, instagram
-    } = req.body || {};
-
-    const sql = `
-      UPDATE Companies
-      SET name=?, phone=?, address=?, description=?,
-          website=?, linkedin=?, twitter=?, facebook=?, instagram=?,
-          updated_at = NOW()
-      WHERE id=?
-    `;
-    const params = [
-      name, phone, address, description,
-      website, linkedin, twitter, facebook, instagram,
-      id
-    ];
-
-    const [r] = await pool.query(sql, params);
-
-    if (r.affectedRows === 0) {
-      return res.status(404).json({ error: 'Perfil no encontrado' });
-    }
-
-    // Devolver el perfil actualizado
-    const [rows] = await pool.query(
-      `SELECT id, name, email, phone, address, description,
-              website, linkedin, twitter, facebook, instagram
-       FROM Companies
-       WHERE id = ? LIMIT 1`,
-      [id]
-    );
-
-    res.json(rows[0]);
-  } catch (e) {
-    console.error('[PUT /api/companies/:id] SQL error:', e.message);
-    res.status(500).json({ error: 'Error actualizando perfil' });
-  }
 });
+
+
 
 
 /* ===== Fallback para el frontend ===== */
