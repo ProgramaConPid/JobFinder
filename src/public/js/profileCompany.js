@@ -1,6 +1,5 @@
 // src/public/js/profileCompany.js
 document.addEventListener("DOMContentLoaded", () => {
-  // Detect if running on localhost or production
   const isLocalhost = ["localhost", "127.0.0.1"].includes(
     window.location.hostname
   );
@@ -8,10 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ? "http://localhost:5173"
     : "https://jobfinder-jdp5.onrender.com";
 
-  // Helper for querySelector
   const $ = (sel, root = document) => root.querySelector(sel);
 
-  // Get company_id from URL or localStorage
   const getCompanyId = () => {
     const p = new URLSearchParams(window.location.search).get("company_id");
     if (p && /^\d+$/.test(p)) return Number(p);
@@ -24,14 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!companyForm) return;
   const msgEl = $("#profileMsg");
 
-  // Show feedback message (success or error)
   const showMsg = (text, ok = true) => {
     if (!msgEl) return alert(text);
     msgEl.textContent = text;
     msgEl.className = ok ? "form-msg ok" : "form-msg error";
   };
 
-  // Fill form fields with data from backend
+  // Corregido: usar columnas reales de Companies
   const setFormValues = (data) => {
     const map = {
       name: "#name",
@@ -39,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "#phone",
       address: "#address",
       description: "#description",
-      website_url: "#website_url",
-      logo_url: "#logo_url",
+      website: "#website",   // ✅ existe en DB
       linkedin: "#linkedin",
       twitter: "#twitter",
       facebook: "#facebook",
@@ -52,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Get current form values as an object
   const getFormValues = () => {
     const v = (sel) => ($(sel)?.value ?? "").trim();
     return {
@@ -60,8 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: v("#phone"),
       address: v("#address"),
       description: v("#description"),
-      website_url: v("#website_url"),
-      logo_url: v("#logo_url"),
+      website: v("#website"),   // ✅ existe en DB
       linkedin: v("#linkedin"),
       twitter: v("#twitter"),
       facebook: v("#facebook"),
@@ -69,14 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // Get company ID for profile actions
   const id = getCompanyId();
   if (!id) {
     showMsg("company_id not found. Please log in again.", false);
     return;
   }
 
-  // Load company profile from backend
+  // Load company profile
   (async () => {
     try {
       const r = await fetch(`${API_BASE}/api/companies/${id}`, {
@@ -95,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })();
 
-  // Save profile changes to backend
+  // Save changes
   companyForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     try {
