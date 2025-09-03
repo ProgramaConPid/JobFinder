@@ -565,59 +565,43 @@ app.get("/api/coders/:id", async (req, res) => {
 });
 
 // Actualizar perfil de un applicant
-app.put("/api/coders/:id", async (req, res) => {
+app.put('/api/coders/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
     if (!Number.isFinite(id) || id <= 0) {
-      return res.status(400).json({ error: "id inválido" });
+      return res.status(400).json({ error: 'id inválido' });
     }
 
     const {
-      first_name,
-      last_name,
-      phone,
-      address,
-      skills,
-      resume_url,
-      linkedin,
-      twitter,
-      facebook,
-      instagram,
+      first_name, last_name, phone, address,
+      skills, resume_url, linkedin, twitter, facebook, instagram
     } = req.body || {};
 
     const sql = `
-  UPDATE Applicants
-  SET first_name=?, last_name=?, phone=?, address=?,
-      skills=?, resume_url=?,
-      linkedin=?, twitter=?, facebook=?, instagram=?,
-      updated_at = NOW()
-  WHERE id=?
-`;
+      UPDATE Applicants
+      SET first_name=?, last_name=?, phone=?, address=?,
+          skills=?, resume_url=?,
+          linkedin=?, twitter=?, facebook=?, instagram=?,
+          updated_at = NOW()
+      WHERE id=?
+    `;
     const params = [
-      first_name,
-      last_name,
-      phone,
-      address,
-      skills,
-      resume_url,
-      linkedin,
-      twitter,
-      facebook,
-      instagram,
-      id,
+      first_name, last_name, phone, address,
+      skills, resume_url,
+      linkedin, twitter, facebook, instagram,
+      id
     ];
 
     const [r] = await pool.query(sql, params);
 
     if (r.affectedRows === 0) {
-      return res.status(404).json({ error: "Perfil no encontrado" });
+      return res.status(404).json({ error: 'Perfil no encontrado' });
     }
 
     // Devolver el perfil actualizado
     const [rows] = await pool.query(
-      `SELECT id, first_name, last_name, email, phone, address, skills,
-              resume_url, github_url, portfolio_url, linkedin,
-              twitter, facebook, instagram
+      `SELECT id, first_name, last_name, email, phone, address,
+              skills, resume_url, linkedin, twitter, facebook, instagram
        FROM Applicants
        WHERE id = ? LIMIT 1`,
       [id]
@@ -625,8 +609,8 @@ app.put("/api/coders/:id", async (req, res) => {
 
     res.json(rows[0]);
   } catch (e) {
-    console.error("[PUT /api/coders/:id] SQL error:", e.message);
-    res.status(500).json({ error: "Error actualizando perfil" });
+    console.error('[PUT /api/coders/:id] SQL error:', e.message);
+    res.status(500).json({ error: 'Error actualizando perfil' });
   }
 });
 
