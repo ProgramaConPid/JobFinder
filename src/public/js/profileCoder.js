@@ -1,9 +1,7 @@
 // src/public/js/profileCoder.js
 document.addEventListener("DOMContentLoaded", () => {
     // Detect if running on localhost or production
-    const isLocalhost = ["localhost", "127.0.0.1"].includes(
-        window.location.hostname
-    );
+    const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
     const API_BASE = isLocalhost
         ? "http://localhost:5173"
         : "https://jobfinder-jdp5.onrender.com";
@@ -22,15 +20,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileForm = $("#profileForm");
     if (!profileForm) return;
 
-    const msgEl = $("#profileMsg");
 
-    const showMsg = (text, ok = true) => {
-        if (!msgEl) return alert(text);
-        msgEl.textContent = text;
-        msgEl.className = ok ? "form-msg ok" : "form-msg error";
-    };
+    // Refresh stats counters
+    async function refreshStats() {
+        const id = getApplicantId();
+        if (!id) return;
 
-    // 🔹 Fill out the form with the backend data
+        // Applications Sent
+        try {
+            const res = await fetch(`${API_BASE}/api/applications?applicant_id=${id}`);
+            const apps = await res.json();
+            $("#applicationsSentCount").textContent = Array.isArray(apps) ? apps.length : 0;
+        } catch (err) {
+            console.error("[Stats] Error loading applications:", err);
+            $("#applicationsSentCount").textContent = "0";
+        }
+
+        // Available offers
+        try {
+            const res = await fetch(`${API_BASE}/api/offers`);
+            const offers = await res.json();
+            $("#availableOffersCount").textContent = Array.isArray(offers) ? offers.length : 0;
+        } catch (err) {
+            console.error("[Stats] Error loading offers:", err);
+            $("#availableOffersCount").textContent = "0";
+        }
+
+        // Scheduled interviews
+        try {
+            const res = await fetch(`${API_BASE}/api/applicants/${id}/interviews/count`);
+            const { total } = await res.json();
+            $("#scheduledInterviewsCount").textContent = Number(total) || 0;
+        } catch (err) {
+            console.error("[Stats] Error loading interviews:", err);
+            $("#scheduledInterviewsCount").textContent = "0";
+        }
+    }
+
+    // Fill out the form with the backend data
     const setFormValues = (data) => {
         const map = {
             first_name: "#firstName",
@@ -64,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // 🔹 Take the values from the form to send them to the backend
+    // Take the values from the form to send them to the backend
     const getFormValues = () => {
         const v = (sel) => ($(sel)?.value ?? "").trim();
         return {
@@ -86,11 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const id = getApplicantId();
     if (!id) {
-        showMsg("applicant_id not found. Please log in again.", false);
         return;
     }
 
-    // 🔹 Load applicant profile from database
+    // Load applicant profile from database
     (async () => {
         try {
             const r = await fetch(`${API_BASE}/api/coders/${id}`, {
@@ -102,14 +128,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const data = await r.json();
             setFormValues(data);
-            showMsg("Profile loaded.");
+            refreshStats();
+            Swal.fire({
+                title: "Profile Loaded!",
+                text: "Profile successfully loaded",
+                icon: "success"
+            });
         } catch (err) {
             console.error(err);
-            showMsg(err.message, false);
+            Swal.fire({
+                title: "Error Load Profile!",
+                text: "Profile could not be loaded",
+                icon: "error"
+            });
         }
     })();
 
-    // 🔹 Save Changes (PUT)
+    // Save Changes (PUT)
     profileForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
@@ -126,14 +161,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const updated = await r.json();
             setFormValues(updated);
-            showMsg("Profile updated successfully.");
+            Swal.fire({
+                title: "Successful update!",
+                text: "The data was updated correctly",
+                icon: "success"
+            });
+            refreshStats(); // ⬅️ Refresh stats after update
         } catch (err) {
             console.error(err);
-            showMsg(err.message, false);
+            Swal.fire({
+                title: "Update failed!",
+                text: "Data could not be updated.",
+                icon: "error"
+            });
         }
     });
 
-    // 🔹 Cancel button → return to the dashboard
+    // Cancel button → return to the dashboard
     const cancelBtn = $("#cancelBtn");
     if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {

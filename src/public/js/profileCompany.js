@@ -1,14 +1,14 @@
 // src/public/js/profileCompany.js
 document.addEventListener("DOMContentLoaded", () => {
-    const isLocalhost = ["localhost", "127.0.0.1"].includes(
-        window.location.hostname
-    );
+    // Detect if running on localhost or production
+    const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
     const API_BASE = isLocalhost
         ? "http://localhost:5173"
         : "https://jobfinder-jdp5.onrender.com";
 
     const $ = (sel, root = document) => root.querySelector(sel);
 
+    // Get company_id from URL or localStorage
     const getCompanyId = () => {
         const p = new URLSearchParams(window.location.search).get("company_id");
         if (p && /^\d+$/.test(p)) return Number(p);
@@ -19,15 +19,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const companyForm = $("#companyForm");
     if (!companyForm) return;
-    const msgEl = $("#profileMsg");
 
-    const showMsg = (text, ok = true) => {
-        if (!msgEl) return alert(text);
-        msgEl.textContent = text;
-        msgEl.className = ok ? "form-msg ok" : "form-msg error";
-    };
+    // Refresh stats counters
+    async function refreshStats() {
+        const id = getCompanyId();
+        if (!id) return;
 
-    // 🔹 Mapear datos desde DB → formulario
+        // Available Offers
+        try {
+            const res = await fetch(`${API_BASE}/api/offers?company_id=${id}`, {
+                credentials: "include",
+            });
+            const offers = await res.json();
+            $("#activeOffersCount").textContent = Array.isArray(offers) ? offers.length : 0;
+        } catch (err) {
+            console.error("[Stats] Error loading offers:", err);
+            $("#activeOffersCount").textContent = "0";
+        }
+
+        // New Applicants
+        try {
+            const res = await fetch(`${API_BASE}/api/companies/${id}/new-applicants`, {
+                credentials: "include",
+            });
+            const { total } = await res.json();
+            $("#newApplicantsCount").textContent = Number(total) || 0;
+        } catch (err) {
+            console.error("[Stats] Error loading applicants:", err);
+            $("#newApplicantsCount").textContent = "0";
+        }
+    }
+
+    // Fill out the form with backend data
     const setFormValues = (data) => {
         const map = {
             name: "#companyName",
@@ -54,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // 🔹 Tomar datos del formulario → payload para el backend
     const getFormValues = () => {
         const v = (sel) => ($(sel)?.value ?? "").trim();
         return {
@@ -78,12 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const id = getCompanyId();
-    if (!id) {
-        showMsg("company_id not found. Please log in again.", false);
-        return;
-    }
+    if (!id) return;
 
-    // 🔹 Cargar perfil de la empresa al entrar
+    // Load company profile
     (async () => {
         try {
             const r = await fetch(`${API_BASE}/api/companies/${id}`, {
@@ -95,14 +114,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const data = await r.json();
             setFormValues(data);
-            showMsg("Profile loaded.");
+            refreshStats();
+            Swal.fire({
+                title: "Profile Loaded!",
+                text: "Profile successfully loaded",
+                icon: "success",
+            });
         } catch (err) {
             console.error(err);
-            showMsg(err.message, false);
+            Swal.fire({
+                title: "Error Load Profile!",
+                text: "Profile could not be loaded",
+                icon: "error",
+            });
         }
     })();
 
-    // 🔹 Guardar cambios (PUT)
+    // Save Changes (PUT)
     companyForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
@@ -119,19 +147,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const updated = await r.json();
             setFormValues(updated);
-            showMsg("Profile updated successfully.");
+            Swal.fire({
+                title: "Successful update!",
+                text: "The data was updated correctly",
+                icon: "success",
+            });
         } catch (err) {
             console.error(err);
-            showMsg(err.message, false);
+            Swal.fire({
+                title: "Update failed!",
+                text: "Data could not be updated.",
+                icon: "error",
+            });
         }
     });
+
+    // Cancel button → return to dashboard
+    const cancelBtn = $("#cancelBtn");
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            window.location.href = "./dashboardCompany.html";
+        });
+    }
 });
-
-// Botón Cancelar → volver al dashboard
-const cancelBtn = document.getElementById("cancelBtn");
-if (cancelBtn) {
-    cancelBtn.addEventListener("click", () => {
-        window.location.href = "./dashboardCompany.html"; //
-    });
-}
-
