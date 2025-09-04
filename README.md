@@ -224,11 +224,11 @@ The first version delivers:
 **Team Name:** 🚀 *Breakpoint*
 
 **Members:**
-- **Kevin** *(Clan: Linus)* → Product Owner
-- **Pipe** *(Clan: Linus)* → Scrum Master
-- **Emanuel** *(Clan: Lovelace)* → Developer
-- **Andres** *(Clan: Lovelace)* → Developer
-- **Samuel** *(Clan: Gosling)* → Developer
+- **Kevin** *(Clan: Linus)* → Product Owner → Full stack
+- **Pipe** *(Clan: Linus)* → Scrum Master → Full stack
+- **Emanuel** *(Clan: Lovelace)* → Developer Fronted
+- **Andres** *(Clan: Lovelace)* → Developer Fronted 
+- **Samuel** *(Clan: Gosling)* → Developer Backend → Database
 
 ------------------------------------------------------------------------
 
