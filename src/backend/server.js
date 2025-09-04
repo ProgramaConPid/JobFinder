@@ -398,6 +398,112 @@ app.post("/api/auth/coder/register", async (req, res) => {
 });
 
 /* ===================================================================
+   CODERS (Applicants profile)
+   =================================================================== */
+
+// Get applicant profile by id
+app.get("/api/coders/:id", async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isFinite(id) || id <= 0) {
+            return res.status(400).json({ error: "Invalid id" });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT id, first_name, last_name, email, phone, address,
+                    profession, years_experience, education_level,
+                    skills, resume_url, linkedin, twitter, facebook, instagram
+             FROM Applicants
+             WHERE id = ? LIMIT 1`,
+            [id]
+        );
+
+        if (!rows || rows.length === 0) {
+            return res.status(404).json({ error: "Profile not found" });
+        }
+
+        res.json(rows[0]);
+    } catch (e) {
+        console.error("[GET /api/coders/:id] SQL error:", e.message);
+        res.status(500).json({ error: "Error getting profile" });
+    }
+});
+
+// Update applicant profile
+app.put("/api/coders/:id", async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isFinite(id) || id <= 0) {
+            return res.status(400).json({ error: "Invalid id" });
+        }
+
+        const {
+            first_name,
+            last_name,
+            phone,
+            address,
+            profession,
+            years_experience,
+            education_level,
+            skills,
+            resume_url,
+            linkedin,
+            twitter,
+            facebook,
+            instagram,
+        } = req.body || {};
+
+        const sql = `
+            UPDATE Applicants
+            SET first_name=?, last_name=?, phone=?, address=?,
+                profession=?, years_experience=?, education_level=?,
+                skills=?, resume_url=?,
+                linkedin=?, twitter=?, facebook=?, instagram=?,
+                updated_at = NOW()
+            WHERE id=?
+        `;
+
+        const params = [
+            first_name,
+            last_name,
+            phone,
+            address,
+            profession,
+            years_experience,
+            education_level,
+            skills,
+            resume_url,
+            linkedin,
+            twitter,
+            facebook,
+            instagram,
+            id,
+        ];
+
+        const [r] = await pool.query(sql, params);
+
+        if (r.affectedRows === 0) {
+            return res.status(404).json({ error: "Profile not found" });
+        }
+
+        // Return updated profile
+        const [rows] = await pool.query(
+            `SELECT id, first_name, last_name, email, phone, address,
+                    profession, years_experience, education_level,
+                    skills, resume_url, linkedin, twitter, facebook, instagram
+             FROM Applicants
+             WHERE id = ? LIMIT 1`,
+            [id]
+        );
+
+        res.json(rows[0]);
+    } catch (e) {
+        console.error("[PUT /api/coders/:id] SQL error:", e.message);
+        res.status(500).json({ error: "Error updating profile" });
+    }
+});
+
+/* ===================================================================
    APPLICATIONS
    =================================================================== */
 // Applications router for application-related endpoints
@@ -648,103 +754,6 @@ offers.delete("/:id", async (req, res) => {
 });
 
 app.use("/api/offers", offers);
-
-/* ===================================================================
-   CODERS (Applicants profile)
-   =================================================================== */
-
-// Get applicant profile by id
-app.get("/api/coders/:id", async (req, res) => {
-    try {
-        const id = Number(req.params.id);
-        if (!Number.isFinite(id) || id <= 0) {
-            return res.status(400).json({ error: "Invalid id" });
-        }
-
-        const [rows] = await pool.query(
-            `SELECT id, first_name, last_name, email, phone, address,
-                    skills, resume_url, linkedin, twitter, facebook, instagram
-             FROM Applicants
-             WHERE id = ? LIMIT 1`,
-            [id]
-        );
-
-        if (!rows || rows.length === 0) {
-            return res.status(404).json({ error: "Profile not found" });
-        }
-
-        res.json(rows[0]);
-    } catch (e) {
-        console.error("[GET /api/coders/:id] SQL error:", e.message);
-        res.status(500).json({ error: "Error getting profile" });
-    }
-});
-
-// Update applicant profile
-app.put("/api/coders/:id", async (req, res) => {
-    try {
-        const id = Number(req.params.id);
-        if (!Number.isFinite(id) || id <= 0) {
-            return res.status(400).json({ error: "Invalid id" });
-        }
-
-        const {
-            first_name,
-            last_name,
-            phone,
-            address,
-            skills,
-            resume_url,
-            linkedin,
-            twitter,
-            facebook,
-            instagram,
-        } = req.body || {};
-
-        const sql = `
-            UPDATE Applicants
-            SET first_name=?, last_name=?, phone=?, address=?,
-                skills=?, resume_url=?,
-                linkedin=?, twitter=?, facebook=?, instagram=?,
-                updated_at = NOW()
-            WHERE id=?
-        `;
-        const params = [
-            first_name,
-            last_name,
-            phone,
-            address,
-            skills,
-            resume_url,
-            linkedin,
-            twitter,
-            facebook,
-            instagram,
-            id,
-        ];
-
-        const [r] = await pool.query(sql, params);
-
-        if (r.affectedRows === 0) {
-            return res.status(404).json({ error: "Profile not found" });
-        }
-
-        // Return the updated profile
-        const [rows] = await pool.query(
-            `SELECT id, first_name, last_name, email, phone, address,
-                    skills, resume_url, linkedin, twitter, facebook, instagram
-             FROM Applicants
-             WHERE id = ? LIMIT 1`,
-            [id]
-        );
-
-        res.json(rows[0]);
-    } catch (e) {
-        console.error("[PUT /api/coders/:id] SQL error:", e.message);
-        res.status(500).json({ error: "Error updating profile" });
-    }
-});
-
 
 /* ===== Fallback for frontend ===== */
 // Serve index.html for any non-API GET request
