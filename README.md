@@ -226,8 +226,8 @@ The first version delivers:
 **Members:**
 - **Kevin** *(Clan: Linus)* → Product Owner → Full stack
 - **Pipe** *(Clan: Linus)* → Scrum Master → Full stack
-- **Emanuel** *(Clan: Lovelace)* → Developer Fronted
-- **Andres** *(Clan: Lovelace)* → Developer Fronted 
+- **Emanuel** *(Clan: Lovelace)* → Developer Frontend
+- **Andres** *(Clan: Lovelace)* → Developer Frontend 
 - **Samuel** *(Clan: Gosling)* → Developer Backend → Database
 
 ------------------------------------------------------------------------
